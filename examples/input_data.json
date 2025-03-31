@@ -1,0 +1,66 @@
+{
+    "header": {
+        "name": "Sharath Bala Subramanya",
+        "phone": "+917829810699",
+        "email": "bs.sharath1996@gmail.com",
+        "linkedIn": "https://www.linkedin.com/in/sharath-b-s-196522141/",
+        "github": "https://github.com/sharath1996"
+    },
+    "education": [
+        {
+            "nameOfInstitution": "Indian Institute Of Science",
+            "tenure": "August 2022 - December 2024",
+            "degree": "M Tech (Online) in Electronics and Communication Engineering",
+            "place": "Bengaluru, KA, India",
+            "GPA": "8.5/10"
+        },
+        {
+            "nameOfInstitution": "The National Institute of Engineering",
+            "tenure": "August 2014 - June 2018",
+            "degree": "Bachelor of Engineering in Electronics and Communication Engineering",
+            "place": "Mysuru, KA, India",
+            "GPA": "9.0/10"
+        }
+    ],
+    "work_experience": [
+        {
+            "company": "Analog Devices Inc.",
+            "tenure": "September 2021 - Present",
+            "position": "Senior Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": [
+                "Design and development of DevEx agents using Azure AI Foundry",
+                "The agents are specialized in summarizing the project changes specific to developer, suggesting tasks based on changes, drafting sw requirements, sw documentation, test cases, test code, test runs and adapting the documentations to latest changes in the software",
+                "The agents are integrated into CI/CD pipelines and are accessible through vs code extensions",
+                "These agents are targeted to improve the overall developer experience and increase the focus of developers",
+                "Design and development for protocol simulators for wBMS",
+                "Protocol simulators are used at design and verification of production software"
+            ]
+        },
+        {
+            "company": "Mercedes Benz Research and Development India Pvt Ltd",
+            "tenure": "August 2018 - September 2021",
+            "position": "Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": [
+                "Framework development of scheduler for multicore CPC ECUs.",
+                "Estimation and optimization of maximum bus load on CAN networks"
+            ]
+        }
+    ],
+    "skills": {
+        "Languages": [
+            "C",
+            "Python",
+            "Rust",
+            "Typescript"
+        ],
+        "Tools": [
+            "OpenAPI",
+            "FastAPI"
+        ]
+    },
+    "achievements": [
+        "Something"
+    ]
+}
