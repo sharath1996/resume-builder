@@ -28,39 +28,76 @@
             "tenure": "September 2021 - Present",
             "position": "Senior Engineer",
             "place": "Bengaluru, KA, IN",
-            "description": [
-                "Design and development of DevEx agents using Azure AI Foundry",
-                "The agents are specialized in summarizing the project changes specific to developer, suggesting tasks based on changes, drafting sw requirements, sw documentation, test cases, test code, test runs and adapting the documentations to latest changes in the software",
-                "The agents are integrated into CI/CD pipelines and are accessible through vs code extensions",
-                "These agents are targeted to improve the overall developer experience and increase the focus of developers",
-                "Design and development for protocol simulators for wBMS",
-                "Protocol simulators are used at design and verification of production software"
-            ]
+            "description": {
+                "Software Test Agent" : [
+                "Designed and implemented a comprehensive framework for AI agents to assist software test engineers, enhancing testing efficiency and accuracy",
+                "Incorporated human-in-the-loop capabilities to ensure seamless collaboration between AI agents and human testers",
+                "Integrated with MongoDB and LanceDB (Vector Database) for efficient data management and retrieval.",
+                "Enabled interactions with tools like Jama Connect, Jira, GitHub, Confluence, and PDF parsers to streamline the testing workflow",
+                "Developed an agent to create and maintain a knowledge base from various sources, utilizing a Retrieval-Augmented Generation (RAG) approach for accurate query responsesS",
+                "Created an agent to generate detailed reference documents by iteratively querying requirements and test criteria, ensuring thorough documentation",
+                "Implemented an agent to automatically generate test cases based on predefined templates, with export capabilities to Confluence and Jama.",
+                "Designed an agent to execute test cases, diagnose failures, and create detailed Jira tickets for bug tracking, distinguishing between setup issues and software bugs.",
+                "Ensured transparency and traceability through comprehensive logging and status monitoring features."
+                ],
+                "Software News" : [
+                    "Designed and implemented a news generation mechanism based on the changes in the projects from sources such as Jama Connect, Jira, Confluence and GitHub commits",
+                    "This uses the REST APIs from various sources, and summarizes the sources using LLMs.",
+                    "Implemented a graph based summarization technique to retain the important updates from sources.",
+                    "The updates are directly sent to MS Teams based on the configured time and frequency.",
+                    "This helps software engineering teams to get focused updates across the project without any manual updates."
+                ],
+                "Cell Simulation using Physics based Neural Network":[
+                    "Implemented a Li-Ion cell simulation technique using Physics Based Neural Network",
+                    "This technique is helpful in generating the test datapoints for Battery algorithm development",
+                    "Optimized loss function and parallelization to increase the simulation speed and efficiency",
+                    "This enabled algorithm development and test engineers to accelerate the software development process"
+                ]
+            }
+
         },
         {
             "company": "Mercedes Benz Research and Development India Pvt Ltd",
             "tenure": "August 2018 - September 2021",
             "position": "Engineer",
             "place": "Bengaluru, KA, IN",
-            "description": [
-                "Framework development of scheduler for multicore CPC ECUs.",
-                "Estimation and optimization of maximum bus load on CAN networks"
-            ]
+            "description": {
+                "Multi Core Scheduling Framework" : [
+                    "Designed and Developed multi-core scheduling algorithm based on reinforcement learning",
+                    "Developed a hybrid simulation apporoach to simulate worst case execution time and the dependencies between the software components across multiple cores.",
+                    "Hybrid simulation apporoach accelerates the reinforcement learning process and reduces the hardware dependencies."
+                ]
+            }
         }
     ],
     "skills": {
         "Languages": [
             "C",
             "Python",
-            "Rust",
             "Typescript"
         ],
         "Tools": [
+            "VSCode Extension Development",
+            "FastAPI",
             "OpenAPI",
-            "FastAPI"
+            "Azure AI Foundry",
+            "Tensorflow",
+            "Streamlit",
+            "Ollama",
+            "Lanchain",
+            "GitHub"
+        ],
+        "Skills":[
+            "Object Oriented Programming",
+            "Machine learning",
+            "Large Langauge Models",
+            "Generative AI",
+            "API desgin patterns",
+            "Functional Programming"
         ]
     },
     "achievements": [
-        "Something"
+        "Presented Technical papers during ADI's annual GTC events.",
+        "Participated in multiple global Ideathon and Hackathon events within the company."
     ]
 }

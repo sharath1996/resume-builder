@@ -13,7 +13,7 @@ class LatexResumeBuilder:
     
     def generate(self, param_dict_components:dict, )->None:
 
-        local_str_latex = self.build(param_dict_components)
+        local_str_latex = self._build(param_dict_components)
         with open('resume.tex', 'w') as local_obj_file:
             local_obj_file.write(local_str_latex)
         
@@ -26,7 +26,7 @@ class LatexResumeBuilder:
             print(f"Error : {stderr.decode()}")
 
     
-    def build(self, param_dict_resumeComponents:dict)->str:
+    def _build(self, param_dict_resumeComponents:dict)->str:
         
         local_str_resume = self._add_pre_processors()
         local_str_resume += r"\begin{document}"
@@ -37,9 +37,7 @@ class LatexResumeBuilder:
         local_str_resume += self._add_achievements(param_dict_resumeComponents['achievements'])
         local_str_resume += r"\end{document}"
         return local_str_resume
-    
-    def save(self, param_str_fileName:str)->None:
-        ...
+
 
     def _add_pre_processors(self)->str:
         return dedent(r"""
@@ -166,12 +164,14 @@ class LatexResumeBuilder:
         local_str_experTotal= ""
         
         for local_dict_experience in param_list_experience:
-            
-            local_str_experString = r"\resumeItemListStart"+"\n"
-            for local_str_points in local_dict_experience['description']:
-                local_str_experString += r"\resumeItem{" + local_str_points+"}\n"
+            local_str_experString = ""
+            for local_str_projectName in local_dict_experience['description']:
+                local_str_experString += f"\n\\textit {{\small {local_str_projectName}}}\n\\vspace{{-0.3cm}}"
+                local_str_experString += r"\resumeItemListStart"+"\n"
+                for local_str_points in local_dict_experience['description'][local_str_projectName]:
+                    local_str_experString += r"\resumeItem{" + local_str_points+"}\n"
 
-            local_str_experString += r"\resumeItemListEnd" + "\n"
+                local_str_experString += r"\resumeItemListEnd" + "\n"
 
             local_str_templatedExperienceHeading = ResumeTemplate(dedent(r"""
             
@@ -202,14 +202,15 @@ class LatexResumeBuilder:
     
     def _add_achievements(self, param_list_achievements:list)->str:
         local_str_sectionAchievments = r"""
-        \section{Honors \& Awards}
-        \vspace{-0.3cm}
+        \section{Achievements}
+        \vspace{-0.1cm}
         \resumeItemListStart
         \resumeItem{Filed \href{https://www.linkedin.com/in/sharath-b-s-196522141/details/patents/}{\underline{8 patents}} on application of AI and ML algorithms for Automotive domain.}
+        \vspace{-0.2cm}
         \resumeItem{Published \href{https://www.linkedin.com/in/sharath-b-s-196522141/details/publications/}{\underline{papers}} during university coursework on robotics and automation.}
-        
+        \vspace{-0.2cm}
         """
         for local_str_achievment in param_list_achievements:
-            local_str_sectionAchievments += f"\\resumeItem{{{local_str_achievment}}}"
+            local_str_sectionAchievments += f"\\resumeItem{{{local_str_achievment}}}\n\\vspace{{-0.2cm}}"
         return local_str_sectionAchievments+"\n\\resumeItemListEnd"
 
