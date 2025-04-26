@@ -1,13 +1,16 @@
 import json
 from textwrap import dedent
+from typing import Type
 from openai import OpenAI
 import os
 from pydantic import BaseModel, Field
 
-class LLMRepsonse(BaseModel):
+class WorkDescriptionResponse(BaseModel):
+    
+    str_projectName:str = Field(..., description="Name of the project")
     list_experience :list[str] = Field(..., description="List of points that are extracted from project")
 
-class LLMRequest(BaseModel):
+class WorkDescriptionRequest(BaseModel):
     str_jobDescription :str = ""
     str_projectDescription:str = ""
     str_additionalInstructions : str|None = None
@@ -17,9 +20,9 @@ class LLMRequest(BaseModel):
 class WorkDescriptionGenerator:
 
     def __init__(self):
-        self._obj_openAi = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-    
-    def generate(self, param_obj_llmRequest:LLMRequest):
+        ...
+
+    def generate(self, param_obj_llmRequest:WorkDescriptionRequest):
 
         local_str_prompt = "This is the job description:\n"
         local_str_prompt += param_obj_llmRequest.str_jobDescription
@@ -42,19 +45,70 @@ class WorkDescriptionGenerator:
         if param_obj_llmRequest.str_additionalInstructions:
             local_str_prompt += f"Additional Instructions = {param_obj_llmRequest.str_additionalInstructions}"
 
-        local_dict_messages = {"role": "user", "content":local_str_prompt}
+        
+        local_obj_llm = LLMInference()
+        local_obj_llmInput = LLMInputs(str_systemPrompt="", list_userPrompts=[local_str_prompt], obj_template=WorkDescriptionResponse)
+        local_list_out = local_obj_llm.infer(local_obj_llmInput)
+        return local_list_out
+        
+
+class SkillGeneratorInput(BaseModel):
+
+    str_jobDescription:str = ""
+    dict_currentResume:dict = {}
+
+class SkillGeneratorOutput(BaseModel):
+    list_programmingLanguages:list[str] = Field(..., description="List of the programming languages that are used in the given json resume")
+    list_skills:list[str] = Field(..., description="List of skills that are relevant to job description and are present in the json resume")
+    list_tools : list[str] = Field(..., description="List of the tools that are relevant to the job description and are present in the given json resume")
+class SkillGenerator:
+
+    def __init__(self):
+        ...
+    
+    def generate_skills(self, param_obj_input:SkillGeneratorInput):
+        
+        local_str_sysPrompt = "You are an helpful assistant who can extract the programming languages, skills and tools from the given json resume according to the given job description"
+        local_str_userPrompt = f"Json resume \n: {param_obj_input.dict_currentResume} "
+        local_str_userPrompt += f"\n Job Description \n : {param_obj_input.str_jobDescription}"
+
+        local_obj_llm = LLMInference()
+        local_obj_llmInput = LLMInputs(str_systemPrompt=local_str_sysPrompt, list_userPrompts=[local_str_userPrompt], obj_template=SkillGeneratorOutput)
+        local_list_out = local_obj_llm.infer(local_obj_llmInput)
+        return local_list_out
+
+class LLMInputs(BaseModel):
+    str_systemPrompt :str = ""
+    list_userPrompts : list[str] = ""
+    obj_template:Type[BaseModel]|None = None
+
+class LLMInference:
+
+    def __init__(self):
+        self._obj_openAi = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    
+    def infer(self, param_obj_input:LLMInputs):
+
+        local_list_messages = []
+        if param_obj_input.str_systemPrompt != "":
+            local_dict_message = {"role": "system", "content":param_obj_input.str_systemPrompt}
+            local_list_messages.append(local_dict_message)
+        
+        for local_str_userMesage in param_obj_input.list_userPrompts:
+            local_dict_message = {'role' : 'user', "content": local_str_userMesage}
+            local_list_messages.append(local_dict_message)
+        
+
 
         local_str_response = self._obj_openAi.beta.chat.completions.parse(
         model="gpt-4o-mini",
-        messages=[local_dict_messages],
+        messages=local_list_messages,
         max_tokens=500,
         n=1,
         stop=None,
         temperature=0.7,
-        response_format=LLMRepsonse
+        response_format=param_obj_input.obj_template
         )
 
         local_str_json =  local_str_response.choices[0].message.content
         return json.loads(local_str_json)
-
-

@@ -1,139 +1,57 @@
-# from resume_builder.builders.latex import LatexResumeBuilder
-# import json
+from resume_builder.builders.builder import ResumeBuilder, ResumeBuilderInput, ProjectPairs
+import json
+from resume_builder.builders.latex import LatexResumeBuilder
 
-# with open('portfolio//input_data.json') as local_file_inputFile:
-#     local_dict_json = json.load(local_file_inputFile)
 
-# local_obj_resumeBuilder = LatexResumeBuilder()
-# local_obj_resumeBuilder.generate(local_dict_json)
+local_str_jobInputs = """
+You will be part of the Qualcomm CR&D Software team that focuses on the overall system stability for an AI inferencing solution by building an environment closer to large-scale deployment.
 
-from textwrap import dedent
-from resume_builder.builders.llm_generator import WorkDescriptionGenerator
+In this role, the candidate will be working on a team responsible for testing drivers/features for Qualcomm’s Real-time OS and hardware blocks such as Neural Network processor, I2C/SPI controller, power management IC (PMIC) and PCIe.
 
-local_str_workDescription = dedent("""
-Role & Responsibilities:
-• Work as part of a development Scrum team in an Agile environment that is geographically diverse
-• Strong Functional Programming experience and skills.
-• Responsible for the analysis, design, development, and delivery of software backend (REST API) solutions
-• Define requirements for new applications and customization adhering to Mastercard standards, processes, and best practices
-• Develop, customize, and test applications to integrate to Mastercard’s specifications
-• Help mentor and guide other team members during all phases of the SDLC. Ensure adequate test coverage in Unit Testing, System Testing/Integration Testing and Performance Testing.
-• Be part of a day-time team on-call schedule to support our APIs during customer use.
-• Hybrid office where 3 day weekly average in office is expected.
+The team contributes to testing throughout the life cycle, including unit, integration, and system-level testing. As a part of this team, your responsibilities would be to create complex test strategies, define user-oriented test case scenarios, automate/integrate those test cases as part of the automation framework and execute those test cases for a longer duration to find software stability issues. The role involves a good mix of hands on testing of the products and SW development of test cases and automation using a combination of Python and C++.
 
-All About You:
-• Demonstrated software development experience in a professional development team setting.
-• Strong willingness and ability to learn / take on challenging opportunities
-• Possess strong communication skills -- both verbal and written – and strong relationship, collaborative and organizational skills.
-• JVM experience, or experience with at least one object-oriented language (Java, C#, C++, Python, etc.) and ideally some prior exposure with functional programming (IE: Clojure) or other relevant languages
-• Functional Programming experience.
-• Knowledge of unit testing frameworks and source control systems; (Git / BitBucket a plus)
-• Experience working with cloud-based server environments; (AWS ideally)
+The candidate will be responsible for the development of test plans and automated test cases for new features.
 
-Helpful to have:
-• Experience with Clojure, functional programming languages, JSON, HTTP, RESTful services
-• Experience writing automated acceptance tests in Cucumber, RestAssured, etc. (used in CI/CD pipelines)
-• Experience with SQL and NoSQL databases (Cassandra, Redis or Other)
-• Experience working in a CI/CD environment. (Jenkins a plus)
-• Experience with Confluence, JIRA and Agile
-• Experience with customer facing, scalable, and performant RESTful APIs
-• Experience with monitoring tools and supporting high customer traffic APIs
-• An interest in fraud detection and security.
-""")
+You would be further doing the initial triage of the issues found and would work closely with various development, test and customer engineering teams to resolve such issues on priority.
 
-local_str_projectDescription = dedent(""""
-# Agents for Software Engineers
+Responsibilities
 
-A comprehensive initiative aimed at developing advanced AI-driven agents to significantly enhance the productivity of software engineers across all phases of the software development lifecycle.
+ Test development, troubleshooting and problem resolution on reference designs and customer platforms
+ Test application design, coding and test development for system-on-chip products
+ Interact in a team environment with developers, system engineers and testers
+ Work closely with systems, software teams and test teams to develop test/test apps at both API level and system level for specific drivers, Artificial technologies like Deep learning, NLP and Computer vision, operating system and system level features like thermal mitigation, and power optimization
+ Flexibility in work assignments and the ability to multi-task are crucial
 
-## Overview
 
-The project addresses critical inefficiencies faced by software engineers, particularly in ancillary tasks such as requirement analysis, software planning, detailed design documentation, code annotation, and creation of test cases. By leveraging AI-driven automation, the project streamlines these repetitive yet essential tasks, empowering engineers to focus on high-value coding activities.  
+Required Skills And Aptitudes
 
-- **Project Scope:**  
-  Design and implement AI-based agents to automate routine software engineering activities, optimize workflows, and integrate seamlessly into the engineering ecosystem.
+ Bachelor’s/Master’s degree in Computer Science or related field experience
+ 2+ years of relevant testing experience in System Testing preferable on embedded systems.
+ Experience with ML frameworks such as PyTorch, Caffe2, TensorFlow
+ Excellent programming skills in one or more programming languages (Python, Bash, C++)
+ Excellent problem solving, analytical and debugging skills
+ Experience in source control management like Git, Gerrit and Perforce.
+ Excellent English communication (written and verbal) and interpersonal skills
+ Interest in developing test cases and automation with strong programming skills (in C/C++)
+ Good understanding of test methodology and test processes, including requirements collection, test plan development, and test case implementation
+ Lab and hands-on debugging skills; ability to do initial debug and isolate failures
+ A basic understanding of system-on-chip technologies will assure the success of the candidate
+"""
+local_list_adiProjects = [ProjectPairs(str_projectName="sw_agents", int_numberOfPoints=10)]
+local_list_mbrdiProjects = [ProjectPairs(str_projectName="IOTesting", int_numberOfPoints=4)]
+local_obj_resumeBuilderInput = ResumeBuilderInput(str_jobDescription=local_str_jobInputs,
+                                                list_adiProjects=local_list_adiProjects,
+                                                list_mbrdiProjects=local_list_mbrdiProjects)
 
-- **Core Objectives:**  
-  - Establish a centralized, scalable knowledge base for storing and processing critical engineering artifacts, including requirements, design specifications, and coding guidelines.
-  - Develop sophisticated algorithms to analyze requirements and generate high-level architectural designs and detailed plans.
-  - Automate the generation of comprehensive design documentation with iterative feedback mechanisms for engineering teams.
-  - Create reusable, standards-compliant code templates to expedite development efforts.
-  - Implement robust mechanisms for auto-generating detailed code documentation.
-  - Automate the creation and execution of test plans and test cases, ensuring high-quality validation of software products.
-  - Deliver concise, aggregated notifications summarizing updates from multiple tools, eliminating notification fatigue and redundant information.
+local_dict_output = ResumeBuilder().create(local_obj_resumeBuilderInput)
 
-## Technical Highlights
+with open('test.json', 'w') as fileName:
+    json.dump(local_dict_output, fileName, indent=4)
 
-- **Knowledge Graphs:**  
-  Developed and deployed knowledge graphs as the core data structure for managing interconnected, heterogeneous datasets. This enables efficient storage, retrieval, and querying of engineering-related information.
-  
-- **Advanced Graph Algorithms:**  
-  Utilized graph algorithms for dimensionality reduction and the creation of concise, actionable notifications by aggregating relevant updates.
 
-- **API Integration Framework:**  
-  Engineered harmonized APIs for seamless integration with widely used development tools such as Jira, Confluence, Jama Connect, GitHub, and Bitbucket. RESTful APIs ensure robust and secure communication across platforms.
 
-- **Custom AI Agent Framework:**  
-  Built a proprietary agent framework capable of interfacing with decentralized databases (e.g., MongoDB) and external tools to perform tasks such as software diagram generation, code synthesis, and test plan creation.
+with open('test.json') as local_file_inputFile:
+    local_dict_json = json.load(local_file_inputFile)
 
-- **Code and Design Automation:**  
-  - Auto-generated detailed software diagrams adhering to predefined templates set by engineering teams.  
-  - Implemented code generation mechanisms enforcing compliance with custom coding standards, exceeding current state-of-the-art capabilities.  
-
-- **Scalable Architecture:**  
-  Designed a decentralized database architecture for handling large-scale data with load balancing, ensuring high availability and reliability.  
-  Teams are provided dedicated access to Azure OpenAI services, reducing contention and maintaining performance scalability.  
-
-- **Asynchronous Processing:**  
-  Enabled asynchronous operation for AI agents, allowing engineers to work uninterrupted while complex outputs are generated in the background.
-
-- **Custom User Interfaces:**  
-  - Developed a user-friendly interface using Streamlit to enhance accessibility for engineering tasks.  
-  - Built a VS Code extension to act as a direct proxy for agent interactions, streamlining workflows.
-
-- **Deployment**
-
-  - The LLM are hosted on Azure AI foundry and respective actions are taken for observability and data monitoring scripts.
-  - Deployments are made through creating containers and are deployed on Openshift.
-  - Created CI/CD pipelines using GitHub Actions and Jenkins.
-  - Automated Unit tests to ensure the compabilities.
-  - As we have created a distributed system (Each team having their own instance of Database and API keys), these deployments are helpful.
-
-## Achievements
-
-- Demonstrated superior quality in auto-generated documentation and test cases, surpassing manually curated outputs.
-- Achieved a 20x reduction in task completion time, optimizing the efficiency of engineering teams.
-- Minimized cognitive overhead and distraction by consolidating information and reducing tool-switching during development workflows.
-- Successfully integrated with key engineering tools (Jira, Confluence, Jama Connect, GitHub, Bitbucket) for seamless information retrieval and aggregation.
-
-## Key Performance Indicators (KPIs)
-
-- **Scalability Metrics:**  
-  - Handled exponential growth in data volumes using decentralized databases.  
-  - Orchestrated workloads across team-specific environments while ensuring data security and compliance.
-
-- **Efficiency Metrics:**  
-  - Time savings per task, estimated at 20x compared to manual effort.  
-  - Reduction in redundant notifications by 90%, aggregating updates into actionable summaries.
-
-- **Accuracy and Adoption Metrics:**  
-  - Generated outputs with compliance exceeding 95% against engineering team standards.  
-  - Adoption rate tracked across engineering teams, showing consistent engagement and satisfaction.  
-
-## Impact
-
-- Delivered a unified interface consolidating information from multiple tools, enabling engineers to focus on core development activities.
-- Streamlined workflows enhanced productivity and contributed to higher-quality product outcomes.
-- The project set a benchmark for engineering efficiency through AI-driven automation.
-
-## Tools and Technologies
-
-- **Programming Languages:** Python, TypeScript  
-- **Development Tools:** Visual Studio Code, Ollama, Azure OpenAI Services, Neo4j, ChromaDB, MongoDB, OpenShift, GitHub, Bitbucket  
-- **Libraries/Frameworks:** PyTorch, OpenAI APIs, VS Code APIs, NetworkX
-                                      """)
-
-local_obj_workDescription = WorkDescriptionGenerator()
-response = local_obj_workDescription.generate(local_str_workDescription, local_str_projectDescription)
-with open('sometext.json', 'w') as jsonfile:
-    jsonfile.write(response)
+local_obj_resumeBuilder = LatexResumeBuilder()
+local_obj_resumeBuilder.generate(local_dict_json)

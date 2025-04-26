@@ -1,4 +1,4 @@
-# Project Title
+# Some Dummy Project
 _A brief and engaging title for your project._
 
 ## Overview
