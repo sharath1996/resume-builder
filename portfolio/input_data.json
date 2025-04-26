@@ -1,0 +1,101 @@
+{
+    "header": {
+        "name": "Sharath Bala Subramanya",
+        "phone": "+917829810699",
+        "email": "bs.sharath1996@gmail.com",
+        "linkedIn": "https://www.linkedin.com/in/sharath-b-s-196522141/",
+        "github": "https://github.com/sharath1996"
+    },
+    "education": [
+        {
+            "nameOfInstitution": "Indian Institute Of Science",
+            "tenure": "August 2022 - December 2024",
+            "degree": "M Tech (Online) in Electronics and Communication Engineering",
+            "place": "Bengaluru, KA, India",
+            "GPA": "8.5/10"
+        },
+        {
+            "nameOfInstitution": "The National Institute of Engineering",
+            "tenure": "August 2014 - June 2018",
+            "degree": "Bachelor of Engineering in Electronics and Communication Engineering",
+            "place": "Mysuru, KA, India",
+            "GPA": "9.0/10"
+        }
+    ],
+    "work_experience": [
+        {
+            "company": "Analog Devices Inc.",
+            "tenure": "September 2021 - Present",
+            "position": "Senior Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": {
+                "Software Engineering Agents" :[
+                    "Led the development of AI-driven agents to automate routine software engineering tasks, enhancing productivity across requirement analysis, software planning, code documentation, and test case generation.",
+                    "Engineered and deployed a scalable decentralized database architecture using MongoDB and Azure OpenAI Services to handle exponential data growth and ensure high availability.",
+                    "Developed RESTful APIs for seamless integration with tools like Jira, Confluence, GitHub, and Bitbucket, enabling robust and secure cross-platform communication.",
+                    "Implemented advanced graph algorithms for efficient storage and retrieval in knowledge graphs, facilitating actionable insights for engineering teams.",
+                    "Built a proprietary agent framework to auto-generate software diagrams, reusable code templates, and comprehensive design documentation adhering to coding standards.",
+                    "Deployed custom CI/CD pipelines using Jenkins and GitHub Actions, automating unit tests to ensure compatibility and reduce deployment efforts.",
+                    "Designed and developed user-friendly interfaces using Streamlit and a VS Code extension to improve engineering workflows and accessibility.",
+                    "Achieved 20x reduction in task completion time and a 10x decrease in redundant notifications by consolidating and aggregating actionable updates.",
+                    "Surpassed quality benchmarks for auto-generated documentation and test cases, achieving compliance exceeding against team standards.",
+                    "Supported high customer traffic APIs by implementing robust monitoring tools and delivering scalable solutions to optimize performance."
+                ]
+              
+            }
+
+        },
+        {
+            "company": "Mercedes Benz Research and Development India Pvt Ltd",
+            "tenure": "August 2018 - September 2021",
+            "position": "Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": {
+                "Multi Core Scheduling Framework" : [
+                    "This framework allows the developers to create a static scheduler in multi-core embedded platforms by visualization of dependencies between the components.",
+                    "Designed and develped a graph based visualization tool using yED graphml format to visualize the relationships between the components, their impact and relation types",
+                    "Generation of scheduler source code from the visualizations, this helps in designing of static scheduler and placement in a easy way.",
+                    "The generated source code is a production grade source code and compliant with all standards such as MISRA standards.",
+                    "Automated unit-test generator for the scheduler to ensure complete code coverage",
+                    "Further, using re-inforcement learning algorithms, the framework proposes a initial schedule by analyzing the relationships and dependencies, developers can then modify the proposed schdeuler to generate the source code."
+                ]
+            }
+        }
+    ],
+    "skills": {
+       "skills": {
+        "Languages": [
+            "Python",
+            "TypeScript",
+            "C#",
+            "Java",
+            "C++"
+        ],
+        "Tools": [
+            "Visual Studio Code",
+            "Azure OpenAI Services",
+            "Neo4j",
+            "MongoDB",
+            "OpenShift",
+            "GitHub",
+            "JIRA",
+            "Confluence",
+            "Bitbucket",
+            "Jenkins"
+        ],
+        "Skills": [
+            "Functional Programming",
+            "RESTful API Development",
+            "Graph Algorithms",
+            "CI/CD Pipelines",
+            "Distributed Systems",
+            "Knowledge Graph Implementation",
+            "Code and Design Automation"
+        ]
+    }
+    },
+    "achievements": [
+        "Presented Technical papers during ADI's annual GTC events.",
+        "Participated in multiple global Ideathon and Hackathon events within the company."
+    ]
+}
