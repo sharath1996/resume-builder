@@ -1,0 +1,101 @@
+{
+    "header": {
+        "name": "Sharath Bala Subramanya",
+        "phone": "+917829810699",
+        "email": "bs.sharath1996@gmail.com",
+        "linkedIn": "https://www.linkedin.com/in/sharath-b-s-196522141/",
+        "github": "https://github.com/sharath1996"
+    },
+    "education": [
+        {
+            "nameOfInstitution": "Indian Institute Of Science",
+            "tenure": "August 2022 - December 2024",
+            "degree": "M Tech (Online) in Electronics and Communication Engineering",
+            "place": "Bengaluru, KA, India",
+            "GPA": "8.5/10"
+        },
+        {
+            "nameOfInstitution": "The National Institute of Engineering",
+            "tenure": "August 2014 - June 2018",
+            "degree": "Bachelor of Engineering in Electronics and Communication Engineering",
+            "place": "Mysuru, KA, India",
+            "GPA": "9.0/10"
+        }
+    ],
+    "work_experience": [
+        {
+            "company": "Analog Devices Inc.",
+            "tenure": "September 2021 - Present",
+            "position": "Senior Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": {
+                "Protocol Simulators for BMS and wBMS": [
+                    "Developed advanced protocol simulators for Battery Management Systems (BMS) and wireless Battery Management Systems (wBMS) to accelerate software development and testing processes, eliminating hardware dependencies.",
+                    "Designed a wired BMS simulation framework that models interactions between host controllers and battery monitoring ICs (BMICs), providing real-time simulations of cell voltage, temperature, and diagnostics.",
+                    "Implemented a fault injection framework within the wired BMS to rigorously validate error-handling mechanisms as per safety manuals, contributing to high reliability in software components.",
+                    "Created a wireless BMS simulation that emulates interactions in a wireless mesh network, supporting up to 50 nodes and incorporating cell measurement simulations and fault injections for enhanced testing.",
+                    "Utilized Hardware-In-the-Loop (HIL) interactions to enable real-time adjustments of cell voltage and temperature through MODBUS protocol, showcasing extensive experience with embedded software systems.",
+                    "Introduced automated testing capabilities using Python-based configuration utilities to facilitate controlled fault injection scenarios for both wired and wireless BMS simulations, streamlining the testing workflow.",
+                    "Achieved significant reductions in physical hardware requirements for testing, consolidating multiple boards into single simulation units, thereby optimizing resource usage and development efficiency.",
+                    "Established KPIs for simulation performance including system load handling capacity, execution speed for test cases, and latency in response time, ensuring robust performance measurements.",
+                    "Focused on simulation fidelity metrics to ensure high accuracy of simulated data compared to real hardware measurements, which is crucial for software validation.",
+                    "Collaborated with cross-functional teams to synchronize software and hardware design efforts, enhancing communication and reducing design iterations, aligning with job requirements for team collaboration.",
+                    "Employed a diverse software stack, including C and Python programming languages, along with development tools such as STM32Cube IDE and IAR Workbench, reflecting strong competencies in software systems and tools.",
+                    "Ensured compliance with ISO 26262 communication protocol standards during fault simulation, reinforcing knowledge of safety-critical software development in the automotive industry."
+                ]
+            }
+        },
+        {
+            "company": "Mercedes Benz Research and Development India Pvt Ltd",
+            "tenure": "August 2018 - September 2021",
+            "position": "Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": {
+                "IO Testing for Common Powertrain Controller ECUs": [
+                    "Developed a modular test-bench and automation solution for testing various Input/Output (IO) connections to Common Powertrain Controller ECUs for Daimler Trucks and Buses, enhancing the testing process without the need for complete Hardware-in-the-Loop (HIL) setups.",
+                    "Implemented a custom Python package for seamless control and capture of IO statuses, enabling automated testing and fault injection of critical components, thereby streamlining the software verification process in line with the project's objectives.",
+                    "Utilized ATSAMV71Q21 boards for simulating General Purpose IOs, PWM inputs and outputs, and CAN message simulations according to .dbc files, demonstrating extensive experience with embedded software development and control algorithms in automotive applications.",
+                    "Achieved a compact and efficient test framework using CAPL and CANoe for automatic logging and reporting of test results, improving the quality assurance process and facilitating collaboration with function system design engineers and supplier quality engineers.",
+                    "Leveraged programming skills in C and Python along with development tools such as Atmel Studio, MATLAB, and Simulink to support Model-Based Development (MBD) environments, ensuring compatibility with supplier software and enhancing overall system reliability."
+                ],
+                "Network Conformance Testing": [
+                    "Developed a comprehensive test bench and automation framework for In-Vehicle Communication of Powertrain CAN networks for Daimler Trucks and Buses, ensuring seamless integration and communication among multiple ECUs.",
+                    "Utilized CAPL scripting to automate Network Conformance Testing (NCT) for 10 ECUs across 6 different vehicle configurations, enhancing testing efficiency and reliability.",
+                    "Engineered a dedicated control circuit for power management of ECUs, addressing challenges in power distribution and ensuring optimal performance during testing phases.",
+                    "Implemented CI/CD integration by creating Jenkins pipelines for continuous testing and deployment, significantly reducing manual effort and improving test turnaround time.",
+                    "Leveraged expertise in programming languages such as C and Python, alongside tools like Matlab and Simulink, to develop robust testing solutions that align with embedded software development standards as outlined in the job description."
+                ]
+            }
+        }
+    ],
+    "skills": {
+        "Languages": [
+            "C",
+            "Python"
+        ],
+        "Tools": [
+            "Embedded Software Development",
+            "Software Verification",
+            "Collaboration",
+            "Problem Solving",
+            "Automated Testing",
+            "Fault Injection",
+            "Model-Based Development (MBD)",
+            "Network Conformance Testing"
+        ],
+        "Skills": [
+            "STM32Cube IDE",
+            "IAR Workbench",
+            "Atmel Studio",
+            "MATLAB",
+            "Simulink",
+            "CAPL",
+            "CANoe",
+            "Jenkins"
+        ]
+    },
+    "achievements": [
+        "Presented Technical papers during ADI's annual GTC events.",
+        "Participated in multiple global Ideathon and Hackathon events within the company."
+    ]
+}
