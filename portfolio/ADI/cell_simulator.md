@@ -15,37 +15,78 @@ Data generator for battery algorithms and insights based  on EIS (Electro Impeda
 ## Technical Highlights  
 
 ### Data Collection pipeline
--   
-- **Feature 2:** _Explain how it works and integrates with the system._  
-- **Feature 3:** _Mention performance optimizations or constraints._  
 
-### Physics Informed Neural Network
+- **Data sources** The datasets are available in various forms and sources such as AWS, GCP and Sharepoints with different formats.
+- **Unified data format** The datasets are then processed and converted to an unified data format and by extracting the meta data.
+- **Data Preprocessing** The obtained data is then run through pre-processing pipeline which is responsible for the following
+    - Detection of outliers using Interquartlike Range and Local outlier factor techniques.
+    - Normalization of the measurement values according to min and max values defined in the datasheets for the respective measurement parameters.
+    - Extraction of meta data on the noise figures that are present in the dataset.
 
-- **Feature 1:** _Describe the simulated or implemented aspect._  
-- **Feature 2:** _Highlight how it enhances functionality._  
-- **Feature 3:** _Include any standards or protocols it follows._  
+### Cell Model
+
+- **PINNS** - Physics informed neural networks are used because of the following:
+    - The inputs to the cell model consists various cell parameters such as SoC, Current, Core Temperature, frequency of EIS, Sorrounding Temperature and so on.
+    - The output of the cell model are Cell Voltage and Complex cell impedance.
+    - Loss functions that are more accurate representation of under-lying electrical systems.
+    - We used 3RC models with temperture dependencies to model the underlying physics equations for loss terms.
+    - This ensured the accuracy of un-seen datasets that are used for training above the training range of the data.
+
+- **Controlling the inputs**
+    - By default the cell model outputs no-noise or no-disturbance data, 
+    - Users can use dedicated control vectors, which are passed as time-series data to the controller which can induce the noise or disturbance according to the user inputs.
+    - Once, induced the cell measurements will be super-imposed by disturbances creating the noisy or disturbed data which can then be used for testing and developement of BMS Algorithms
 
 ### Deployement
 
-- 
-- 
+- **Continous model update** : The models are periodically trained with the latest data soruces, and each model are checkpointed in JFrog Artifactory.
+- **CI/CD and MLOps Integration** : The Integrated models are then evaluated using test-train splits (70-30 split) and then using GitHub actions along with Jenkins to push the successfully trained models to JFrog Artifactory.
+- **Latest model usage** : Developed a custom python package which can pull in the latest model that can be used for algorithm developement and testing.
+- **Observability** : Along with the training, implemented a custom observability scripts and visualization dashboard on model's performance.
+
+### Data Streaming
+
+- **Battery Pack Simulation** 
+    
+    - For pack level simulation, we scale the model with multiple inputs and aggregate them together.
+    - Each cell in pack can be controlled using various cell parameters using timeseries dataset.
+
+- **Usage in PC enviornments**
+    
+    - The model weights are stored as .h5 files and are version controlled in JFrog Artifactory
+    - All the toolchains such as matlab, simulink, python and any ML libraries which can process .h5 file(s) will be able to use this model seamlessly
+    - Additionally for software developement and testing purposes, we have created an internal python packages which can load the model and provide the outputs as time-series data.
+
+- **Usage in hardware environments**
+    
+    - Since, the BMS Algorithms are run on embedded environments, it is crucical to run and test the algorithms on host controllers or ECUs. 
+    - To facilitate these kind of applications and testing, we have a data streaming mechanisms in place.
+    - For every period of time, a  timeseries data streaming is done on real-time using TCP communication between PC and embedded environment.
+    - A data streamer application is developed using STM32 Nucleo boards to support the real-time battery data streaming.
+
 
 ## System Impact  
 
 ### Developer Benefits  
-- **Workflow Optimization:** _Describe how engineers benefit._  
-- **Hardware Reduction:** _Explain cost and complexity savings._  
-- **Comprehensive Fault Testing:** _Highlight how validation is improved._  
-- **Accelerated Product Delivery:** _Explain overall efficiency gains._  
+- **Workflow Optimization:** 
+    - Engineers need not to worry about the data processing pipelines as we have encapsulated the model with python packages
+    - This model can be used in matlab, python and any machine learning tool chains.
+    - This gives the freedom for engineers to create test-vectors of multiple cases without worrying much on the data acquisition and clearning aspects.
+
+- **Hardware Reduction:** 
+    
+    - This simulator can be used to run on complete software environment enabling SIL and PIL testing
+    - This simulator can be connected to actual target via data streamer enabling HIL testing.
+    - Python package and GUIs enable the users to seamlessly control the cell measurements and enabling faster testing and developement.
 
 ## Tools and Technologies  
 
 ### **Software Stack**  
-- **Programming Languages:** _List the key languages used._  
-- **Development Tools:** _Mention IDEs, compilers, and related tools._  
+- **Programming Languages:** C, Python, Matlab
+- **Development Tools:** VSCode, IAR Embedded Workbench, Keil, STM32cubeIDE,Matlab, Simulink, Simscape Electrical,
 
 ### **Hardware Platforms**  
-- _List any hardware or embedded systems involved._  
+- STM32 Nucleo Boards
 
 ### **Libraries & Frameworks**  
-- _Include relevant frameworks or APIs used._  
+- TCP, UART, I2C, SPI, Pytorch, Tensorflow, Keras, Numpy, simscape

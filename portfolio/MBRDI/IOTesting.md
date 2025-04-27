@@ -1,45 +1,54 @@
-# Some Dummy Project
-_A brief and engaging title for your project._
+# IO Testing for Common Powertrain Controller ECUs
+
+Test bench and test-automation for various IOs in Common Powertrain Controller ECUs for Daimler Trucks and Buses
 
 ## Overview
-_Provide a summary of the project._
+
 - **What is the project all about?**  
-  _Explain the purpose, goals, and scope of the project._
+  This project aims at creating a test-bench and test-automation of various IOs connected to CPC ECUs of Daimler Trucks and Buses.
+
 - **Project Objectives:**  
-  _Highlight the main objectives you aim to achieve._
+
+  - The primary objective is to achieve the complete testing of IOs including the fault injections without waiting for complete HIL setup.
+  - Also, the solution should be modular and compact so that each developers and testers can have individual setups.
 
 ## Highlights
-_Describe the unique features or standout aspects of the project._
-- **Key Features:**  
-  - _Feature 1_
-  - _Feature 2_
-  - _Feature 3_
+
+- **Various IOs and Simulation strategies**  
+
+  - **General Purpose Inputs and Outputs** : Simulated using digital IOs of ATSAMV71 boards.
+  - **Servo motor position input** : Simulated using digital potentiometers and DAC ICs to simulate the various voltages which are mapped to positions.
+  - **PWM Inputs** : Simulated using PWM outputs of ATSAMV71Q21 boards.
+  - **PWM Outputs** : Captured using PWM inputs of ATSAMV71Q21 boards.
+  - **CAN Message Simulation** : Simulation of CAN messages according to the .dbc files.
+
+- **Control strategy** 
+
+  - Built a custom python package to trigger and capture the IO status via test-bench.
+  - Test bench consists of a ATSAMv71 board with IO capture and control pins.
+  - These pins are then connected to ECU via dedicated IO harness.
+  - All the IO controls can be controlled via python package, thus enabling the automation in seamless way.
+
+- **Test Framework**
+
+  - Test framework is developed using CAPL and CANoe
+  - Test framework automatically logs the result along with the test-reports.
+ 
 - **Achievements:**  
-  _Mention any milestones or accomplishments._
+
+  - Achieved complete automation of IO controls using python packages and eliminated the need for dedicated HIL setup.
 
 ## Impact
-_Explain how this project benefits customers or users._
-- **User Benefits:**  
-  _Highlight specific advantages or solutions provided by the project._
-- **Customer/User Stories (Optional):**  
-  _Add anecdotes or use cases that showcase its real-world impact._
+
+- **Developer/Tester Benefits:**  
+  - With the help of python packages and compact test-benches developers and testers were able to test the SW Components which accesses the IOs within no time.
+  - The setup is very compact and singleboard solution, which fits perfectly with wiring harness of the ECUs, hence it reduces the time and dependencies on complex HIL setups.
+  - With the help of python support for Matlab, this also enabled the developers who are used on Model Based developement to quickly control and test the IOs from Matlab.
+  
 
 ## Tools and Technologies
-_List the tools and technologies used in the project._
-- **Programming Languages:** _e.g., C, C++, Python_
-- **Development Tools:** _e.g., IDEs, version control systems_
-- **Hardware/Platforms:** _e.g., microcontrollers, SoCs_
-- **Libraries/Frameworks:** _e.g., RTOS, middleware libraries_
 
-## Team and Collaboration (Optional)
-_Describe the people and roles involved in the project._
-- **Team Members:** _Names and roles_
-- **Collaboration Tools:** _e.g., Jira, Confluence, Git_
-
-## Future Plans (Optional)
-_Share what’s next for the project._
-- **Upcoming Features:** _List potential additions or upgrades._
-- **Timeline:** _Projected dates for future developments._
-
-## Conclusion
-_Summarize the key takeaways or the overall value of the project._
+- **Programming Languages:** C, Python, CAPL
+- **Development Tools:** Arduino, Atmel Studio, Keil, Matlab, Simulink, CANape
+- **Hardware/Platforms:** ATSAMV71Q21
+- **Libraries/Frameworks:** I2C, UART, SPI, CAN, BLE, TCP
