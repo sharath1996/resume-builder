@@ -33,8 +33,8 @@ class WorkDescriptionGenerator:
         Your job is to generate the bullet points for the given job description. Note that, the points should be clear, consice and effective in what is the project is all about.
         Your points should contain the following:
         - Brief idea on the project
-        - Technical complexities and solution
-        - Key highlights that are relavant to the job descriptions.
+        - Technical complexities and solution in detail
+        - Key highlights that are relavant to the job descriptions with technical depth.
         - KPIs if any that are relavant to the hob description.
         - Tools and technologies used
         - You should generate {param_obj_llmRequest.int_numberOfPoints} bullet points in detail.
@@ -76,6 +76,40 @@ class SkillGenerator:
         local_obj_llmInput = LLMInputs(str_systemPrompt=local_str_sysPrompt, list_userPrompts=[local_str_userPrompt], obj_template=SkillGeneratorOutput)
         local_list_out = local_obj_llm.infer(local_obj_llmInput)
         return local_list_out
+
+
+class CoverLetterInputs(BaseModel):
+    str_jobDescription:str = Field(..., description="Job Description")
+    dict_jsonResume:dict = Field(..., description="Resume in Json format")
+
+class CoverLetterOutput(BaseModel):
+    str_coverLetter:str = Field(..., description="Cover Letter for the given job in markdown")
+
+
+class CoverLetterGenerator:
+
+    def __init__(self):
+        ...
+    
+    def generate(self, param_obj_input:CoverLetterInputs):
+
+        local_str_sysprompt= dedent("""
+        You are an helpful assistant who can write the personalized cover letter to the hiring manager of the company depending on the job description and json resume.
+        You should consider the following for the cover letter:
+        Begin with a header that includes your name, contact details, and, if relevant, links to your portfolio or professional profiles. Address the letter with a greeting that personalizes it, using the hiring manager's name if available or a professional salutation like "Dear Hiring Manager." In the introduction, state who you are, the position you're applying for, and briefly highlight your strengths, demonstrating alignment with the job’s requirements. Mention any referrals if applicable.
+        In the qualifications section, expand on your achievements and skills, focusing on how they meet the company’s needs. Use specific examples to show your impact and problem-solving abilities. Then, discuss your values and goals, showcasing your understanding of the company’s mission and how you’ll contribute to its culture. Align your professional aspirations with the organization’s objectives.
+        Conclude with a call to action, summarizing your interest, expressing gratitude, and suggesting the next steps, like scheduling an interview. Always emphasize how your skills add value to the team.
+        Generate a cover letter within 400 words.
+        """)
+        local_str_userPrompt = f"Job Description \n: {param_obj_input.str_jobDescription}"
+
+        local_str_userPrompt += f"Json resume \n: {param_obj_input.dict_jsonResume}"
+
+        local_obj_llm = LLMInference()
+        local_obj_llmInput = LLMInputs(str_systemPrompt=local_str_sysprompt, list_userPrompts=[local_str_userPrompt], obj_template=CoverLetterOutput)
+        local_dict_out = local_obj_llm.infer(local_obj_llmInput)
+        return local_dict_out["str_coverLetter"]
+
 
 class LLMInputs(BaseModel):
     str_systemPrompt :str = ""

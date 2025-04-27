@@ -1,5 +1,6 @@
 import streamlit as st
 from resume_builder.builders.builder import ResumeBuilder, ResumeBuilderInput, ProjectPairs
+from resume_builder.builders.llm_generator import CoverLetterGenerator, CoverLetterInputs
 import json
 from resume_builder.builders.latex import LatexResumeBuilder
 import json
@@ -25,6 +26,7 @@ for local_str_mbrdiProject in local_list_mbrdiProjects:
     local_dict_MRDICounter[local_str_mbrdiProject] = local_int_counter
 
 local_button_generate = local_col_projects.button("Generate Resume")
+
 
 if local_button_generate:
     with st.spinner("Generating resume...."):
@@ -53,4 +55,7 @@ if local_button_generate:
 
         local_obj_resumeBuilder = LatexResumeBuilder()
         local_obj_resumeBuilder.generate(local_dict_json)
+
         st.success("Resume Generated!!!")
+
+

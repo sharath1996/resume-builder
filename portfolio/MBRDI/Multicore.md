@@ -30,6 +30,10 @@ Static OS scheduler to efficiently manage software components across multi-core 
 
   - Applied reinforcement learning and graph reduction techniques to expedite the scheduling process, improving efficiency for developers.  
 
+- **CI CD Integration**
+
+  - Developed CI CD pipelines using Jenkins to create a new scheduler code periodically based on the new vehicle and simulated measurements were recieved
+  - The pipelines triggers a new scheduler build whenever a source code is changed or new measurements are available.
 ## Impact
 
 - **Developer/Tester Benefits:**  
@@ -37,6 +41,7 @@ Static OS scheduler to efficiently manage software components across multi-core 
   - Automated generation of optimized scheduling code, eliminating manual dependency tracking.  
   - Reduced development time through advanced tools and techniques for visualization and automation.  
   - Ensured robustness of generated scheduler code via strict adherence to guidelines (MISRA, Polyspace, etc.).  
+  
 
 ## Tools and Technologies
 
