@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+llm_prompt.txt
+resume.aux
+resume.out
+resume.pdf
+resume.tex
