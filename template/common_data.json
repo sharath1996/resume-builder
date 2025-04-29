@@ -11,14 +11,14 @@
             "nameOfInstitution": "Indian Institute Of Science",
             "tenure": "August 2022 - December 2024",
             "degree": "M Tech (Online) in Electronics and Communication Engineering",
-            "place": "Bengaluru, KA, India",
+            "place": "Bengaluru, India",
             "GPA": "8.5/10"
         },
         {
             "nameOfInstitution": "The National Institute of Engineering",
             "tenure": "August 2014 - June 2018",
             "degree": "Bachelor of Engineering in Electronics and Communication Engineering",
-            "place": "Mysuru, KA, India",
+            "place": "Mysuru, India",
             "GPA": "9.0/10"
         }
     ],
@@ -27,14 +27,14 @@
             "company": "Analog Devices Inc.",
             "tenure": "September 2021 - Present",
             "position": "Senior Engineer",
-            "place": "Bengaluru, KA, IN",
+            "place": "Bengaluru, India",
             "description": {}
         },
         {
             "company": "Mercedes Benz Research and Development India Pvt Ltd",
             "tenure": "August 2018 - September 2021",
             "position": "Engineer",
-            "place": "Bengaluru, KA, IN",
+            "place": "Bengaluru, India",
             "description": {}
         }
     ],
@@ -42,7 +42,6 @@
     "skills": {},
 
     "achievements": [
-        "Presented Technical papers during ADI's annual GTC events.",
-        "Participated in multiple global Ideathon and Hackathon events within the company."
+        
     ]
 }

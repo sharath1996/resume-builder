@@ -194,7 +194,7 @@ class LatexResumeBuilder:
         """)
 
         for local_str_key in param_dict_skills:
-            local_str_skills+=f"\n\\textbf{{{local_str_key}:}} {{{",".join(param_dict_skills[local_str_key])}}};"
+            local_str_skills+=f"\n\\textbf{{{local_str_key}:}} {{{", ".join(param_dict_skills[local_str_key])}}};"
         
         local_str_skills += "\n}}\\end{itemize}"
 
@@ -205,10 +205,6 @@ class LatexResumeBuilder:
         \section{Achievements}
         \vspace{-0.1cm}
         \resumeItemListStart
-        \resumeItem{Filed \href{https://www.linkedin.com/in/sharath-b-s-196522141/details/patents/}{\underline{8 patents}} on application of AI and ML algorithms for Automotive domain.}
-        \vspace{-0.2cm}
-        \resumeItem{Published \href{https://www.linkedin.com/in/sharath-b-s-196522141/details/publications/}{\underline{papers}} during university coursework on robotics and automation.}
-        \vspace{-0.2cm}
         """
         for local_str_achievment in param_list_achievements:
             local_str_sectionAchievments += f"\\resumeItem{{{local_str_achievment}}}\n\\vspace{{-0.2cm}}"
