@@ -110,6 +110,62 @@ class CoverLetterGenerator:
         local_dict_out = local_obj_llm.infer(local_obj_llmInput)
         return local_dict_out["str_coverLetter"]
 
+class AchievementGeneratorInput(BaseModel):
+    str_patentDocs:str
+    str_paperDocs:str
+    str_jobDescription:str
+
+class PaperSummary(BaseModel):
+    list_highLights:list[str] = Field(..., description="list of one line description of papers published that are highly relavant to this job description")
+
+class PatentSummary(BaseModel):
+    list_highLights:list[str] = Field(..., description="list of one line description of patent application filed that are highly relevant to this job description")
+class AchievementGenerator:
+
+    def __init__(self):
+        ...
+    
+    def generate(self, param_obj_input:AchievementGeneratorInput):
+        
+        local_list_achievements :list = self._get_paper_description(param_obj_input.str_jobDescription, param_obj_input.str_paperDocs)
+        local_list_achievements.extend(self._get_patent_description(param_obj_input.str_jobDescription, param_obj_input.str_patentDocs))
+        return local_list_achievements
+    
+    def _get_paper_description(self, param_str_jobDescription:str, param_str_paperDescription:str):
+        local_str_sysPrompt = dedent("""
+            You are an helpful resume builder, who has now the responsibility to fill in the achievements section.
+            Note that, this section is small and maintain so. 
+            You should only highlight the papers that are relevant to this job description in one or two sentences.
+            for the papers that are not relavant, summarize in a single line. Indicate the name of the paper and publishing authority of the paper as well.
+            Start with something like "Published paper titled ... which <description>"
+            If you do not see any relevance, summarize the papers in short that is in generic approach.
+            """)
+        
+        local_str_userPrompt = f"Job Description:\n {param_str_jobDescription}"
+        local_str_userPrompt = f"Paper summary : {param_str_paperDescription}"
+        local_obj_llm = LLMInference()
+        local_obj_llmInput = LLMInputs(str_systemPrompt=local_str_sysPrompt, list_userPrompts=[local_str_userPrompt], obj_template=PaperSummary)
+        local_dict_out = local_obj_llm.infer(local_obj_llmInput)
+        return local_dict_out["list_highLights"]
+    
+    def _get_patent_description(self, param_str_jobDescription:str, param_str_patentDescription:str):
+        
+        local_str_sysPrompt = dedent("""
+            You are an helpful resume builder, who has now the responsibility to fill in the achievements section.
+            Note that, this section is small and maintain so. 
+            You should only highlight the patent applications and generate one line that are relevant to this job description in one or two sentences.
+            If some patents are relavant and some are not, then explain relavant patents one point per patent, and rest within one or two points.
+            Indicate the name of the invention and it's application number for the relevant patents.
+            Start with something like "Filed patent invention disclosure titled ... which <description>", for the non relevant patents, just mention their name in single point
+            If you do not see any relevance, summarize the papers in short that is in generic approach with 3 to 4 points by mentioning their names and application numbers.
+            """)
+        
+        local_str_userPrompt = f"Job Description:\n {param_str_jobDescription}"
+        local_str_userPrompt = f"Paper summary : {param_str_patentDescription}"
+        local_obj_llm = LLMInference()
+        local_obj_llmInput = LLMInputs(str_systemPrompt=local_str_sysPrompt, list_userPrompts=[local_str_userPrompt], obj_template=PatentSummary)
+        local_dict_out = local_obj_llm.infer(local_obj_llmInput)
+        return local_dict_out["list_highLights"]
 
 class LLMInputs(BaseModel):
     str_systemPrompt :str = ""
