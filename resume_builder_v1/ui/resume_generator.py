@@ -1,0 +1,13 @@
+class ResumeGenerator:
+
+    def __init__(self):
+        ...
+    
+    def view(self):
+        ...
+    
+    def view_preview_resume(self, param_str_jobDescription, param_str_profileName:str):
+        ...
+
+    def generate_pdf_resume(self, param_dict_jsonResume:dict):
+        ...
