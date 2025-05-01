@@ -1,0 +1,97 @@
+{
+    "header": {
+        "name": "Sharath Bala Subramanya",
+        "phone": "+917829810699",
+        "email": "bs.sharath1996@gmail.com",
+        "linkedIn": "https://www.linkedin.com/in/sharath-b-s-196522141/",
+        "github": "https://github.com/sharath1996"
+    },
+    "education": [
+        {
+            "nameOfInstitution": "Indian Institute Of Science",
+            "tenure": "August 2022 - December 2024",
+            "degree": "M Tech (Online) in Electronics and Communication Engineering",
+            "place": "Bengaluru, KA, India",
+            "GPA": "8.5/10"
+        },
+        {
+            "nameOfInstitution": "The National Institute of Engineering",
+            "tenure": "August 2014 - June 2018",
+            "degree": "Bachelor of Engineering in Electronics and Communication Engineering",
+            "place": "Mysuru, KA, India",
+            "GPA": "9.0/10"
+        }
+    ],
+    "work_experience": [
+        {
+            "company": "Analog Devices Inc.",
+            "tenure": "September 2021 - Present",
+            "position": "Senior Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": {
+                "Cell Models using Physics Informed Neural Networks": [
+                    "Designed and developed a data generator for battery algorithms utilizing Physics Informed Neural Networks (PINNs) to simulate Electro Impedance Spectroscopy (EIS) measurements, enhancing the accuracy of predictions in unseen datasets.",
+                    "Implemented a robust data collection pipeline that aggregates multiple data sources from AWS, GCP, and SharePoint, facilitating unified data processing and preprocessing to ensure quality and consistency in training models.",
+                    "Engineered a scalable architecture for real-time data streaming from PC to embedded systems using TCP communication, enabling Hardware-in-the-Loop (HIL) testing and reducing the need for physical hardware during the development cycle.",
+                    "Developed a continuous model update system integrated with CI/CD and MLOps practices, utilizing GitHub Actions and Jenkins for automated deployment, ensuring that the latest models are readily available for algorithm development and testing.",
+                    "Utilized advanced tools and technologies such as Python, TensorFlow, PyTorch, and embedded systems programming to create a seamless experience for developers, allowing for efficient testing and validation of battery management systems."
+                ],
+                "Agents for Software Engineers": [
+                    "Led the development of advanced AI-driven agents to automate routine software engineering tasks, significantly enhancing developer productivity throughout the software development lifecycle.",
+                    "Designed and implemented a centralized, scalable knowledge base utilizing knowledge graphs for efficient storage and retrieval of engineering artifacts, streamlining requirement analysis and documentation processes.",
+                    "Engineered a robust API integration framework for seamless connectivity with popular development tools such as Jira, Confluence, and GitHub, enabling real-time data aggregation and enhancing the software planning phase.",
+                    "Created a custom AI agent framework capable of interfacing with decentralized databases and external tools, facilitating tasks such as software diagram generation, code synthesis, and automated test plan creation.",
+                    "Utilized advanced graph algorithms for dimensionality reduction and actionable notification generation, effectively minimizing notification fatigue and enhancing decision-making speed for engineering teams.",
+                    "Developed a scalable architecture using decentralized databases with load balancing, ensuring high availability and reliability for large-scale data handling, key to supporting AI-driven solutions in the Workday ecosystem.",
+                    "Implemented asynchronous processing for AI agents to optimize workflow, allowing engineers to work uninterrupted while generating complex outputs in the background, thereby improving overall efficiency.",
+                    "Built a user-friendly interface using Streamlit and developed a VS Code extension, streamlining agent interactions and enhancing accessibility for software engineers in their daily tasks.",
+                    "Achieved a notable reduction in task completion times, with documented time savings of up to 20 times compared to traditional manual processes, contributing to improved engineering throughput.",
+                    "Utilized technologies such as Python, TypeScript, Azure OpenAI Services, and various databases including MongoDB and Neo4j, showcasing expertise in modern programming languages and cloud solutions in alignment with AI and machine learning applications."
+                ]
+            }
+        },
+        {
+            "company": "Mercedes Benz Research and Development India Pvt Ltd",
+            "tenure": "August 2018 - September 2021",
+            "position": "Engineer",
+            "place": "Bengaluru, KA, IN",
+            "description": {
+                "Static Multicore Scheduler for Daimler Trucks Electric Powertrain Controller ECUs": [
+                    "Developed a static OS scheduler to optimize the execution of software components on multi-core eCPC ECUs for Daimler Trucks, enhancing parallel processing and reducing wait times through advanced dependency analysis.",
+                    "Implemented a robust dependency analysis and execution time measurement framework, utilizing mapping techniques for shared variables and creating detailed dependency graphs for efficient scheduling, ensuring MISRA compliance.",
+                    "Designed a graph-based scheduling system that visualizes execution sequences to minimize deadlocks and improve multi-core resource utilization, leveraging the yED tool for interactive adjustments by developers.",
+                    "Integrated advanced optimization techniques such as reinforcement learning and graph reduction, significantly streamlining the scheduling process and automating the generation of MISRA-compliant C code with rigorous unit testing for code coverage and reliability.",
+                    "Established CI/CD pipelines using Jenkins to automate the building and testing of the scheduler, ensuring timely updates in response to source code changes and new vehicle measurements, thereby improving the development lifecycle efficiency."
+                ]
+            }
+        }
+    ],
+    "skills": {
+        "Languages": [
+            "Python",
+            "TypeScript"
+        ],
+        "Tools": [
+            "AI",
+            "machine learning",
+            "intelligent automation",
+            "software engineering",
+            "cloud solutions",
+            "scalable systems"
+        ],
+        "Skills": [
+            "AWS",
+            "GCP",
+            "Azure",
+            "Jenkins",
+            "Streamlit",
+            "GitHub",
+            "MongoDB",
+            "Neo4j"
+        ]
+    },
+    "achievements": [
+        "Presented Technical papers during ADI's annual GTC events.",
+        "Participated in multiple global Ideathon and Hackathon events within the company."
+    ]
+}

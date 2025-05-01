@@ -1,0 +1,47 @@
+{
+    "header": {
+        "name": "Sharath Bala Subramanya",
+        "phone": "+917829810699",
+        "email": "bs.sharath1996@gmail.com",
+        "linkedIn": "https://www.linkedin.com/in/sharath-b-s-196522141/",
+        "github": "https://github.com/sharath1996"
+    },
+    "education": [
+        {
+            "nameOfInstitution": "Indian Institute Of Science",
+            "tenure": "August 2022 - December 2024",
+            "degree": "M Tech (Online) in Electronics and Communication Engineering",
+            "place": "Bengaluru, India",
+            "GPA": "8.5/10"
+        },
+        {
+            "nameOfInstitution": "The National Institute of Engineering",
+            "tenure": "August 2014 - June 2018",
+            "degree": "Bachelor of Engineering in Electronics and Communication Engineering",
+            "place": "Mysuru, India",
+            "GPA": "9.0/10"
+        }
+    ],
+    "work_experience": [
+        {
+            "company": "Analog Devices Inc.",
+            "tenure": "September 2021 - Present",
+            "position": "Senior Engineer",
+            "place": "Bengaluru, India",
+            "description": {}
+        },
+        {
+            "company": "Mercedes Benz Research and Development India Pvt Ltd",
+            "tenure": "August 2018 - September 2021",
+            "position": "Engineer",
+            "place": "Bengaluru, India",
+            "description": {}
+        }
+    ],
+
+    "skills": {},
+
+    "achievements": [
+        
+    ]
+}
