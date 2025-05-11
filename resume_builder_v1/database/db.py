@@ -27,8 +27,8 @@ class Roles(BaseModel):
     list_skills : list[str|None] = Field([], description="List of skills")
 
 class WorkExperience(BaseModel):
-    str_companyName:str
-    list_roles:list[Roles]
+    str_companyName:str|None = Field(None, description="Name of the company")
+    list_roles:list[Roles] = Field(default_factory=list[Roles], description="List of roles")
 
 class Education(BaseModel):
     str_institutionName:str|None = Field(None, description="Name of the Institution")
@@ -37,7 +37,7 @@ class Education(BaseModel):
     datetime_endDate:datetime|None = Field(None, description="End date of the degree")
     str_grade:str|None = Field(None, description="Grade Obtained")
     str_place:str|None = Field(None, description="Name of the place, where you obtained the degree")
-    list_projects:list[Project|None] = Field(None, description="List of the projects")
+    list_projects:list[Project|None] = Field(default_factory=list[Project], description="List of the projects")
 
 class Certification(BaseModel):
     str_name:str|None = Field(None, description="Certification Name")
@@ -70,17 +70,20 @@ class JobApplications(BaseModel):
 
 
 class Profile(BaseModel):
-    obj_profileInfo : SerializeAsAny[ProfileInformation]
-    list_workExperience: SerializeAsAny[list[WorkExperience]] = []
-    list_education:SerializeAsAny[list[Education]] = []
-    list_certifcations:SerializeAsAny[list[Certification]] = []
-    list_papers:SerializeAsAny[list[Papers]] = []
-    list_patents:SerializeAsAny[list[Patents]] = []
-    list_talks:SerializeAsAny[list[Talks]] = []
-    list_jobApps:SerializeAsAny[list[JobApplications]] = []
+    obj_profileInfo : SerializeAsAny[ProfileInformation] = ProfileInformation()
+    list_workExperience: SerializeAsAny[list[WorkExperience]] = [WorkExperience()]
+    list_education:SerializeAsAny[list[Education]] = [Education()]
+    list_certifcations:SerializeAsAny[list[Certification]] = [Certification()]
+    list_papers:SerializeAsAny[list[Papers]] = [Papers()]
+    list_patents:SerializeAsAny[list[Patents]] = [Patents()]
+    list_talks:SerializeAsAny[list[Talks]] = [Talks()]
+    list_jobApps:SerializeAsAny[list[JobApplications]] = [JobApplications()]
 
 class EntryMissingError(Exception):
-    ...
+    """Custom exception raised when a requested profile entry is missing in the database."""
+    def __init__(self, param_str_message="The required profile is not available"):
+        self._str_message = param_str_message
+        super().__init__(self._str_message)
     
 class ProfileDataBase:
 
@@ -88,31 +91,37 @@ class ProfileDataBase:
         local_obj_mongoDB = MongoClient("mongodb://localhost:27017/")
         local_obj_db = local_obj_mongoDB["resume_builder"]
         self._obj_profileCollection = local_obj_db["profiles"]
-    
-    def read(self, param_str_profileName:str):
-        local_obj_cursor = self._obj_profileCollection.find({"str_profileName" : param_str_profileName})
-        local_list_findings = local_obj_cursor.to_list()
-        if len(local_list_findings) != 1:
+
+    def read(self, param_str_profileName: str) -> Profile:
+        local_obj_cursor = self._obj_profileCollection.find_one({"str_profileName": param_str_profileName})
+        if not local_obj_cursor:
             raise EntryMissingError("The required profile is not available")
 
-        else:
-            local_dict_profile:dict = local_list_findings[0]
-            local_dict_profile.pop('str_profileName')
-            local_obj_profile = Profile(**local_dict_profile)
-            return local_obj_profile 
-    
-    def create(self, param_str_profileName:str):
-        
-        local_obj_cursor = self._obj_profileCollection.find({"str_profileName" : param_str_profileName})
-        local_list_findings = local_obj_cursor.to_list()
-        if len(local_list_findings) != 0:
-            raise Exception()
-    
-    def update(self, param_str_profileName:str, param_obj_profile:Profile):
-        ...
-    
-    def delete(self, param_str_profileName:str):
-        ...
+        local_obj_cursor.pop('_id', None)  # Removing MongoDB's default ID field
+        local_obj_cursor.pop('str_profileName', None)
+        return Profile(**local_obj_cursor)
 
-    def read_all_profiles(self)->list[str]:
-        ...
+    def create(self, param_str_profileName: str, param_obj_profile: Profile):
+        if self._obj_profileCollection.find_one({"str_profileName": param_str_profileName}):
+            raise Exception("Profile already exists")
+
+        local_dict_profileData = param_obj_profile.model_dump()
+        local_dict_profileData["str_profileName"] = param_str_profileName
+        self._obj_profileCollection.insert_one(local_dict_profileData)
+
+    def update(self, param_str_profileName: str, param_obj_profile: Profile):
+        local_obj_result = self._obj_profileCollection.update_one(
+            {"str_profileName": param_str_profileName},
+            {"$set": param_obj_profile.model_dump()}
+        )
+        if local_obj_result.matched_count == 0:
+            raise EntryMissingError("Profile not found")
+
+    def delete(self, param_str_profileName: str):
+        local_obj_result = self._obj_profileCollection.delete_one({"str_profileName": param_str_profileName})
+        if local_obj_result.deleted_count == 0:
+            raise EntryMissingError("Profile not found")
+
+    def read_all_profiles(self) -> list[str]:
+        local_list_profiles = self._obj_profileCollection.find({}, {"str_profileName": 1})
+        return [local_dict_profile["str_profileName"] for local_dict_profile in local_list_profiles]
