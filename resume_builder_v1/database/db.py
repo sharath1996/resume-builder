@@ -71,13 +71,13 @@ class JobApplications(BaseModel):
 
 class Profile(BaseModel):
     obj_profileInfo : SerializeAsAny[ProfileInformation] = ProfileInformation()
-    list_workExperience: SerializeAsAny[list[WorkExperience]] = [WorkExperience()]
-    list_education:SerializeAsAny[list[Education]] = [Education()]
-    list_certifcations:SerializeAsAny[list[Certification]] = [Certification()]
-    list_papers:SerializeAsAny[list[Papers]] = [Papers()]
-    list_patents:SerializeAsAny[list[Patents]] = [Patents()]
-    list_talks:SerializeAsAny[list[Talks]] = [Talks()]
-    list_jobApps:SerializeAsAny[list[JobApplications]] = [JobApplications()]
+    list_workExperience: SerializeAsAny[list[WorkExperience | None] ] = []
+    list_education:SerializeAsAny[list[Education | None]] = []
+    list_certifcations:SerializeAsAny[list[Certification | None]] = []
+    list_papers:SerializeAsAny[list[Papers | None]] = []
+    list_patents:SerializeAsAny[list[Patents | None]] = []
+    list_talks:SerializeAsAny[list[Talks | None]] = []
+    list_jobApps:SerializeAsAny[list[JobApplications | None]] = []
 
 class EntryMissingError(Exception):
     """Custom exception raised when a requested profile entry is missing in the database."""
