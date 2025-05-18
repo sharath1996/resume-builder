@@ -15,14 +15,14 @@ class ProfileInformation(BaseModel):
 class Project(BaseModel):
     str_projectTitle:str | None = Field(None, description="Title of the project")
     str_projectContents:str | None = Field(None, description="Description of the project in detail")
-    list_highlights:str | None = Field(None, description="Top highlights of this project")
+    str_highlights:str | None = Field(None, description="Top highlights of this project")
 
 class Roles(BaseModel):
     dateTime_startDate:str|None = Field(None, description="Start date of the role")
     dateTime_endDate:str|str|None = Field(None, description="End date, it can include `Present`")
     str_title:str|None = Field(None, description="Title of the role or designation")
     str_place:str|None = Field(None, description="Place")
-    list_projects:list[Project] =  Field(None, description="List of the projects handled")
+    str_description:str|None = Field(None, description="Description of roles and responsibilities of this Role")
     list_achievements:list[str|None]  = Field([], description="List of achivements in this role")
     list_skills : list[str|None] = Field([], description="List of skills")
 
@@ -37,7 +37,7 @@ class Education(BaseModel):
     datetime_endDate:str|None = Field(None, description="End date of the degree")
     str_grade:str|None = Field(None, description="Grade Obtained")
     str_place:str|None = Field(None, description="Name of the place, where you obtained the degree")
-    list_projects:list[Project|None] = Field(default_factory=list[Project], description="List of the projects")
+    str_description:str|None = Field(None, description="Description of your courses and top achivements!")
 
 class Certification(BaseModel):
     str_name:str|None = Field(None, description="Certification Name")

@@ -4,6 +4,7 @@ from .tabs.certifications import CertificationUI
 from .tabs.papers import PapersUI
 from .tabs.patents import PatentsUI
 from .tabs.talks import TalksUI
+from .tabs.education import EducationUI
 
 class ProfileUI:
 
@@ -12,6 +13,7 @@ class ProfileUI:
     
     def run(self):
         
+        st.title(f"Hey :blue[{self._str_profileName}...]")
         local_list_tabs = ['About You', 'Work Experience', 'Education', 'Certifications', 'Papers', 'Patents', 'Talks']
 
         local_list_stTabs = st.tabs(local_list_tabs)
@@ -28,6 +30,8 @@ class ProfileUI:
         
         with local_list_stTabs[2]:
             st.header("Education")
+            local_obj_education = EducationUI(self._str_profileName)
+            local_obj_education.run()
         
         with local_list_stTabs[3]:
             st.header("Certifications")
