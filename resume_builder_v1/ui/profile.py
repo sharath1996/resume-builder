@@ -1,6 +1,7 @@
 import streamlit as st
 from ..api.profile_apis import ProfileAPIs
-from ..database.db import  Profile, WorkExperience, Roles
+from ..database.db import  Profile, WorkExperience, Roles, Certification
+from datetime import datetime
 class ProfileUI:
 
     def __init__(self):
@@ -44,7 +45,35 @@ class ProfileUI:
                 st.text("Education")
             
             with st.expander("Certifications"):
-                st.text("Certifications")
+                local_list_availableCertificates = local_obj_profile.list_certifcations
+                local_obj_newCertification = Certification()
+                local_obj_newCertification.str_name = ""
+                local_list_availableCertificates.append(local_obj_newCertification)
+                local_index_certificationIndex = 0
+                for local_obj_certifications in local_list_availableCertificates:
+                    with st.container(border=True):
+                        try:
+                            local_datetime_dateTime = datetime.strptime(local_obj_certifications.datetime_issueDate, "%Y-%m-%d")
+                        except:
+                            local_datetime_dateTime = datetime.today()
+                        if local_obj_certifications.str_name == "":
+                            st.markdown("##### :blue[Add New Certification Details]")
+                        
+                        local_obj_certifications.str_name = st.text_input("Name of the certification", value=local_obj_certifications.str_name, key=f"{local_obj_certifications.str_name}_cert_name")
+                        local_obj_certifications.str_issuingAuthority = st.text_input("Issuing Authority", value=local_obj_certifications.str_issuingAuthority, key=f"{local_obj_certifications.str_name}_cert_auth")
+                        local_obj_certifications.datetime_issueDate = st.date_input("Issuing Date", value=local_datetime_dateTime, key=f"{local_obj_certifications.str_name}_cert_date").strftime("%Y-%m-%d")
+                        
+                        local_obj_column = st.columns(2)
+                        local_button_updateButton = local_obj_column[0].form_submit_button(f"Update {local_obj_certifications.str_name} Details")
+                        if local_button_updateButton:
+                            local_obj_profile.list_certifcations[local_index_certificationIndex] = local_obj_certifications
+                        
+                        
+                        # local_button_updateButton = local_obj_column[1].form_submit_button(f"Delete {local_obj_certifications.str_name} Details")
+                        # if local_button_updateButton:
+                        #     local_obj_profile.list_certifcations.pop(local_index_certificationIndex)
+                    
+                    local_index_certificationIndex+= 1
 
             with st.expander("Papers"):
                 st.text("Papers")
@@ -57,11 +86,15 @@ class ProfileUI:
 
             if st.form_submit_button("Update Profile"):
                 self._obj_profileAPI.update("Sharath", local_obj_profile)
+                st.info(f"Number of certifications = {len(local_obj_profile.list_certifcations)}")
                 st.toast("Updated Profile ", icon="😄")
 
             else:
                 return None
-        
+    
+    @st.dialog("Add New")   
+    def pop_up(self, param_callable_callableLayout:callable):
+        param_callable_callableLayout()
 
     def run_ui(self):
         

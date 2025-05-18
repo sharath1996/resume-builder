@@ -18,8 +18,8 @@ class Project(BaseModel):
     list_highlights:str | None = Field(None, description="Top highlights of this project")
 
 class Roles(BaseModel):
-    dateTime_startDate:datetime|None = Field(None, description="Start date of the role")
-    dateTime_endDate:datetime|str|None = Field(None, description="End date, it can include `Present`")
+    dateTime_startDate:str|None = Field(None, description="Start date of the role")
+    dateTime_endDate:str|str|None = Field(None, description="End date, it can include `Present`")
     str_title:str|None = Field(None, description="Title of the role or designation")
     str_place:str|None = Field(None, description="Place")
     list_projects:list[Project] =  Field(None, description="List of the projects handled")
@@ -33,8 +33,8 @@ class WorkExperience(BaseModel):
 class Education(BaseModel):
     str_institutionName:str|None = Field(None, description="Name of the Institution")
     str_degree:str|None = Field(None, description="Name of the degree")
-    datetime_startDate:datetime|None = Field(None, description="Start date of the education")
-    datetime_endDate:datetime|None = Field(None, description="End date of the degree")
+    datetime_startDate:str|None = Field(None, description="Start date of the education")
+    datetime_endDate:str|None = Field(None, description="End date of the degree")
     str_grade:str|None = Field(None, description="Grade Obtained")
     str_place:str|None = Field(None, description="Name of the place, where you obtained the degree")
     list_projects:list[Project|None] = Field(default_factory=list[Project], description="List of the projects")
@@ -42,7 +42,7 @@ class Education(BaseModel):
 class Certification(BaseModel):
     str_name:str|None = Field(None, description="Certification Name")
     str_issuingAuthority:str|None = Field(None, description="Name of the issuing Authority")
-    datetime_issueDate:datetime|None = Field(None, description="Date of issuing")
+    datetime_issueDate:str|None = Field(None, description="Date of issuing")
 
 class Papers(BaseModel):
     str_paperTile:str|None = Field(None, description="Title of the paper")
