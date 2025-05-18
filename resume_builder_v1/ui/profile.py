@@ -72,7 +72,6 @@ class ProfileUI:
                         # local_button_updateButton = local_obj_column[1].form_submit_button(f"Delete {local_obj_certifications.str_name} Details")
                         # if local_button_updateButton:
                         #     local_obj_profile.list_certifcations.pop(local_index_certificationIndex)
-                    
                     local_index_certificationIndex+= 1
 
             with st.expander("Papers"):
