@@ -35,7 +35,7 @@ class PapersUI:
     def _add_new_paper(self):
 
         with st.container(border=True):
-            st.markdown("#### Add Certification")
+            st.markdown("#### Add Paper")
             local_obj_newPaper = Papers()
             local_datetime_dateTime = datetime.now()
 

@@ -3,6 +3,7 @@ from .tabs.details import ProfileBasicDetails
 from .tabs.certifications import CertificationUI
 from .tabs.papers import PapersUI
 from .tabs.patents import PatentsUI
+from .tabs.talks import TalksUI
 
 class ProfileUI:
 
@@ -46,3 +47,6 @@ class ProfileUI:
         
         with local_list_stTabs[6]:
             st.header("Talks")
+            local_obj_talks = TalksUI(self._str_profileName)
+            local_obj_talks.run()
+            
