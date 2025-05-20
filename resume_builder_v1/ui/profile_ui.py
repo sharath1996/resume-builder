@@ -8,15 +8,56 @@ from .tabs.education import EducationUI
 from .tabs.work_experience import WorkExperienceUI
 from .tabs.academic_projects import AcademicProjectsUI
 from .tabs.professional_projects import ProfessionalProjectsUI
+from ..api.profile_apis import ProfileAPIs
 
 class ProfileUI:
 
-    def __init__(self, param_str_profileName:str):
+    def __init__(self):
         st.set_page_config(page_title="Resume Assistant" , layout="wide")
-        self._str_profileName:str = param_str_profileName
+        if "profileName" not in st.session_state:
+            st.session_state["profileName"] = None
+        
+        self._str_profileName = st.session_state["profileName"]
     
     def run(self):
         
+        self.side_bar()
+        if self._str_profileName == None:
+            st.title("Please select a profile")
+            st.warning("Please select a profile from the sidebar")
+        else:  
+            self.run_profile_page()
+    
+    def side_bar(self):
+        with st.sidebar:
+            local_list_profileNames = ProfileAPIs().read_all_profiles()
+            lcoal_str_profileSelected = st.selectbox("Select Profile", local_list_profileNames, index=None)
+            local_column_button = st.columns([1, 2])
+            local_button_login = local_column_button[0].button("Login")
+            if local_button_login:
+                if lcoal_str_profileSelected:
+                    st.session_state["profileName"] = lcoal_str_profileSelected
+                    st.rerun()
+
+            with local_column_button[1].popover("Create New"):
+                local_str_newProfileName = st.text_input("Enter Profile Name", key="new_profile_name")
+                local_button_create = st.button("Create Profile", key="create_profile_btn")
+                if local_button_create:
+                    if local_str_newProfileName and local_str_newProfileName.strip() != "":
+                        try:
+                            ProfileAPIs().create(local_str_newProfileName)
+                        except Exception as e:
+                            st.error(f"Error creating profile: {e}")
+                            return 
+                        st.session_state["profileName"] = local_str_newProfileName
+                        st.success(f"Profile {local_str_newProfileName} created successfully")
+                        st.rerun()
+                    else:
+                        st.error("Please enter a valid profile name")
+
+
+
+    def run_profile_page(self):
         st.title(f"Hey :blue[{self._str_profileName}...]")
         local_list_tabs = ['About You', 'Work Experience', 'Professional Projects','Education', 'Academic Projects', 'Certifications', 'Papers', 'Patents', 'Talks']
 
@@ -68,4 +109,5 @@ class ProfileUI:
             st.header("Talks")
             local_obj_talks = TalksUI(self._str_profileName)
             local_obj_talks.run()
+        
             
