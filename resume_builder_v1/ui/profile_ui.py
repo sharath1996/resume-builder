@@ -8,6 +8,7 @@ from .tabs.education import EducationUI
 from .tabs.work_experience import WorkExperienceUI
 from .tabs.academic_projects import AcademicProjectsUI
 from .tabs.professional_projects import ProfessionalProjectsUI
+from .resume_generator import JobAppUI
 from ..api.profile_apis import ProfileAPIs
 
 class ProfileUI:
@@ -17,6 +18,9 @@ class ProfileUI:
         if "profileName" not in st.session_state:
             st.session_state["profileName"] = None
         
+        if "task" not in st.session_state:
+            st.session_state["task"] = None
+        
         self._str_profileName = st.session_state["profileName"]
     
     def run(self):
@@ -25,23 +29,37 @@ class ProfileUI:
         if self._str_profileName == None:
             st.title("Please select a profile")
             st.warning("Please select a profile from the sidebar")
-        else:  
-            self.run_profile_page()
+        else: 
+            if st.session_state["task"] == "Job Applications":
+                self.run_job_applications()
+            elif st.session_state["task"] == "Profile":
+                self.run_profile_page()
+
     
     def side_bar(self):
         with st.sidebar:
+            
             local_list_profileNames = ProfileAPIs().read_all_profiles()
             lcoal_str_profileSelected = st.selectbox("Select Profile", local_list_profileNames, index=None)
+
+            local_list_tasks = ["Profile", "Job Applications"]
+            local_str_taskSelected = st.selectbox("Select Task", local_list_tasks, index=None)
+            
             local_column_button = st.columns([1, 2])
             local_button_login = local_column_button[0].button("Login")
+            
             if local_button_login:
+
                 if lcoal_str_profileSelected:
                     st.session_state["profileName"] = lcoal_str_profileSelected
+                    st.session_state["task"] = local_str_taskSelected
                     st.rerun()
 
             with local_column_button[1].popover("Create New"):
+                
                 local_str_newProfileName = st.text_input("Enter Profile Name", key="new_profile_name")
                 local_button_create = st.button("Create Profile", key="create_profile_btn")
+                
                 if local_button_create:
                     if local_str_newProfileName and local_str_newProfileName.strip() != "":
                         try:
@@ -55,7 +73,9 @@ class ProfileUI:
                     else:
                         st.error("Please enter a valid profile name")
 
-
+    def run_job_applications(self):
+        st.title(f"Hey :blue[{self._str_profileName}...]")
+        JobAppUI().run()
 
     def run_profile_page(self):
         st.title(f"Hey :blue[{self._str_profileName}...]")
