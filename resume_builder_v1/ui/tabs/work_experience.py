@@ -67,7 +67,7 @@ class WorkExperienceUI:
 
             local_button_saveNewWorkExperience = st.button("Update new work experience")
             if local_button_saveNewWorkExperience:
-                self._add_new_work_experiences(local_obj_workExperience)
+                self._create_new_work_experience(local_obj_workExperience)
 
 
     def _read_all_work_experiences(self):
@@ -80,7 +80,7 @@ class WorkExperienceUI:
         local_obj_profile.list_workExperience = param_list_workExperience
         st.info("Work Experience updated successfully")
 
-    def _add_new_work_experiences(self, param_obj_workExperience:WorkExperience):
+    def _create_new_work_experience(self, param_obj_workExperience:WorkExperience):
         local_obj_profile = self._obj_profile.read(self._str_profileName)
         local_obj_profile.list_workExperience.append(param_obj_workExperience)
         self._obj_profile.update(self._str_profileName, local_obj_profile)

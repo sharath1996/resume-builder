@@ -17,7 +17,13 @@ class Project(BaseModel):
     str_projectContents:str | None = Field(None, description="Description of the project in detail")
     str_highlights:str | None = Field(None, description="Top highlights of this project")
 
+class AcademicProject(Project):
+    str_institueName:str|None = Field(None, description="Name of the institution")
+    str_degreeName:str|None = Field(None, description="Name of the degree")
 
+class ProfessionalProject(Project):
+    str_companyName:str|None = Field(None, description="Name of the company")
+    str_designation:str|None = Field(None, description="Name of the designation")
 class WorkExperience(BaseModel):
     str_companyName:str|None = Field(None, description="Name of the company")
     dateTime_startDate:str|None = Field(None, description="Start date of the role")
@@ -70,6 +76,8 @@ class JobApplications(BaseModel):
 class Profile(BaseModel):
     obj_profileInfo : SerializeAsAny[ProfileInformation] = ProfileInformation()
     list_workExperience: SerializeAsAny[list[WorkExperience | None] ] = []
+    list_academicProjects : SerializeAsAny[list[AcademicProject|None]] = []
+    list_professionalProjects : SerializeAsAny[list[ProfessionalProject|None]] = []
     list_education:SerializeAsAny[list[Education | None]] = []
     list_certifcations:SerializeAsAny[list[Certification | None]] = []
     list_papers:SerializeAsAny[list[Papers | None]] = []
