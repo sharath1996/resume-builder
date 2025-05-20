@@ -24,3 +24,7 @@ class ProfileAPIs:
     def delete(self, param_str_profileName:str)->None:
         
         self._obj_db.delete(param_str_profileName)
+    
+    def read_all_profiles(self)->list[str]:
+        
+        return self._obj_db.read_all_profiles()
