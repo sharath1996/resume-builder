@@ -15,34 +15,38 @@ class ProfileInformation(BaseModel):
 class Project(BaseModel):
     str_projectTitle:str | None = Field(None, description="Title of the project")
     str_projectContents:str | None = Field(None, description="Description of the project in detail")
-    list_highlights:str | None = Field(None, description="Top highlights of this project")
+    str_highlights:str | None = Field(None, description="Top highlights of this project")
 
-class Roles(BaseModel):
-    dateTime_startDate:datetime|None = Field(None, description="Start date of the role")
-    dateTime_endDate:datetime|str|None = Field(None, description="End date, it can include `Present`")
-    str_title:str|None = Field(None, description="Title of the role or designation")
-    str_place:str|None = Field(None, description="Place")
-    list_projects:list[Project] =  Field(None, description="List of the projects handled")
-    list_achievements:list[str|None]  = Field([], description="List of achivements in this role")
-    list_skills : list[str|None] = Field([], description="List of skills")
+class AcademicProject(Project):
+    str_institueName:str|None = Field(None, description="Name of the institution")
+    str_degreeName:str|None = Field(None, description="Name of the degree")
 
+class ProfessionalProject(Project):
+    str_companyName:str|None = Field(None, description="Name of the company")
+    str_designation:str|None = Field(None, description="Name of the designation")
 class WorkExperience(BaseModel):
     str_companyName:str|None = Field(None, description="Name of the company")
-    list_roles:list[Roles] = Field(default_factory=list[Roles], description="List of roles")
+    dateTime_startDate:str|None = Field(None, description="Start date of the role")
+    dateTime_endDate:str|str|None = Field(None, description="End date, it can include `Present`")
+    str_title:str|None = Field(None, description="Title of the role or designation")
+    str_place:str|None = Field(None, description="Place")
+    str_description:str|None = Field(None, description="Description of roles and responsibilities of this Role")
+    list_achievements:list[str|None]  = Field([], description="List of achivements in this role")
+    list_skills : list[str|None] = Field([], description="List of skills")
 
 class Education(BaseModel):
     str_institutionName:str|None = Field(None, description="Name of the Institution")
     str_degree:str|None = Field(None, description="Name of the degree")
-    datetime_startDate:datetime|None = Field(None, description="Start date of the education")
-    datetime_endDate:datetime|None = Field(None, description="End date of the degree")
+    datetime_startDate:str|None = Field(None, description="Start date of the education")
+    datetime_endDate:str|None = Field(None, description="End date of the degree")
     str_grade:str|None = Field(None, description="Grade Obtained")
     str_place:str|None = Field(None, description="Name of the place, where you obtained the degree")
-    list_projects:list[Project|None] = Field(default_factory=list[Project], description="List of the projects")
+    str_description:str|None = Field(None, description="Description of your courses and top achivements!")
 
 class Certification(BaseModel):
     str_name:str|None = Field(None, description="Certification Name")
     str_issuingAuthority:str|None = Field(None, description="Name of the issuing Authority")
-    datetime_issueDate:datetime|None = Field(None, description="Date of issuing")
+    datetime_issueDate:str|None = Field(None, description="Date of issuing")
 
 class Papers(BaseModel):
     str_paperTile:str|None = Field(None, description="Title of the paper")
@@ -71,13 +75,15 @@ class JobApplications(BaseModel):
 
 class Profile(BaseModel):
     obj_profileInfo : SerializeAsAny[ProfileInformation] = ProfileInformation()
-    list_workExperience: SerializeAsAny[list[WorkExperience]] = [WorkExperience()]
-    list_education:SerializeAsAny[list[Education]] = [Education()]
-    list_certifcations:SerializeAsAny[list[Certification]] = [Certification()]
-    list_papers:SerializeAsAny[list[Papers]] = [Papers()]
-    list_patents:SerializeAsAny[list[Patents]] = [Patents()]
-    list_talks:SerializeAsAny[list[Talks]] = [Talks()]
-    list_jobApps:SerializeAsAny[list[JobApplications]] = [JobApplications()]
+    list_workExperience: SerializeAsAny[list[WorkExperience | None] ] = []
+    list_academicProjects : SerializeAsAny[list[AcademicProject|None]] = []
+    list_professionalProjects : SerializeAsAny[list[ProfessionalProject|None]] = []
+    list_education:SerializeAsAny[list[Education | None]] = []
+    list_certifcations:SerializeAsAny[list[Certification | None]] = []
+    list_papers:SerializeAsAny[list[Papers | None]] = []
+    list_patents:SerializeAsAny[list[Patents | None]] = []
+    list_talks:SerializeAsAny[list[Talks | None]] = []
+    list_jobApps:SerializeAsAny[list[JobApplications | None]] = []
 
 class EntryMissingError(Exception):
     """Custom exception raised when a requested profile entry is missing in the database."""
