@@ -1,6 +1,6 @@
 import streamlit as st
 from ...api.profile_apis import ProfileAPIs
-from ...database.db import Education, Project
+from ...database.db import Education
 from datetime import datetime
 
 class EducationUI:
@@ -24,7 +24,9 @@ class EducationUI:
                 local_obj_columns = st.columns(2)
                 local_obj_education.datetime_startDate = local_obj_columns[0].date_input("Start Date", value=local_dateTime_startDate, key=f"{local_obj_education.str_institutionName}_start_date").strftime("%Y-%m-%d")
                 local_obj_education.datetime_endDate = local_obj_columns[1].date_input("End Date", value=local_dateTime_endDate, key=f"{local_obj_education.str_institutionName}_end_date").strftime("%Y-%m-%d")
-                
+                if local_obj_education.datetime_endDate == datetime.now().strftime("%Y-%m-%d"):
+                    local_obj_education.datetime_endDate = "today"
+                    
         local_button_updateEducationDetails = st.button("Update Education Details")
         if local_button_updateEducationDetails:
             self._update_education(local_list_educationDetails)

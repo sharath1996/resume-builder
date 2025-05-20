@@ -17,7 +17,9 @@ class Project(BaseModel):
     str_projectContents:str | None = Field(None, description="Description of the project in detail")
     str_highlights:str | None = Field(None, description="Top highlights of this project")
 
-class Roles(BaseModel):
+
+class WorkExperience(BaseModel):
+    str_companyName:str|None = Field(None, description="Name of the company")
     dateTime_startDate:str|None = Field(None, description="Start date of the role")
     dateTime_endDate:str|str|None = Field(None, description="End date, it can include `Present`")
     str_title:str|None = Field(None, description="Title of the role or designation")
@@ -25,10 +27,6 @@ class Roles(BaseModel):
     str_description:str|None = Field(None, description="Description of roles and responsibilities of this Role")
     list_achievements:list[str|None]  = Field([], description="List of achivements in this role")
     list_skills : list[str|None] = Field([], description="List of skills")
-
-class WorkExperience(BaseModel):
-    str_companyName:str|None = Field(None, description="Name of the company")
-    list_roles:list[Roles] = Field(default_factory=list[Roles], description="List of roles")
 
 class Education(BaseModel):
     str_institutionName:str|None = Field(None, description="Name of the Institution")

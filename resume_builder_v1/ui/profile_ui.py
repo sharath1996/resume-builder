@@ -5,10 +5,12 @@ from .tabs.papers import PapersUI
 from .tabs.patents import PatentsUI
 from .tabs.talks import TalksUI
 from .tabs.education import EducationUI
+from .tabs.work_experience import WorkExperienceUI
 
 class ProfileUI:
 
     def __init__(self, param_str_profileName:str):
+        st.set_page_config(page_title="Resume Assistant" , layout="wide")
         self._str_profileName:str = param_str_profileName
     
     def run(self):
@@ -26,7 +28,8 @@ class ProfileUI:
         
         with local_list_stTabs[1]:
             st.header("Work Experience")
-            
+            local_obj_workExperience = WorkExperienceUI(self._str_profileName)
+            local_obj_workExperience.run()
         
         with local_list_stTabs[2]:
             st.header("Education")
