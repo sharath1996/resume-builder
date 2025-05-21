@@ -14,7 +14,7 @@ class PapersUI:
         if len(local_list_papers)>0:
             for local_obj_paper in local_list_papers:
                 # convert the existing string into datetime object for rendering in UI
-                with st.container(border=True):
+                with st.expander(local_obj_paper.str_paperTile):
                     local_datetime_dateTime = datetime.strptime(local_obj_paper.datetime_publicationDate, "%Y-%m-%d")
                     
                     local_obj_paper.str_paperTile = st.text_input("Title of the paper", value=local_obj_paper.str_paperTile, key = f"{local_obj_paper.str_paperTile}_title")
@@ -26,10 +26,12 @@ class PapersUI:
             local_button_updateDetails = st.button("Update Exisitng Papers")
             if local_button_updateDetails:
                 self._update_existing_details(local_list_papers)
+                st.rerun()
         
         local_button_newCertificate = st.button("Add new paper")
         if local_button_newCertificate:
             self._add_new_paper()
+            
     
     @st.fragment
     def _add_new_paper(self):
@@ -47,6 +49,7 @@ class PapersUI:
             local_obj_saveNewPaper = st.button("Save new paper")
             if local_obj_saveNewPaper:
                 self._create_new_paper(local_obj_newPaper)
+                st.rerun()
 
     def _get_available_papers(self) -> list[Papers]:
 

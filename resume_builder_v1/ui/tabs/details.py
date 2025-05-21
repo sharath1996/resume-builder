@@ -21,3 +21,4 @@ class ProfileBasicDetails:
         local_obj_button = st.button('Save Profile Information')
         if local_obj_button:
             self._obj_profileAPI.update(self._str_profileName, local_obj_profile)
+            st.rerun()
