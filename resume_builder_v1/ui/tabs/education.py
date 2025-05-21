@@ -15,7 +15,7 @@ class EducationUI:
 
             local_dateTime_endDate = local_obj_education.datetime_endDate if local_obj_education.datetime_endDate == "today" else datetime.strptime(local_obj_education.datetime_endDate, "%Y-%m-%d")
             local_dateTime_startDate =  datetime.strptime(local_obj_education.datetime_endDate, "%Y-%m-%d")
-            with st.container(border=True):
+            with st.expander(f"{local_obj_education.str_degree} @ {local_obj_education.str_institutionName} "):
                 local_obj_education.str_institutionName = st.text_input("Name of the institution", value=local_obj_education.str_institutionName)
                 local_obj_education.str_degree = st.text_input("Degree Obtained",value=local_obj_education.str_degree)
                 local_obj_education.str_grade = st.text_input("Grade Obtained", value=local_obj_education.str_grade)
@@ -30,6 +30,7 @@ class EducationUI:
         local_button_updateEducationDetails = st.button("Update Education Details")
         if local_button_updateEducationDetails:
             self._update_education(local_list_educationDetails)
+            st.rerun()
             
         local_obj_addNewEducation = st.button("Add New Education")
         if local_obj_addNewEducation:
@@ -53,6 +54,7 @@ class EducationUI:
             local_button_addNewEducation = st.button("Update new education details")
             if local_button_addNewEducation:
                 self._add_new_education(local_obj_education)
+                st.rerun()
         
     
     def _read_all_institutes(self)->list[Education]:

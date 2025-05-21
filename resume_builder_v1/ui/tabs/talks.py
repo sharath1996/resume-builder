@@ -14,7 +14,7 @@ class TalksUI:
         if len(local_list_talks)>0:
             for local_obj_talk in local_list_talks:
                 # convert the existing string into datetime object for rendering in UI
-                with st.container(border=True):
+                with st.expander(f"{local_obj_talk.str_title} @ {local_obj_talk.str_place}"):
                     local_datetime_dateTime = datetime.strptime(local_obj_talk.datetime_date, "%Y-%m-%d")
                     
                     local_obj_talk.str_title = st.text_input("Title of the talk", value=local_obj_talk.str_title, key = f"{local_obj_talk.str_title}_title")
@@ -29,6 +29,7 @@ class TalksUI:
         local_button_newCertificate = st.button("Add new talk")
         if local_button_newCertificate:
             self._add_new_talk()
+            
     
     @st.fragment
     def _add_new_talk(self):
@@ -44,6 +45,7 @@ class TalksUI:
             local_obj_saveNewtalk = st.button("Save new talk")
             if local_obj_saveNewtalk:
                 self._create_new_talk(local_obj_newtalk)
+                st.rerun()
 
     def _get_available_talks(self) -> list[Talks]:
 

@@ -14,7 +14,7 @@ class PatentsUI:
         if len(local_list_patents)>0:
             for local_obj_patent in local_list_patents:
                 # convert the existing string into datetime object for rendering in UI
-                with st.container(border=True):
+                with st.expander(local_obj_patent.str_patentTitle):
                     local_datetime_dateTime = datetime.strptime(local_obj_patent.datetime_publicationDate, "%Y-%m-%d")
                     
                     local_obj_patent.str_patentTitle = st.text_input("Title of the patent", value=local_obj_patent.str_patentTitle, key = f"{local_obj_patent.str_patentTitle}_title")
@@ -25,10 +25,12 @@ class PatentsUI:
             local_button_updateDetails = st.button("Update patents")
             if local_button_updateDetails:
                 self._update_existing_patents(local_list_patents)
+                st.rerun()
         
         local_button_newCertificate = st.button("Add new patent")
         if local_button_newCertificate:
             self._add_new_patent()
+            
     
     @st.fragment
     def _add_new_patent(self):
@@ -44,6 +46,7 @@ class PatentsUI:
             local_obj_saveNewpatent = st.button("Save new patent")
             if local_obj_saveNewpatent:
                 self._create_new_patent(local_obj_newpatent)
+                st.rerun()
 
     def _get_available_patents(self) -> list[Patents]:
 

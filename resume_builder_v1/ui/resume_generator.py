@@ -21,6 +21,18 @@ class JobAppUI:
     def run(self):
         local_str_jobDescription = st.text_area("Job Description", height=300)
         local_str_instructions = st.text_area("Instructions")
-        local_button_generate = st.button("Generate Resume")
-        if local_button_generate:
+        local_list_tempalates = self._get_templates()
+        local_str_template = st.selectbox("Select Template", local_list_tempalates, index=None)
+        local_button_preview = st.button("Preview Resume")
+        if local_button_preview:
             st.info("Not so early!! Please wait until we spin this up for you later!!!!")
+        
+    
+    def _get_templates(self):
+        local_list_templates = [
+            "Indian Resume",
+            "US Resume",
+            "European Resume",
+            "UK Resume",
+        ]
+        return local_list_templates

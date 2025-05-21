@@ -15,23 +15,28 @@ class ProfessionalProjectsUI:
         
         else:
             for local_obj_professionalProject in local_list_professionalProjects:
-                with st.container(border=True):
+                with st.expander(local_obj_professionalProject.str_projectTitle ):
                     local_obj_professionalProject.str_projectTitle = st.text_input("Project Title", value=local_obj_professionalProject.str_projectTitle)
                     local_obj_professionalProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_professionalProject.str_projectContents)
                     local_obj_professionalProject.str_highlights = st.text_area("Highlights of this project", local_obj_professionalProject.str_highlights)
                     
-                    st.markdown("**The below two items should match your `Education` profile details!!!** ")
-
-                    local_obj_professionalProject.str_companyName = st.text_input("Name of the company", value=local_obj_professionalProject.str_companyName)
-                    local_obj_professionalProject.str_designation = st.text_input("Name of the designation", local_obj_professionalProject.str_designation)
+                    local_str_currentWorkExperience = f'{local_obj_professionalProject.str_companyName} @ {local_obj_professionalProject.str_designation}'
+                    local_list_workExperience = self._get_work_experience(self._str_profileName)
+                    local_int_index = local_list_workExperience.index(local_str_currentWorkExperience)
+                    local_str_selectedWorkExperience = st.selectbox("Select your work experience", local_list_workExperience, index=local_int_index, key=f"{local_obj_professionalProject.str_projectTitle}_prof_proj_exi")
+                    local_list_options = local_str_selectedWorkExperience.split("@")
+                    local_obj_professionalProject.str_companyName = local_list_options[0].strip()
+                    local_obj_professionalProject.str_designation = local_list_options[1].strip()
 
             local_button_updateExistingprofessionalProject = st.button("Update Existing professional Projects")
             if local_button_updateExistingprofessionalProject:
                 self._update_professional_projects(local_list_professionalProjects)
+                st.rerun()
         
         local_button_addNewprofessionalProject = st.button("Add new professional project")
         if local_button_addNewprofessionalProject:
             self._add_new_professional_project()
+            
 
     @st.fragment
     def _add_new_professional_project(self):
@@ -44,14 +49,18 @@ class ProfessionalProjectsUI:
         local_obj_professionalProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_professionalProject.str_projectContents)
         local_obj_professionalProject.str_highlights = st.text_area("Highlights of this project", local_obj_professionalProject.str_highlights)
         
-        st.markdown(":red[**The below two items should match your `Education` profile details!!!**]")
-
-        local_obj_professionalProject.str_companyName = st.text_input("Name of the company", value=local_obj_professionalProject.str_companyName)
-        local_obj_professionalProject.str_designation = st.text_input("Name of the designation", local_obj_professionalProject.str_designation)
+        local_list_workExperience = self._get_work_experience(self._str_profileName)
+        local_str_selectedWorkExperience = st.selectbox("Select your work experience", local_list_workExperience, index=0, key=f"{local_obj_professionalProject.str_projectTitle}_prof_proj_new")
+        local_list_options = local_str_selectedWorkExperience.split("@")
+        local_obj_professionalProject.str_companyName = local_list_options[0].strip()
+        local_obj_professionalProject.str_designation = local_list_options[1].strip()
+    
 
         local_button_createNewprofessionalProject = st.button("Update New professional project")
         if local_button_createNewprofessionalProject:
             self._create_new_professional_project(local_obj_professionalProject)
+            st.rerun()
+            
     
     def _read_all_professional_projects(self):
         local_obj_profile = self._obj_profileAPIs.read(self._str_profileName)
@@ -68,3 +77,9 @@ class ProfessionalProjectsUI:
         self._obj_profileAPIs.update(self._str_profileName, local_obj_profile)
         st.info("professional project added succesfully")
 
+    def _get_work_experience(self, param_str_profileName:str):
+        local_obj_profile = self._obj_profileAPIs.read(param_str_profileName)
+        local_list_workExperience = []
+        for local_obj_workExperience in local_obj_profile.list_workExperience:
+            local_list_workExperience.append(f"{local_obj_workExperience.str_companyName} @ {local_obj_workExperience.str_title}")
+        return local_list_workExperience

@@ -1,7 +1,6 @@
 
 from pydantic import BaseModel, Field, SerializeAsAny
 from pymongo import MongoClient
-from datetime import datetime
 
 class ProfileInformation(BaseModel):
     str_fullName:str |None = Field(None, description="Full Name of the candidate")

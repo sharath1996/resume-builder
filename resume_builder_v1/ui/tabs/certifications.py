@@ -19,7 +19,7 @@ class CertificationUI:
 
         for local_obj_certificate in local_list_certificates:
             # convert the existing string into datetime object for rendering in UI
-            with st.container(border=True):
+            with st.expander(local_obj_certificate.str_name):
                 local_datetime_dateTime = datetime.strptime(local_obj_certificate.datetime_issueDate, "%Y-%m-%d")
                 
                 local_obj_certificate.str_name = st.text_input("Certificate Name", value = local_obj_certificate.str_name, key = f"{local_obj_certificate.str_name}_name")
@@ -30,10 +30,12 @@ class CertificationUI:
         local_button_updateDetails = st.button("Update Exisitng Details")
         if local_button_updateDetails:
             self._update_existing_details(local_list_certificates)
+            st.rerun()
         
         local_button_newCertificate = st.button("Add new...")
         if local_button_newCertificate:
             self._add_new_certificate_ui()
+            
 
     @st.fragment
     def _add_new_certificate_ui(self):
@@ -49,6 +51,7 @@ class CertificationUI:
                 local_button_addNewCertificate = st.button("Save Certificate")
                 if local_button_addNewCertificate:
                     self._create_new_certification(local_obj_newCertificate)
+                    st.rerun()
     
     def _get_available_certifications(self) -> list[Certification]:
 
