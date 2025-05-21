@@ -19,7 +19,7 @@ class WorkExperienceUI:
         else:   
             for local_obj_workExperience in local_list_workExps:
 
-                with st.expander(f"{local_obj_workExperience.str_companyName} @ {local_obj_workExperience.str_title}"):
+                with st.expander(f"{local_obj_workExperience.str_title} @ {local_obj_workExperience.str_companyName}"):
                     
                     if local_obj_workExperience.dateTime_endDate == "today":
                         local_obj_endDate = "today"
@@ -46,7 +46,7 @@ class WorkExperienceUI:
         local_button_createNewButton = st.button("Create new work experience")
         if local_button_createNewButton:
             self.add_new_work_experience()
-            st.rerun()
+            
 
     @st.fragment
     def add_new_work_experience(self):
@@ -70,6 +70,7 @@ class WorkExperienceUI:
             local_button_saveNewWorkExperience = st.button("Update new work experience")
             if local_button_saveNewWorkExperience:
                 self._create_new_work_experience(local_obj_workExperience)
+                st.rerun()
 
 
     def _read_all_work_experiences(self):
