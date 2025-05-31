@@ -27,12 +27,12 @@ class CertificationUI:
                 local_str_dateTimeOfIssue = st.date_input("Date of Issueing", value=local_datetime_dateTime, key = f"{local_obj_certificate.str_name}_time").strftime("%Y-%m-%d")
                 local_obj_certificate.datetime_issueDate = local_str_dateTimeOfIssue
         
-        local_button_updateDetails = st.button("Update Exisitng Details")
+        local_button_updateDetails = st.button("Update Exisitng Details", key="update_existing_cert_details")
         if local_button_updateDetails:
             self._update_existing_details(local_list_certificates)
             st.rerun()
         
-        local_button_newCertificate = st.button("Add new...")
+        local_button_newCertificate = st.button("Add new...", key="add_new_certificate")
         if local_button_newCertificate:
             self._add_new_certificate_ui()
             
@@ -40,18 +40,18 @@ class CertificationUI:
     @st.fragment
     def _add_new_certificate_ui(self):
         with st.container(border=True):
-                st.markdown("#### Add Certification")
-                local_obj_newCertificate = Certification()
-                local_datetime_dateTime = datetime.now()
-                
-                local_obj_newCertificate.str_name = st.text_input("Certificate Name", value = local_obj_newCertificate.str_name, key = f"{local_obj_newCertificate.str_name}_name")
-                local_obj_newCertificate.str_issuingAuthority = st.text_input("Certification Issuing Authority", value = local_obj_newCertificate.str_issuingAuthority, key = f"{local_obj_newCertificate.str_name}_auth")
-                local_str_dateTimeOfIssue = st.date_input("Date of Issueing", value=local_datetime_dateTime, key = f"{local_obj_newCertificate.str_name}_time").strftime("%Y-%m-%d")
-                local_obj_newCertificate.datetime_issueDate = local_str_dateTimeOfIssue
-                local_button_addNewCertificate = st.button("Save Certificate")
-                if local_button_addNewCertificate:
-                    self._create_new_certification(local_obj_newCertificate)
-                    st.rerun()
+            st.markdown("#### Add Certification")
+            local_obj_newCertificate = Certification()
+            local_datetime_dateTime = datetime.now()
+            
+            local_obj_newCertificate.str_name = st.text_input("Certificate Name", value = local_obj_newCertificate.str_name, key = f"{local_obj_newCertificate.str_name}_name")
+            local_obj_newCertificate.str_issuingAuthority = st.text_input("Certification Issuing Authority", value = local_obj_newCertificate.str_issuingAuthority, key = f"{local_obj_newCertificate.str_name}_auth")
+            local_str_dateTimeOfIssue = st.date_input("Date of Issueing", value=local_datetime_dateTime, key = f"{local_obj_newCertificate.str_name}_time").strftime("%Y-%m-%d")
+            local_obj_newCertificate.datetime_issueDate = local_str_dateTimeOfIssue
+            local_button_addNewCertificate = st.button("Save Certificate", key="save_new_certificate")
+            if local_button_addNewCertificate:
+                self._create_new_certification(local_obj_newCertificate)
+                st.rerun()
     
     def _get_available_certifications(self) -> list[Certification]:
 
@@ -70,5 +70,4 @@ class CertificationUI:
         local_obj_profile.list_certifcations.append(param_obj_certification)
         self._obj_profileAPI.update(self._str_profileName,local_obj_profile)
         st.info("Certificates updated Successfully!")
-    
-    
+

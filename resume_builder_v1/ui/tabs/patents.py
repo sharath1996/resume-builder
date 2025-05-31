@@ -13,37 +13,32 @@ class PatentsUI:
         local_list_patents = self._get_available_patents()
         if len(local_list_patents)>0:
             for local_obj_patent in local_list_patents:
-                # convert the existing string into datetime object for rendering in UI
                 with st.expander(local_obj_patent.str_patentTitle):
                     local_datetime_dateTime = datetime.strptime(local_obj_patent.datetime_publicationDate, "%Y-%m-%d")
-                    
-                    local_obj_patent.str_patentTitle = st.text_input("Title of the patent", value=local_obj_patent.str_patentTitle, key = f"{local_obj_patent.str_patentTitle}_title")
-                    local_obj_patent.str_abstract = st.text_area("Abstract of the patent", value=local_obj_patent.str_abstract, key = f"{local_obj_patent.str_patentTitle}_abstract")
+                    local_obj_patent.str_patentTitle = st.text_input("Title of the patent", value=local_obj_patent.str_patentTitle, key = f"{local_obj_patent.str_patentTitle}_patent_title")
+                    local_obj_patent.str_abstract = st.text_area("Abstract of the patent", value=local_obj_patent.str_abstract, key = f"{local_obj_patent.str_patentTitle}_patent_abstract")
                     local_obj_patent.str_patentOffice = st.text_input("Patent office", value=local_obj_patent.str_patentOffice, key=f"{local_obj_patent.str_patentTitle}_patentOffice")
-                    local_obj_patent.datetime_publicationDate = st.date_input("Date Of Publication/Issue", value=local_datetime_dateTime,key=f"{local_obj_patent.str_patentTitle}_date" ).strftime("%Y-%m-%d")
-            
-            local_button_updateDetails = st.button("Update patents")
+                    local_obj_patent.datetime_publicationDate = st.date_input("Date Of Publication/Issue", value=local_datetime_dateTime,key=f"{local_obj_patent.str_patentTitle}_patent_date" ).strftime("%Y-%m-%d")
+            local_button_updateDetails = st.button("Update patents", key="update_patents")
             if local_button_updateDetails:
                 self._update_existing_patents(local_list_patents)
                 st.rerun()
-        
-        local_button_newCertificate = st.button("Add new patent")
+        local_button_newCertificate = st.button("Add new patent", key="add_new_patent")
         if local_button_newCertificate:
             self._add_new_patent()
             
     
     @st.fragment
     def _add_new_patent(self):
-
         with st.container(border=True):
             st.markdown("#### Add Patent")
             local_obj_newpatent = Patents()
             local_datetime_dateTime = datetime.now()
-            local_obj_newpatent.str_patentTitle = st.text_input("Title of the patent", value=local_obj_newpatent.str_patentTitle, key = f"{local_obj_newpatent.str_patentTitle}_title")
-            local_obj_newpatent.str_abstract = st.text_area("Abstract of the patent", value=local_obj_newpatent.str_abstract, key = f"{local_obj_newpatent.str_patentTitle}_abstract")
-            local_obj_newpatent.str_patentOffice = st.text_input("Patent office", value=local_obj_newpatent.str_patentOffice, key=f"{local_obj_newpatent.str_patentTitle}_patentOffice")
-            local_obj_newpatent.datetime_publicationDate = st.date_input("Date Of Publication", value=local_datetime_dateTime,key=f"{local_obj_newpatent.str_patentTitle}_date" ).strftime("%Y-%m-%d")
-            local_obj_saveNewpatent = st.button("Save new patent")
+            local_obj_newpatent.str_patentTitle = st.text_input("Title of the patent", value=local_obj_newpatent.str_patentTitle, key = f"new_patent_title")
+            local_obj_newpatent.str_abstract = st.text_area("Abstract of the patent", value=local_obj_newpatent.str_abstract, key = f"new_patent_abstract")
+            local_obj_newpatent.str_patentOffice = st.text_input("Patent office", value=local_obj_newpatent.str_patentOffice, key=f"new_patent_patentOffice")
+            local_obj_newpatent.datetime_publicationDate = st.date_input("Date Of Publication", value=local_datetime_dateTime,key=f"new_patent_date" ).strftime("%Y-%m-%d")
+            local_obj_saveNewpatent = st.button("Save new patent", key="save_new_patent")
             if local_obj_saveNewpatent:
                 self._create_new_patent(local_obj_newpatent)
                 st.rerun()
