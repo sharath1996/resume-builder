@@ -16,14 +16,14 @@ class ProfessionalProjectsUI:
         else:
             for local_obj_professionalProject in local_list_professionalProjects:
                 with st.expander(local_obj_professionalProject.str_projectTitle):
-                    local_obj_professionalProject.str_projectTitle = st.text_input("Project Title", value=local_obj_professionalProject.str_projectTitle, key=f"{local_obj_professionalProject.str_projectTitle}_proj_exi")
-                    local_obj_professionalProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_professionalProject.str_projectContents, key=f"{local_obj_professionalProject.str_projectTitle}_proj_exi")
-                    local_obj_professionalProject.str_highlights = st.text_area("Highlights of this project", local_obj_professionalProject.str_highlights,   key=f"{local_obj_professionalProject.str_projectTitle}_proj_exi")
+                    local_obj_professionalProject.str_projectTitle = st.text_input("Project Title", value=local_obj_professionalProject.str_projectTitle, key=f"{local_obj_professionalProject.str_projectTitle}_proj_exi_title")
+                    local_obj_professionalProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_professionalProject.str_projectContents, key=f"{local_obj_professionalProject.str_projectTitle}_proj_exi_contents")
+                    local_obj_professionalProject.str_highlights = st.text_area("Highlights of this project", local_obj_professionalProject.str_highlights,   key=f"{local_obj_professionalProject.str_projectTitle}_proj_exi_highlights")
                     
                     local_str_currentWorkExperience = f'{local_obj_professionalProject.str_companyName} @ {local_obj_professionalProject.str_designation}'
                     local_list_workExperience = self._get_work_experience(self._str_profileName)
                     local_int_index = local_list_workExperience.index(local_str_currentWorkExperience)
-                    local_str_selectedWorkExperience = st.selectbox("Select your work experience", local_list_workExperience, index=local_int_index, key=f"{local_obj_professionalProject.str_projectTitle}_prof_proj_exi")
+                    local_str_selectedWorkExperience = st.selectbox("Select your work experience", local_list_workExperience, index=local_int_index, key=f"{local_obj_professionalProject.str_projectTitle}_prof_proj_exi_work_exp")
                     local_list_options = local_str_selectedWorkExperience.split("@")
                     local_obj_professionalProject.str_companyName = local_list_options[0].strip()
                     local_obj_professionalProject.str_designation = local_list_options[1].strip()
@@ -44,12 +44,12 @@ class ProfessionalProjectsUI:
         
         local_obj_professionalProject = ProfessionalProject()
         
-        local_obj_professionalProject.str_projectTitle = st.text_input("Project Title", value=local_obj_professionalProject.str_projectTitle, key=f"{local_obj_professionalProject.str_projectTitle}_proj_new")
-        local_obj_professionalProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_professionalProject.str_projectContents, key=f"{local_obj_professionalProject.str_projectTitle}_proj_new")
-        local_obj_professionalProject.str_highlights = st.text_area("Highlights of this project", local_obj_professionalProject.str_highlights, key=f"{local_obj_professionalProject.str_projectTitle}_proj_new")
+        local_obj_professionalProject.str_projectTitle = st.text_input("Project Title", value=local_obj_professionalProject.str_projectTitle, key=f"{local_obj_professionalProject.str_projectTitle}_proj_new_title")
+        local_obj_professionalProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_professionalProject.str_projectContents, key=f"{local_obj_professionalProject.str_projectTitle}_proj_new_contents")
+        local_obj_professionalProject.str_highlights = st.text_area("Highlights of this project", local_obj_professionalProject.str_highlights, key=f"{local_obj_professionalProject.str_projectTitle}_proj_new_highlights")
         
         local_list_workExperience = self._get_work_experience(self._str_profileName)
-        local_str_selectedWorkExperience = st.selectbox("Select your work experience", local_list_workExperience, index=0, key=f"{local_obj_professionalProject.str_projectTitle}_prof_proj_new")
+        local_str_selectedWorkExperience = st.selectbox("Select your work experience", local_list_workExperience, index=0, key=f"{local_obj_professionalProject.str_projectTitle}_prof_proj_new_work_exp")
         local_list_options = local_str_selectedWorkExperience.split("@")
         local_obj_professionalProject.str_companyName = local_list_options[0].strip()
         local_obj_professionalProject.str_designation = local_list_options[1].strip()

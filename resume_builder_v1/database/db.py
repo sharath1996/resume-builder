@@ -2,6 +2,9 @@
 from pydantic import BaseModel, Field, SerializeAsAny
 from pymongo import MongoClient
 
+import os
+
+
 class ProfileInformation(BaseModel):
     str_fullName:str |None = Field(None, description="Full Name of the candidate")
     str_currentResidence:str | None = Field(None, description="Current residence of the candidate")
@@ -93,7 +96,7 @@ class EntryMissingError(Exception):
 class ProfileDataBase:
 
     def __init__(self):
-        local_obj_mongoDB = MongoClient("mongodb://localhost:27017/")
+        local_obj_mongoDB = MongoClient(os.getenv("MONGO_DB_URL"))
         local_obj_db = local_obj_mongoDB["resume_builder"]
         self._obj_profileCollection = local_obj_db["profiles"]
 
