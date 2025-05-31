@@ -13,36 +13,31 @@ class TalksUI:
         local_list_talks = self._get_available_talks()
         if len(local_list_talks)>0:
             for local_obj_talk in local_list_talks:
-                # convert the existing string into datetime object for rendering in UI
                 with st.expander(f"{local_obj_talk.str_title} @ {local_obj_talk.str_place}"):
                     local_datetime_dateTime = datetime.strptime(local_obj_talk.datetime_date, "%Y-%m-%d")
-                    
-                    local_obj_talk.str_title = st.text_input("Title of the talk", value=local_obj_talk.str_title, key = f"{local_obj_talk.str_title}_title")
-                    local_obj_talk.str_abstract = st.text_area("Abstract of the talk", value=local_obj_talk.str_abstract, key = f"{local_obj_talk.str_title}_abstract")
-                    local_obj_talk.str_place = st.text_input("Place", value=local_obj_talk.str_patentOffice, key=f"{local_obj_talk.str_title}_place")
-                    local_obj_talk.datetime_date = st.date_input("Date Of talk", value=local_datetime_dateTime,key=f"{local_obj_talk.str_title}_date" ).strftime("%Y-%m-%d")
-            
-            local_button_updateDetails = st.button("Update talks")
+                    local_obj_talk.str_title = st.text_input("Title of the talk", value=local_obj_talk.str_title, key = f"{local_obj_talk.str_title}_talk_title")
+                    local_obj_talk.str_abstract = st.text_area("Abstract of the talk", value=local_obj_talk.str_abstract, key = f"{local_obj_talk.str_title}_talk_abstract")
+                    local_obj_talk.str_place = st.text_input("Place", value=local_obj_talk.str_patentOffice, key=f"{local_obj_talk.str_title}_talk_place")
+                    local_obj_talk.datetime_date = st.date_input("Date Of talk", value=local_datetime_dateTime,key=f"{local_obj_talk.str_title}_talk_date" ).strftime("%Y-%m-%d")
+            local_button_updateDetails = st.button("Update talks", key="update_talks")
             if local_button_updateDetails:
                 self._update_existing_talks(local_list_talks)
-        
-        local_button_newCertificate = st.button("Add new talk")
+        local_button_newCertificate = st.button("Add new talk", key="add_new_talk")
         if local_button_newCertificate:
             self._add_new_talk()
             
     
     @st.fragment
     def _add_new_talk(self):
-
         with st.container(border=True):
             st.markdown("#### Add Talk")
             local_obj_newtalk = Talks()
             local_datetime_dateTime = datetime.now()
-            local_obj_newtalk.str_title = st.text_input("Title of the Talk", value=local_obj_newtalk.str_title, key = f"{local_obj_newtalk.str_title}_title")
-            local_obj_newtalk.str_abstract = st.text_area("Abstract of the talk", value=local_obj_newtalk.str_abstract, key = f"{local_obj_newtalk.str_title}_abstract")
-            local_obj_newtalk.str_place = st.text_input("Place", value=local_obj_newtalk.str_place, key=f"{local_obj_newtalk.str_title}_place")
-            local_obj_newtalk.datetime_date = st.date_input("Date Of Talk", value=local_datetime_dateTime,key=f"{local_obj_newtalk.str_title}_date" ).strftime("%Y-%m-%d")
-            local_obj_saveNewtalk = st.button("Save new talk")
+            local_obj_newtalk.str_title = st.text_input("Title of the Talk", value=local_obj_newtalk.str_title, key = f"{local_obj_newtalk.str_title}_talk_title")
+            local_obj_newtalk.str_abstract = st.text_area("Abstract of the talk", value=local_obj_newtalk.str_abstract, key = f"{local_obj_newtalk.str_title}_talk_abstract")
+            local_obj_newtalk.str_place = st.text_input("Place", value=local_obj_newtalk.str_place, key=f"{local_obj_newtalk.str_title}_talk_place")
+            local_obj_newtalk.datetime_date = st.date_input("Date Of Talk", value=local_datetime_dateTime,key=f"{local_obj_newtalk.str_title}_talk_date" ).strftime("%Y-%m-%d")
+            local_obj_saveNewtalk = st.button("Save new talk", key="save_new_talk")
             if local_obj_saveNewtalk:
                 self._create_new_talk(local_obj_newtalk)
                 st.rerun()

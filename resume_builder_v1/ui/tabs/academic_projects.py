@@ -17,9 +17,9 @@ class AcademicProjectsUI:
         else:
             for local_obj_academicProject in local_list_academicProjects:
                 with st.expander(local_obj_academicProject.str_projectTitle):
-                    local_obj_academicProject.str_projectTitle = st.text_input("Project Title", value=local_obj_academicProject.str_projectTitle)
-                    local_obj_academicProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_academicProject.str_projectContents)
-                    local_obj_academicProject.str_highlights = st.text_area("Highlights of this project", local_obj_academicProject.str_highlights)
+                    local_obj_academicProject.str_projectTitle = st.text_input("Project Title", value=local_obj_academicProject.str_projectTitle, key = f"{local_obj_academicProject.str_projectTitle}_proj_exi")
+                    local_obj_academicProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_academicProject.str_projectContents, key = f"{local_obj_academicProject.str_projectTitle}_proj_exi")
+                    local_obj_academicProject.str_highlights = st.text_area("Highlights of this project", local_obj_academicProject.str_highlights, key = f"{local_obj_academicProject.str_projectTitle}_proj_exi")
                     
                     local_str_currentEducation = f'{local_obj_academicProject.str_degreeName} @ {local_obj_academicProject.str_institueName}'
                     local_list_educationDegrees = self._get_education_institute(self._str_profileName)
@@ -29,33 +29,32 @@ class AcademicProjectsUI:
                     local_obj_academicProject.str_degreeName = local_list_options[0].strip()
                     local_obj_academicProject.str_institueName = local_list_options[1].strip()
 
-            local_button_updateExistingAcademicProject = st.button("Update Existing Academic Projects")
+            local_button_updateExistingAcademicProject = st.button("Update Existing Academic Projects", key="update_existing_academic_projects")
             if local_button_updateExistingAcademicProject:
                 self._update_academic_projects(local_list_academicProjects)
                 st.rerun()
         
-        local_button_addNewAcademicProject = st.button("Add new academic project")
+        local_button_addNewAcademicProject = st.button("Add new academic project", key="add_new_academic_project")
         if local_button_addNewAcademicProject:
             self._add_new_academic_project()
             
 
     @st.fragment
     def _add_new_academic_project(self):
-        
         st.markdown("#### Add new academic project")
         
         local_obj_academicProject = AcademicProject()
         
-        local_obj_academicProject.str_projectTitle = st.text_input("Project Title", value=local_obj_academicProject.str_projectTitle)
-        local_obj_academicProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_academicProject.str_projectContents)
-        local_obj_academicProject.str_highlights = st.text_area("Highlights of this project", local_obj_academicProject.str_highlights)
+        local_obj_academicProject.str_projectTitle = st.text_input("Project Title", value=local_obj_academicProject.str_projectTitle, key=f"{local_obj_academicProject.str_projectTitle}_proj_new")
+        local_obj_academicProject.str_projectContents = st.text_area("Detailed Information about the project in Markdown", value=local_obj_academicProject.str_projectContents, key=f"{local_obj_academicProject.str_projectTitle}_proj_new")
+        local_obj_academicProject.str_highlights = st.text_area("Highlights of this project", local_obj_academicProject.str_highlights, key=f"{local_obj_academicProject.str_projectTitle}_proj_new")
         
         local_list_educationDegrees = self._get_education_institute(self._str_profileName)
         local_str_selectedEducation = st.selectbox("Select your education degree", local_list_educationDegrees, index=0, key=f"{local_obj_academicProject.str_projectTitle}_ed_proj_new")
         local_list_options = local_str_selectedEducation.split("@")
         local_obj_academicProject.str_degreeName = local_list_options[0].strip()
         local_obj_academicProject.str_institueName = local_list_options[1].strip()
-        local_button_createNewAcademicProject = st.button("Update New academic project")
+        local_button_createNewAcademicProject = st.button("Update New academic project", key="update_new_academic_project")
         if local_button_createNewAcademicProject:
             self._create_new_academic_project(local_obj_academicProject)
             st.rerun()

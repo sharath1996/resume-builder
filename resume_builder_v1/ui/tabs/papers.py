@@ -13,40 +13,34 @@ class PapersUI:
         local_list_papers = self._get_available_papers()
         if len(local_list_papers)>0:
             for local_obj_paper in local_list_papers:
-                # convert the existing string into datetime object for rendering in UI
                 with st.expander(local_obj_paper.str_paperTile):
                     local_datetime_dateTime = datetime.strptime(local_obj_paper.datetime_publicationDate, "%Y-%m-%d")
-                    
                     local_obj_paper.str_paperTile = st.text_input("Title of the paper", value=local_obj_paper.str_paperTile, key = f"{local_obj_paper.str_paperTile}_title")
                     local_obj_paper.str_abstract = st.text_area("Abstract of the paper", value=local_obj_paper.str_abstract, key = f"{local_obj_paper.str_paperTile}_abstract")
                     local_obj_paper.str_publisherDetails = st.text_input("Publisher Details", value=local_obj_paper.str_publisherDetails, key=f"{local_obj_paper.str_paperTile}_publisher")
                     local_obj_paper.str_hyperLink = st.text_input("Hyper link to publication", value=local_obj_paper.str_hyperLink,key=f"{local_obj_paper.str_paperTile}_link" )
                     local_obj_paper.datetime_publicationDate = st.date_input("Date Of Publication", value=local_datetime_dateTime,key=f"{local_obj_paper.str_paperTile}_date" ).strftime("%Y-%m-%d")
-            
-            local_button_updateDetails = st.button("Update Exisitng Papers")
+            local_button_updateDetails = st.button("Update Exisitng Papers", key="update_existing_papers")
             if local_button_updateDetails:
                 self._update_existing_details(local_list_papers)
                 st.rerun()
-        
-        local_button_newCertificate = st.button("Add new paper")
+        local_button_newCertificate = st.button("Add new paper", key="add_new_paper")
         if local_button_newCertificate:
             self._add_new_paper()
             
     
     @st.fragment
     def _add_new_paper(self):
-
         with st.container(border=True):
             st.markdown("#### Add Paper")
             local_obj_newPaper = Papers()
             local_datetime_dateTime = datetime.now()
-
-            local_obj_newPaper.str_paperTile = st.text_input("Title of the paper", value=local_obj_newPaper.str_paperTile, key = f"{local_obj_newPaper.str_paperTile}_title")
-            local_obj_newPaper.str_abstract = st.text_area("Abstract of the paper", value=local_obj_newPaper.str_abstract, key = f"{local_obj_newPaper.str_paperTile}_abstract")
-            local_obj_newPaper.str_publisherDetails = st.text_input("Publisher Details", value=local_obj_newPaper.str_publisherDetails, key=f"{local_obj_newPaper.str_paperTile}_publisher")
-            local_obj_newPaper.str_hyperLink = st.text_input("Hyper link to publication", value=local_obj_newPaper.str_hyperLink,key=f"{local_obj_newPaper.str_paperTile}_link" )
-            local_obj_newPaper.datetime_publicationDate = st.date_input("Date Of Publication", value=local_datetime_dateTime,key=f"{local_obj_newPaper.str_paperTile}_date" ).strftime("%Y-%m-%d")
-            local_obj_saveNewPaper = st.button("Save new paper")
+            local_obj_newPaper.str_paperTile = st.text_input("Title of the paper", value=local_obj_newPaper.str_paperTile, key = f"new_paper_title")
+            local_obj_newPaper.str_abstract = st.text_area("Abstract of the paper", value=local_obj_newPaper.str_abstract, key = f"new_paper_abstract")
+            local_obj_newPaper.str_publisherDetails = st.text_input("Publisher Details", value=local_obj_newPaper.str_publisherDetails, key=f"new_paper_publisher")
+            local_obj_newPaper.str_hyperLink = st.text_input("Hyper link to publication", value=local_obj_newPaper.str_hyperLink,key=f"new_paper_link" )
+            local_obj_newPaper.datetime_publicationDate = st.date_input("Date Of Publication", value=local_datetime_dateTime,key=f"new_paper_date" ).strftime("%Y-%m-%d")
+            local_obj_saveNewPaper = st.button("Save new paper", key="save_new_paper")
             if local_obj_saveNewPaper:
                 self._create_new_paper(local_obj_newPaper)
                 st.rerun()
