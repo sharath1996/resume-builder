@@ -1,72 +1,15 @@
 from pydantic import BaseModel, Field
+from ..database.db import Profile, ProfileDataBase
+from .types import CandidateResume
 
 
-class Skill(BaseModel):
-    """
-    Base class for skills.
-    This class is used to define the structure of skills data.
-    """
-    str_sectionTitle:str = Field(None, description="Title of the skills section")
-    list_skills: list[str] = Field([], description="List of skills")
-
-class Experience(BaseModel):
-    """
-    Base class for work experience.
-    This class is used to define the structure of work experience data.
-    """
-    str_companyName:str = Field(..., description="Name of the company")
-    str_designation:str = Field(..., description="Designation or title of the role")
-    str_startDate: str = Field(..., description="Start date of the role")
-    str_endDate: str | None = Field(None, description="End date of the role, can be 'Present'")
-    str_location: str | None = Field(None, description="Location of the company")
-    list_rolesAndResponsibilities: list[str] = Field(..., description="List of roles and responsibilities in this role")
-
-class Education(BaseModel):
-    """
-    Base class for education.
-    This class is used to define the structure of education data.
-    """
-    str_institutionName: str = Field(..., description="Name of the institution")
-    str_degree: str = Field(..., description="Name of the degree")
-    str_startDate: str = Field(..., description="Start date of the education")
-    str_endDate: str | None = Field(None, description="End date of the degree")
-    str_grade: str | None = Field(None, description="Grade obtained")
-    str_location: str | None = Field(None, description="Location of the institution")
-    str_description: str | None = Field(None, description="Description of courses and top achievements")
-
-class Project(BaseModel):
-    """
-    Base class for projects.
-    This class is used to define the structure of project data.
-    """
-    str_projectTitle: str | None = Field(None, description="Title of the project")
-    list_projectContents: list[str] | None = Field(None, description="Description of the project in detail")
-
-
-
-class CandidateResume(BaseModel):
-    """
-    Base class for resume input data.
-    This class is used to define the structure of the resume input data.
-    """
-    str_fullName: str  = Field(..., description="Full Name of the candidate")
-    str_currentResidence: str  = Field(..., description="Current residence of the candidate")
-    str_contactNumber: str = Field(..., description="Contact number including the country code")
-    str_linkedInProfile: str | None = Field(None, description="LinkedIn Profile URL")
-    str_githubProfile: str | None = Field(None, description="Github profile link")
-    str_customProfile: str | None = Field(None, description="Any other custom Profile Link")
-    str_aboutCandidate: str = Field(..., description="About the candidate")
-    list_skills: list[Skill] = Field(..., description="List of skills")
-    list_workExperience: list[Experience] = Field(..., description="List of work experience")
-    list_education: list[Education] = Field(..., description="List of education details")
-    list_projects: list[Project] = Field(..., description="List of projects that are relevant to the job application")
-    list_achievements: list[str] = Field([], description="List of achievements including certifications, papers, patents, talks etc.")
 
 class ResumeBuilderInput(BaseModel):
     """
     """
     str_jobDescription:str = Field(..., description="Job description for which the resume is being built")
     str_additionalInstructionsAndNotes: str | None = Field(None, description="Any additional instructions or notes for the resume builder")
+    str_profileName: str = Field(..., description="Candidate name")
 
 
 class ResumeBuilder:
@@ -78,4 +21,14 @@ class ResumeBuilder:
         """
         Build the resume.
         """
-        ...
+        local_obj_profileData = self._get_profile_data(param_obj_input.str_profileName)
+
+
+    
+    def _get_profile_data(self, param_str_profileName: str) -> Profile:
+        """
+        Get the profile data from the database.
+        """
+        local_obj_profileDataBase = ProfileDataBase()
+        local_obj_profile = local_obj_profileDataBase.read(param_str_profileName)
+        return local_obj_profile
