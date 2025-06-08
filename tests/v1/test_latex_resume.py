@@ -1,4 +1,4 @@
-from resume_builder_v1.templates import ResumeTemplates
+from resume_builder_v1.exporter.exporter import Exporter, ExporterInput
 from resume_builder_v1.builder.builder import CandidateResume, Skill, Experience, Education, Project
 
 def get_sample_candidate_resume() -> CandidateResume:
@@ -19,15 +19,15 @@ def get_sample_candidate_resume() -> CandidateResume:
         ),
         list_skills=[
             Skill(
-                str_sectionTitle="Programming Languages",
-                list_skills=["Python", "Java", "C#", "TypeScript", "SQL"]
+                str_sectionTitle="Languages",
+                list_skills=["Python", "Java", "C\#", "TypeScript", "SQL"]
             ),
             Skill(
-                str_sectionTitle="Frameworks & Tools",
+                str_sectionTitle="Frameworks",
                 list_skills=["React", "Redux", "Spring Boot", ".NET", "Hibernate", "Jenkins", "Git"]
             ),
             Skill(
-                str_sectionTitle="Cloud & DevOps",
+                str_sectionTitle="Cloud \& DevOps",
                 list_skills=["AWS", "Cloud Foundry", "Docker", "CI/CD"]
             ),
         ],
@@ -104,8 +104,11 @@ def get_sample_candidate_resume() -> CandidateResume:
 def test_simple_template():
     
     local_obj_candidateResume = get_sample_candidate_resume()
-    local_obj_resumeBuilder = ResumeTemplates().get_template("simple")
-    local_str_resume = local_obj_resumeBuilder.build(local_obj_candidateResume)
-    with open('resume.tex', "w") as local_file_resumeFile:
-        local_file_resumeFile.write(local_str_resume)
+    
+    local_obj_exporterInput = ExporterInput(
+        str_templateName="simple",
+        obj_resume=local_obj_candidateResume,
+        str_exportPath=".output"
+    )
+    local_obj_exporter = Exporter().export(local_obj_exporterInput)
 
