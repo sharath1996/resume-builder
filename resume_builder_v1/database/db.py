@@ -26,6 +26,7 @@ class AcademicProject(Project):
 class ProfessionalProject(Project):
     str_companyName:str|None = Field(None, description="Name of the company")
     str_designation:str|None = Field(None, description="Name of the designation")
+
 class WorkExperience(BaseModel):
     str_companyName:str|None = Field(None, description="Name of the company")
     dateTime_startDate:str|None = Field(None, description="Start date of the role")
