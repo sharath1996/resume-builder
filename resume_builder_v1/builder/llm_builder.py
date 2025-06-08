@@ -1,6 +1,7 @@
-from .types import CandidateDetails, CandidateResume, Skill, Experience, Education, Project
+from .types import CandidateDetails, CandidateResume, Skills, WorkExperiences, Educations, Projects, Achivements
 from ..database.db import Profile
 from pydantic import BaseModel, Field
+from ..llm import LLMFactory
 
 
 class LLMBuilderInput(BaseModel):
@@ -27,11 +28,25 @@ class LLMBuilder:
         local_list_skills = BuildSkills().build(param_obj_input)
         local_list_experience = BuildExperience().build(param_obj_input)
         local_list_education = BuildEducation().build(param_obj_input)
-        local_list_projects = BuildProjects().build(param_obj_input)
-        local_list_achievements = BuildAchievements().build(param_obj_input)
-        ...
+        # local_list_projects = BuildProjects().build(param_obj_input)
+        # local_list_achievements = BuildAchievements().build(param_obj_input)
         
+        local_obj_candidateResume = CandidateResume(
+            str_fullName=local_obj_candidateDetails.str_fullName,
+            str_currentResidence=local_obj_candidateDetails.str_currentResidence,
+            str_contactNumber=local_obj_candidateDetails.str_contactNumber,
+            str_linkedInProfile=local_obj_candidateDetails.str_linkedInProfile,
+            str_githubProfile=local_obj_candidateDetails.str_githubProfile,
+            str_customProfile=local_obj_candidateDetails.str_customProfile,
+            str_aboutCandidate=local_obj_candidateDetails.str_aboutCandidate,
+            list_skills = local_list_skills.list_skills,
+            list_workExperience = local_list_experience.list_workExperience,
+            list_education = local_list_education.list_education,
+            list_projects = [],  # TODO: Uncomment when BuildProjects is implemented
+            list_achievements = []  # TODO: Uncomment when BuildAchievements is implemented
+            )
         
+        return local_obj_candidateResume
 
 class BuildCandidateDetails:
 
@@ -61,38 +76,137 @@ class BuildSkills:
     def __init__(self):
         ...
     
-    def build(self, param_obj_input:LLMBuilderInput) -> list[Skill]:
-        ...
+    def build(self, param_obj_input:LLMBuilderInput) -> Skills:
+        
+        local_list_availableSkills = []
+
+        for local_obj_workExperience in param_obj_input.obj_profile.list_workExperience:
+            local_list_availableSkills.extend(local_obj_workExperience.list_skills)
+        
+        local_list_availableSkills = list(set(local_list_availableSkills))
+
+        if param_obj_input.str_jobDescription is not None:
+            local_obj_skills = self._get_skills_relevant_to_job(local_list_availableSkills, param_obj_input.str_jobDescription)
+        else:
+            local_obj_skills = Skills(list_skills=local_list_availableSkills)
+        # Ensure the skills are unique
+        
+        return local_obj_skills
+    
+    def _get_skills_relevant_to_job(self, param_list_availableSkills:list, param_str_jobDescription:str):
+
+        local_obj_llm = LLMFactory.get_llm_interface()
+        
+        local_str_systemPrompt = """
+        You are a helpful resume writer assistant, who will be responsible to figure out the skills that are needed for the given job description and available skills
+        You will be given a job description and list of the skills that candidate has.
+        Your job is to group the skills into multiple sections such as Languages, tools, frameworks and so on (These are not limited to). 
+        Th sections should be aligned to the given job description.
+        You should be forming the sections and send the responses in json format.
+        There might be duplicate of skills could be available.
+
+        This resume will be written in latex, hence make sure that your responses are compatible in latex 
+        And use the special characters with appropriate syntax (such as # should be written as \# , & with \&)
+        
+        """
+
+        local_str_userPrompt = f"Given the job description : \n {param_str_jobDescription}"
+
+        local_str_userPrompt += f"Applicant's skills : \n {", ".join(param_list_availableSkills)}"
+
+        local_obj_llm.clear_messages()
+        local_obj_llm.add_system_prompt(local_str_systemPrompt)
+        local_obj_llm.add_user_prompt(local_str_userPrompt)
+        local_obj_skills = local_obj_llm.get_structured_output(Skills)
+
+        return local_obj_skills
 
 class BuildExperience:
 
     def __init__(self):
         ...
     
-    def build(self, param_obj_input:LLMBuilderInput) -> list[Experience]:
-        ...
+    def build(self, param_obj_input:LLMBuilderInput) -> WorkExperiences:
+        """
+        Build work experiences from the input data using LLM.
+        """
+        local_obj_llm = LLMFactory.get_llm_interface()
+        local_str_systemPrompt = """
+        You are a helpful resume writer assistant. Extract and structure the candidate's work experience from the provided profile. 
+        Group responsibilities, roles, and achievements for each position. Return the result in JSON format compatible with the WorkExperiences pydantic model. 
+        Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
+        """
+        local_str_userPrompt = f"Candidate profile: {str(param_obj_input.obj_profile.list_workExperience)}"
+        local_obj_llm.clear_messages()
+        local_obj_llm.add_system_prompt(local_str_systemPrompt)
+        local_obj_llm.add_user_prompt(local_str_userPrompt)
+        local_obj_experience = local_obj_llm.get_structured_output(WorkExperiences)
+        return local_obj_experience
 
 class BuildEducation:
 
     def __init__(self):
         ...
     
-    def build(self, param_obj_input:LLMBuilderInput) -> list[Education]:
-        ...
+    def build(self, param_obj_input:LLMBuilderInput) -> Educations:
+        """
+        Build education details from the input data using LLM.
+        """
+        local_obj_llm = LLMFactory.get_llm_interface()
+        local_str_systemPrompt = """
+        You are a helpful resume writer assistant. Extract and structure the candidate's education history from the provided profile. 
+        Return the result in JSON format compatible with the Educations pydantic model. 
+        Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
+        """
+        local_str_userPrompt = f"Candidate profile: {param_obj_input.obj_profile.list_education}"
+        local_obj_llm.clear_messages()
+        local_obj_llm.add_system_prompt(local_str_systemPrompt)
+        local_obj_llm.add_user_prompt(local_str_userPrompt)
+        local_obj_education = local_obj_llm.get_structured_output(Educations)
+        return local_obj_education
 
+# TODO: This whole class needs to be refactored to use LLM for building projects, this is not at all the right way to do it.
 class BuildProjects:
 
     def __init__(self):
         ...
     
-    def build(self, param_obj_input:LLMBuilderInput) -> list[Project]:
-        ...
+    def build(self, param_obj_input:LLMBuilderInput) -> Projects:
+        """
+        Build projects from the input data using LLM.
+        """
+        local_obj_llm = LLMFactory.get_llm_interface()
+        local_str_systemPrompt = """
+        You are a helpful resume writer assistant. Extract and structure the candidate's projects from the provided profile. 
+        Return the result in JSON format compatible with the Projects pydantic model. 
+        Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
+        """
+        local_str_userPrompt = f"Candidate profile: {param_obj_input.obj_profile.list_professionalProjects}"
+        local_obj_llm.clear_messages()
+        local_obj_llm.add_system_prompt(local_str_systemPrompt)
+        local_obj_llm.add_user_prompt(local_str_userPrompt)
+        local_obj_projects = local_obj_llm.get_structured_output(Projects)
+        return local_obj_projects
 
+# TODO: This whole class needs to be refactored to use LLM for building achievements, this is not at all the right way to do it.
 class BuildAchievements:
 
     def __init__(self):
         ...
     
-    def build(self, param_obj_input:LLMBuilderInput) -> list[str]:
-        # Assuming achievements are stored as a list of strings in the Profile
-        ...
+    def build(self, param_obj_input:LLMBuilderInput) -> Achivements:
+        """
+        Build achievements from the input data using LLM.
+        """
+        local_obj_llm = LLMFactory.get_llm_interface()
+        local_str_systemPrompt = """
+        You are a helpful resume writer assistant. Extract and structure the candidate's achievements, awards, and certifications from the provided profile. 
+        Return the result in JSON format compatible with the Achivements pydantic model. 
+        Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
+        """
+        local_str_userPrompt = f"Candidate profile: {param_obj_input.obj_profile}"
+        local_obj_llm.clear_messages()
+        local_obj_llm.add_system_prompt(local_str_systemPrompt)
+        local_obj_llm.add_user_prompt(local_str_userPrompt)
+        local_obj_achievements = local_obj_llm.get_structured_output(Achivements)
+        return local_obj_achievements

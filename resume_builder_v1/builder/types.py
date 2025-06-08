@@ -51,13 +51,28 @@ class CandidateDetails(BaseModel):
     str_customProfile: str | None = Field(None, description="Any other custom Profile Link")
     str_aboutCandidate: str = Field(..., description="About the candidate")
 
-class CandidateResume(CandidateDetails):
+class Skills(BaseModel):
+    list_skills: list[Skill] = Field(..., description="List of skills")
+
+class WorkExperiences(BaseModel):
+    list_workExperience: list[Experience] = Field(..., description="List of work experience")
+
+class Educations(BaseModel):
+    list_education: list[Education] = Field(..., description="List of education details")
+
+class Projects(BaseModel):
+    list_projects: list[Project] = Field(..., description="List of projects that are relevant to the job application")
+
+class Achivements(BaseModel):
+    list_achievements: list[str] = Field([], description="List of achievements including certifications, papers, patents, talks etc.")
+class CandidateResume(CandidateDetails, Skills, WorkExperiences, Educations, Projects, Achivements):
     """
     Base class for resume input data.
     This class is used to define the structure of the resume input data.
     """
-    list_skills: list[Skill] = Field(..., description="List of skills")
-    list_workExperience: list[Experience] = Field(..., description="List of work experience")
-    list_education: list[Education] = Field(..., description="List of education details")
-    list_projects: list[Project] = Field(..., description="List of projects that are relevant to the job application")
-    list_achievements: list[str] = Field([], description="List of achievements including certifications, papers, patents, talks etc.")
+    ...
+    
+    
+    
+    
+    
