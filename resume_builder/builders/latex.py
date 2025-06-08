@@ -14,16 +14,7 @@ class LatexResumeBuilder:
     def generate(self, param_dict_components:dict, )->None:
 
         local_str_latex = self._build(param_dict_components)
-        with open('resume.tex', 'w') as local_obj_file:
-            local_obj_file.write(local_str_latex)
         
-        # delete the file
-        local_obj_process = subprocess.Popen(["pdflatex","resume.tex"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = local_obj_process.communicate()
-
-        print(stdout.decode())
-        if stderr:
-            print(f"Error : {stderr.decode()}")
 
     
     def _build(self, param_dict_resumeComponents:dict)->str:
