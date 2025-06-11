@@ -71,6 +71,7 @@ class WorkExperienceUI:
     def _update_work_experiences(self, param_list_workExperience:list[WorkExperience]):
         local_obj_profile = self._obj_profile.read(self._str_profileName)
         local_obj_profile.list_workExperience = param_list_workExperience
+        self._obj_profile.update(self._str_profileName, local_obj_profile)
         st.info("Work Experience updated successfully")
 
     def _create_new_work_experience(self, param_obj_workExperience:WorkExperience):

@@ -28,7 +28,7 @@ class LLMBuilder:
         local_list_skills = BuildSkills().build(param_obj_input)
         local_list_experience = BuildExperience().build(param_obj_input)
         local_list_education = BuildEducation().build(param_obj_input)
-        # local_list_projects = BuildProjects().build(param_obj_input)
+        local_list_projects = BuildProjects().build(param_obj_input)
         # local_list_achievements = BuildAchievements().build(param_obj_input)
         
         local_obj_candidateResume = CandidateResume(
@@ -42,7 +42,7 @@ class LLMBuilder:
             list_skills = local_list_skills.list_skills,
             list_workExperience = local_list_experience.list_workExperience,
             list_education = local_list_education.list_education,
-            list_projects = [],  # TODO: Uncomment when BuildProjects is implemented
+            list_projects = local_list_projects.list_projects,
             list_achievements = []  # TODO: Uncomment when BuildAchievements is implemented
             )
         
@@ -165,7 +165,7 @@ class BuildEducation:
         local_obj_education = local_obj_llm.get_structured_output(Educations)
         return local_obj_education
 
-# TODO: This whole class needs to be refactored to use LLM for building projects, this is not at all the right way to do it.
+
 class BuildProjects:
 
     def __init__(self):
@@ -178,10 +178,14 @@ class BuildProjects:
         local_obj_llm = LLMFactory.get_llm_interface()
         local_str_systemPrompt = """
         You are a helpful resume writer assistant. Extract and structure the candidate's projects from the provided profile. 
+        You need to select the top 3-4 projects based on the relevance to the job description.
+        You need to create the description of the project, highlighting the technical mastery, leadership and impact of the project.
         Return the result in JSON format compatible with the Projects pydantic model. 
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
         """
-        local_str_userPrompt = f"Candidate profile: {param_obj_input.obj_profile.list_professionalProjects}"
+        local_str_userPrompt = ""
+        for local_obj_project in param_obj_input.obj_profile.list_professionalProjects:
+            local_str_userPrompt += f"Project: {local_obj_project.str_projectTitle}, Description: {local_obj_project.str_projectContents}\n"
         local_obj_llm.clear_messages()
         local_obj_llm.add_system_prompt(local_str_systemPrompt)
         local_obj_llm.add_user_prompt(local_str_userPrompt)
@@ -204,7 +208,11 @@ class BuildAchievements:
         Return the result in JSON format compatible with the Achivements pydantic model. 
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
         """
-        local_str_userPrompt = f"Candidate profile: {param_obj_input.obj_profile}"
+        local_str_userPrompt = ""
+
+        # Papers
+        for local_obj_paper in param_obj_input.obj_profile.list_papers:
+            local_str_userPrompt += f"Paper: {local_obj_paper.str_paperTile}, Description: {local_obj_paper.str_abstract},\n"
         local_obj_llm.clear_messages()
         local_obj_llm.add_system_prompt(local_str_systemPrompt)
         local_obj_llm.add_user_prompt(local_str_userPrompt)

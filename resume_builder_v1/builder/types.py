@@ -39,7 +39,7 @@ class Project(BaseModel):
     This class is used to define the structure of project data.
     """
     str_projectTitle: str | None = Field(None, description="Title of the project")
-    list_projectContents: list[str] | None = Field(None, description="Description of the project in detail")
+    list_projectContents: list[str] | None = Field(None, description="Two to three lines describing the project and its relevance to the job application")
 
 class CandidateDetails(BaseModel):
 
