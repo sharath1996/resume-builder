@@ -4,16 +4,15 @@ from ...builder.types import CandidateResume
 class ResumePreview:
 
     def __init__(self):
-        ...
+        ... 
     
     @st.fragment
-    def preview_and_export(self, param_obj_resume:CandidateResume):
+    def preview_and_export(self, param_obj_resume:CandidateResume)-> CandidateResume:
         """
         Preview and edit the resume, before finalizing the export.
         Allows the user to edit all contents of the resume interactively.
         """
         local_obj_resume = param_obj_resume
-        st.header("Resume Preview & Edit")
         # Personal Details
         with st.expander("Applicant Details", expanded=False):
             local_obj_resume.str_fullName = st.text_input("Full Name", local_obj_resume.str_fullName, key="full_name")
@@ -72,14 +71,6 @@ class ResumePreview:
         
         return local_obj_resume
 
-    def update_to_database(self, param_obj_resume:CandidateResume):
-        """
-        Update the resume in the database.
-        This function would typically involve saving the resume data to a database or a file.
-        """
-        # Placeholder for database update logic
-        # You can implement the actual database update logic here, e.g., using SQLAlchemy or any other ORM.
-        st.success("Resume updated successfully!")
     
     def export(self, param_obj_resume:CandidateResume):
         """
@@ -89,6 +80,7 @@ class ResumePreview:
         # Placeholder for export logic
         local_obj_exporter = ResumeExporter()
         local_obj_exporter.export(param_obj_resume)
+
         # You can implement the actual export logic here, e.g., using a library like ReportLab or python-docx.
 
 

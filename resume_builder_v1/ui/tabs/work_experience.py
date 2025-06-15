@@ -30,7 +30,7 @@ class WorkExperienceUI:
                     local_obj_workExperience.dateTime_endDate = st.date_input("End Date", value=local_obj_endDate, key=f"{local_str_keyGenValue}_work_end_date").strftime("%Y-%m-%d")
                     local_obj_workExperience.dateTime_startDate = st.date_input("Start Date", value=local_dateTime_startDate, key=f"{local_str_keyGenValue}_work_start_date").strftime("%Y-%m-%d")
                     local_obj_workExperience.str_place = st.text_input("Place of Work", value=local_obj_workExperience.str_place, key=f"{local_str_keyGenValue}_work_experience_place")
-                    local_obj_workExperience.str_description = st.text_input("Description of Roles and Responsibilities", value=local_obj_workExperience.str_description, key=f"{local_str_keyGenValue}_work_experience_description")
+                    local_obj_workExperience.str_description = st.text_area("Description of Roles and Responsibilities", value=local_obj_workExperience.str_description, key=f"{local_str_keyGenValue}_work_experience_description")
                     local_obj_workExperience.list_achievements = st.text_area("Top achievements (Seperated by newline)", value="\n".join(local_obj_workExperience.list_achievements), key=f"{local_str_keyGenValue}_work_experience_achievements").split("\n")
                     local_obj_workExperience.list_skills = st.text_area("List of skills (Seperated by ',')", value = ",".join(local_obj_workExperience.list_skills), key=f"{local_str_keyGenValue}_work_skills").split(",")
             local_button_updateExisting = st.button("Update work expereince", key="update_work_experience")  
@@ -52,7 +52,7 @@ class WorkExperienceUI:
             local_obj_workExperience.dateTime_endDate = st.date_input("End Date", value="today", key="new_work_experience_end_date").strftime("%Y-%m-%d")
             local_obj_workExperience.dateTime_startDate = st.date_input("Start Date", value="today", key="new_work_experience_start_date").strftime("%Y-%m-%d")
             local_obj_workExperience.str_place = st.text_input("Place of Work", value=local_obj_workExperience.str_place, key="new_work_experience_place")
-            local_obj_workExperience.str_description = st.text_input("Description of Roles and Responsibilities", value=local_obj_workExperience.str_description, key="new_work_experience_description")
+            local_obj_workExperience.str_description = st.text_area("Description of Roles and Responsibilities", value=local_obj_workExperience.str_description, key="new_work_experience_description")
             local_obj_workExperience.list_achievements = st.text_area("Top achievements (Seperated by newline)", value="\n".join(local_obj_workExperience.list_achievements), key='new_work_experience_achievements').split("\n")
             local_obj_workExperience.list_skills = st.text_area("List of skills (Seperated by ',')", value = ",".join(local_obj_workExperience.list_skills), key='new_work_experience_skills').split(",")
             if local_obj_workExperience.dateTime_endDate == datetime.now().strftime("%Y-%m-%d"):

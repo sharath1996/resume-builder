@@ -66,6 +66,10 @@ class JobAppUI:
             local_obj_resume = self._get_existing_resume(local_obj_jobApp.str_uniqueJobTitle)
             if local_obj_resume:
                 local_obj_updatedResume = self.preview_and_export(local_obj_resume)
+                local_obj_button = st.button("Save Updated Resume", key="save_updated_resume_post_preview")
+                if local_obj_button:
+                    self._update_the_db(local_obj_updatedResume, local_obj_jobApp)
+
 
             
         
@@ -109,7 +113,7 @@ class JobAppUI:
                 if local_obj_app.str_uniqueJobTitle == param_obj_jobAPP.str_uniqueJobTitle:
                     local_obj_app.str_jobDescriptions = param_obj_jobAPP.str_jobDescriptions
                     local_obj_app.dict_jsonResume = param_obj_resume.model_dump()
-                    st.info("Existing application updated successfully!")
+                    st.toast("Existing application updated successfully!")
                     break
             else:
                 # If not found, append new job application
@@ -119,7 +123,7 @@ class JobAppUI:
                     dict_jsonResume=param_obj_resume.model_dump()
                 )
                 local_obj_existingJobApp.append(local_obj_newJobApp)
-                st.info("New job application added successfully!")
+                st.toast("New job application added successfully!")
         else:
             # Create new job application
             local_obj_jobApp = JobApplications(
@@ -129,13 +133,12 @@ class JobAppUI:
             )
             local_obj_existingJobApp = [local_obj_jobApp]
             setattr(local_obj_profile, 'list_jobApps', local_obj_existingJobApp)
-            st.info("Your First job application added successfully!")
+            st.toast("Your First job application added successfully!")
         # Update the profile with the job applications
         self._obj_profileAPIs.update(
             self._str_profileName,
             local_obj_profile
         )
-        st.write(f"Total Job Applications: {len(getattr(local_obj_profile, 'list_jobApps', []))}")
 
     def _get_existing_resume(self, param_str_uniqueJobTitle:str) -> CandidateResume:
         """
@@ -161,14 +164,13 @@ class JobAppUI:
             st.error(f"Error retrieving resume for {param_str_uniqueJobTitle} - {e}")
             return None
     
-    def preview_and_export(self, param_obj_resume)-> CandidateResume:
+    def preview_and_export(self, param_obj_resume) -> CandidateResume:
         """
         Preview and export the generated resume.
         """
         st.subheader("Preview Resume")
         local_obj_resumePreview = ResumePreview()
-        local_obj_resume = local_obj_resumePreview.preview_and_export(param_obj_resume)
-        return local_obj_resume
+        return local_obj_resumePreview.preview_and_export(param_obj_resume)
 
 
 
