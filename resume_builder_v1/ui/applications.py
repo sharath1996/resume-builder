@@ -65,7 +65,7 @@ class JobAppUI:
         if not st.session_state["bool_isResumeGenerating"]:
             local_obj_resume = self._get_existing_resume(local_obj_jobApp.str_uniqueJobTitle)
             if local_obj_resume:
-                self.preview_and_export(local_obj_resume)
+                local_obj_updatedResume = self.preview_and_export(local_obj_resume)
 
             
         
@@ -161,13 +161,14 @@ class JobAppUI:
             st.error(f"Error retrieving resume for {param_str_uniqueJobTitle} - {e}")
             return None
     
-    def preview_and_export(self, param_obj_resume):
+    def preview_and_export(self, param_obj_resume)-> CandidateResume:
         """
         Preview and export the generated resume.
         """
         st.subheader("Preview Resume")
         local_obj_resumePreview = ResumePreview()
-        local_obj_resumePreview.preview_and_export(param_obj_resume)
+        local_obj_resume = local_obj_resumePreview.preview_and_export(param_obj_resume)
+        return local_obj_resume
 
 
 
