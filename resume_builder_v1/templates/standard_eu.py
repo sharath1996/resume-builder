@@ -69,9 +69,9 @@ class StandardEU(BaseResume):
         % Use with \color{Name}
         % Can wrap entire heading with {\color{accent} [...] }
         \usepackage{xcolor}
-        \definecolor{accentTitle}{HTML}{0e6e55}
-        \definecolor{accentText}{HTML}{0e6e55}
-        \definecolor{accentLine}{HTML}{a16f0b}
+        \definecolor{accentTitle}{HTML}{314C9D}
+        \definecolor{accentText}{HTML}{314C9D}
+        \definecolor{accentLine}{HTML}{1E1C66}
 
         % Misc. Options
         \pagestyle{fancy}
@@ -195,11 +195,11 @@ class StandardEU(BaseResume):
         if param_obj_input.str_contactNumber:
             local_list_details.append(f"\\href{{tel:{param_obj_input.str_contactNumber}}}{{\\raisebox{{-0.05\\height}} \\faPhone\\ {param_obj_input.str_contactNumber}}}")
         if param_obj_input.str_linkedInProfile:
-            local_list_details.append(f"\\href{{{param_obj_input.str_linkedInProfile}}}{{\\raisebox{{-0.15\\height}} \\faLinkedin\\ {param_obj_input.str_linkedInProfile}}}")
+            local_list_details.append(f"\\href{{{param_obj_input.str_linkedInProfile}}}{{\\raisebox{{-0.15\\height}} \\faLinkedin\\ LinkedIn}}")
         if param_obj_input.str_githubProfile:
-            local_list_details.append(f"\\href{{{param_obj_input.str_githubProfile}}}{{\\raisebox{{-0.15\\height}} \\faGithub\\ {param_obj_input.str_githubProfile}}}")
+            local_list_details.append(f"\\href{{{param_obj_input.str_githubProfile}}}{{\\raisebox{{-0.15\\height}} \\faGithub\\ GitHub}}")
         if param_obj_input.str_customProfile:
-            local_list_details.append(f"\\href{{{param_obj_input.str_customProfile}}}{{\\raisebox{{-0.15\\height}} \\faGlobe\\ {param_obj_input.str_customProfile}}}")
+            local_list_details.append(f"\\href{{{param_obj_input.str_customProfile}}}{{\\raisebox{{-0.15\\height}} \\faGlobe\\ Website}}")
         local_str_details = " ~ | ~ ".join(local_list_details)
         
         return f"\\documentTitle{{{param_obj_input.str_fullName}}}{{{local_str_details}}}\n\n"

@@ -10,7 +10,7 @@ class ColorfulEU(BaseResume):
         """
         Build the resume in LaTeX format using the simple template.
         """
-        local_str_latex = self._add_header()
+        local_str_latex = self._add_header(param_obj_input.str_fullName)
         local_str_latex += "\n\\begin{document}\n"
         local_str_latex += self._add_candidate_details(param_obj_input)
         local_str_latex += self._add_summary(param_obj_input)
@@ -26,11 +26,11 @@ class ColorfulEU(BaseResume):
 
         return local_str_latex
 
-    def _add_header(self) -> str:
+    def _add_header(self, param_str_profileName:str) -> str:
         """
         Add the header for the resume.
         """
-        return dedent(r"""
+        local_str_header =  dedent(r"""
         \documentclass[10pt, letterpaper]{article}
 
         % Packages:
@@ -52,8 +52,8 @@ class ColorfulEU(BaseResume):
         \usepackage{fontawesome5} % for using icons
         \usepackage{amsmath} % for math
         \usepackage[
-            pdftitle={John Doe's CV},
-            pdfauthor={John Doe},
+            pdftitle={ProfileName's CV},
+            pdfauthor={ProfileName},
             pdfcreator={LaTeX with RenderCV},
             colorlinks=true,
             urlcolor=primaryColor
@@ -89,7 +89,7 @@ class ColorfulEU(BaseResume):
         \makeatletter
         \let\ps@customFooterStyle\ps@plain % Copy the plain style to customFooterStyle
         \patchcmd{\ps@customFooterStyle}{\thepage}{
-            \color{gray}\textit{\small John Doe - Page \thepage{} of \pageref*{LastPage}}
+            \color{gray}\textit{\small ProfileName - Page \thepage{} of \pageref*{LastPage}}
         }{}{} % replace number by desired string
         \makeatother
         \pagestyle{customFooterStyle}
@@ -199,42 +199,47 @@ class ColorfulEU(BaseResume):
 
         % new command for external links:
         \renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
-                            """)
+        """)
+        # Replace ProfileName with the actual profile name
+        local_str_header = local_str_header.replace("ProfileName", param_str_profileName)
+        return local_str_header
     
     def _add_candidate_details(self, param_obj_input: CandidateResume) -> str:
         """
         Add the candidate's details to the resume.
         """
-        # Render the header block as in template/resume.tex, but with colorful styling if needed
+        # Build contact/profile lines only if the fields are non-empty
+        contact_lines = []
+        if param_obj_input.str_currentResidence:
+            contact_lines.append(
+                rf"\mbox{{{{\footnotesize\faMapMarker*}}\hspace*{{0.13cm}}{param_obj_input.str_currentResidence}}}%"
+            )
+        if param_obj_input.str_contactNumber:
+            contact_lines.append(
+                rf"\mbox{{\hrefWithoutArrow{{tel:{param_obj_input.str_contactNumber}}}{{{{\footnotesize\faPhone*}}\hspace*{{0.13cm}}{param_obj_input.str_contactNumber}}}}}%"
+            )
+        if param_obj_input.str_customProfile:
+            contact_lines.append(
+                rf"\mbox{{\hrefWithoutArrow{{{param_obj_input.str_customProfile}}}{{{{\footnotesize\faLink}}\hspace*{{0.13cm}}Profile}}}}%"
+            )
+        if param_obj_input.str_linkedInProfile:
+            contact_lines.append(
+                rf"\mbox{{\hrefWithoutArrow{{{param_obj_input.str_linkedInProfile}}}{{{{\footnotesize\faLinkedinIn}}\hspace*{{0.13cm}}LinkedIn}}}}%"
+            )
+        if param_obj_input.str_githubProfile:
+            contact_lines.append(
+                rf"\mbox{{\hrefWithoutArrow{{{param_obj_input.str_githubProfile}}}{{{{\footnotesize\faGithub}}\hspace*{{0.13cm}}GitHub}}}}%"
+            )
+        
+        # Join with spacing
+        contact_block = "\n\t\t\\kern 0.25 cm%\n\t\t".join(contact_lines)
         return dedent(rf'''
         \begin{{header}}
         \fontsize{{30 pt}}{{30 pt}}
         \textbf{{{param_obj_input.str_fullName}}}
-
         \vspace{{0.3 cm}}
-
         \normalsize
-        \mbox{{{{\footnotesize\faMapMarker*}}\hspace*{{0.13cm}}{param_obj_input.str_currentResidence}}}%
-        \kern 0.25 cm%
-        \AND%
-        \kern 0.25 cm%
-        \mbox{{\hrefWithoutArrow{{mailto:{param_obj_input.str_linkedInProfile or param_obj_input.str_customProfile or ''}}}{{{{\footnotesize\faEnvelope[regular]}}\hspace*{{0.13cm}}{param_obj_input.str_linkedInProfile or param_obj_input.str_customProfile or ''}}}}}%
-        \kern 0.25 cm%
-        \AND%
-        \kern 0.25 cm%
-        \mbox{{\hrefWithoutArrow{{tel:{param_obj_input.str_contactNumber}}}{{{{\footnotesize\faPhone*}}\hspace*{{0.13cm}}{param_obj_input.str_contactNumber}}}}}%
-        \kern 0.25 cm%
-        \AND%
-        \kern 0.25 cm%
-        \mbox{{\hrefWithoutArrow{{{param_obj_input.str_customProfile or ''}}}{{{{\footnotesize\faLink}}\hspace*{{0.13cm}}{param_obj_input.str_customProfile or ''}}}}}%
-        \kern 0.25 cm%
-        \AND%
-        \kern 0.25 cm%
-        \mbox{{\hrefWithoutArrow{{{param_obj_input.str_linkedInProfile or ''}}}{{{{\footnotesize\faLinkedinIn}}\hspace*{{0.13cm}}{param_obj_input.str_linkedInProfile or ''}}}}}%
-        \kern 0.25 cm%
-        \AND%
-        \kern 0.25 cm%
-        \mbox{{\hrefWithoutArrow{{{param_obj_input.str_githubProfile or ''}}}{{{{\footnotesize\faGithub}}\hspace*{{0.13cm}}{param_obj_input.str_githubProfile or ''}}}}}%
+        {contact_block}
     \end{{header}}
     \vspace{{0.3 cm - 0.3 cm}}
 ''')
@@ -265,7 +270,7 @@ class ColorfulEU(BaseResume):
         """
         local_str = "\n\\section{Experience}\n"
         for exp in param_obj_input.list_workExperience:
-            local_str += f"\\begin{{twocolentry}}{{{exp.str_location or ''}\\n\\\n{exp.str_startDate} -- {exp.str_endDate or 'Present'}}}\n  \\textbf{{{exp.str_companyName}}}, {exp.str_designation}\n  \\begin{{highlights}}\n"
+            local_str += f"\\begin{{twocolentry}}{{{exp.str_location or ''}\n\n{exp.str_startDate} -- {exp.str_endDate or 'Present'}}}\n  \\textbf{{{exp.str_companyName}}}, {exp.str_designation}\n  \\begin{{highlights}}\n"
             for resp in exp.list_rolesAndResponsibilities:
                 local_str += f"    \\item {resp}\n"
             local_str += "  \\end{highlights}\n\\end{twocolentry}\n\\vspace{0.2 cm}\n"
@@ -273,16 +278,19 @@ class ColorfulEU(BaseResume):
 
     def _add_education(self, param_obj_input: CandidateResume) -> str:
         """
-        Add the education section to the resume.
+        Add the education section to the resume using two columns.
         """
         local_str = "\n\\section{Education}\n"
         for edu in param_obj_input.list_education:
-            local_str += f"\\begin{{threecolentry}}{{\\textbf{{{edu.str_degree}}}}}{{{edu.str_startDate} -- {edu.str_endDate or ''}}}\n  \\textbf{{{edu.str_institutionName}}}, {edu.str_degree}\n  \\begin{{highlights}}\n"
+            # Left: Degree and Institution, Right: Dates
+            left_col = f"\\textbf{{{edu.str_degree}}}, {edu.str_institutionName}"
+            right_col = f"{edu.str_startDate} -- {edu.str_endDate or ''}"
+            local_str += f"\\begin{{twocolentry}}{{{right_col}}}\n  {left_col}\n  \\begin{{highlights}}\n"
             if edu.str_grade:
                 local_str += f"    \\item GPA: {edu.str_grade}\n"
             if edu.str_description:
                 local_str += f"    \\item \\textbf{{Coursework:}} {edu.str_description}\n"
-            local_str += "  \\end{highlights}\n\\end{threecolentry}\n"
+            local_str += "  \\end{highlights}\n\\end{twocolentry}\n"
         return local_str
 
     def _add_achievements(self, param_obj_input: CandidateResume) -> str:
@@ -297,15 +305,15 @@ class ColorfulEU(BaseResume):
 
     def _add_projects(self, param_obj_input: CandidateResume) -> str:
         """
-        Add the projects section to the resume.
+        Add the projects section to the resume using one column with bold titles.
         """
         local_str = "\n\\section{Projects}\n"
         for proj in param_obj_input.list_projects:
-            local_str += f"\\begin{{twocolentry}}{{{proj.str_projectTitle}}}\n  \\textbf{{{proj.str_projectTitle}}}\n  \\begin{{highlights}}\n"
+            local_str += f"\\begin{{onecolentry}}\n  \\textbf{{{proj.str_projectTitle}}}\n  \\begin{{highlights}}\n"
             if proj.list_projectContents:
                 for desc in proj.list_projectContents:
                     local_str += f"    \\item {desc}\n"
-            local_str += "  \\end{highlights}\n\\end{twocolentry}\n\\vspace{0.2 cm}\n"
+            local_str += "  \\end{highlights}\n\\end{onecolentry}\n\\vspace{0.2 cm}\n"
         return local_str
 
 
