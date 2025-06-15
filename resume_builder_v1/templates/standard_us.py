@@ -9,6 +9,7 @@ class StandardUS(BaseResume):
         local_str_latex = self._add_header()
         local_str_latex += "\n\\begin{document}\n"
         local_str_latex += self._add_candidate_details(param_obj_input)
+        local_str_latex += self._add_summary(param_obj_input)
         local_str_latex += self._add_skills(param_obj_input)
         local_str_latex += self._add_experience(param_obj_input)
         local_str_latex += self._add_education(param_obj_input)
@@ -61,20 +62,27 @@ class StandardUS(BaseResume):
         \setlength{\tabcolsep}{0in}
         % Sections formatting
         \titleformat{\section}{
+          \color{accentTitle}
           \vspace{-7pt}\scshape\raggedright\large\bfseries
-        }{}{0em}{}[\color{black}\titlerule \vspace{0pt}]
+        }{}{0em}{}[\color{accentLine}\titlerule \vspace{0pt}]
         % Ensure that generate pdf is machine readable/ATS parsable
         \pdfgentounicode=1
         \usepackage{xcolor} 
         \usepackage{hyperref}
+        \usepackage{xcolor}
+        \definecolor{accentTitle}{HTML}{143b66}
+        \definecolor{accentText}{HTML}{143b66}
+        \definecolor{accentLine}{HTML}{0e100b}
+        \definecolor{accentItem}{HTML}{0e100b}
+        \definecolor{accentSubheading}{HTML}{0B3954}
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%  Commands  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
         \newcommand{\resumeItem}[1]{
-          \item\small{{#1 \vspace{-3pt}}}
+          \item\small{\textcolor{accentItem}{#1} \vspace{-3pt}}
         }
         \newcommand{\resumeSubheading}[4]{
           \vspace{-3pt}\item
             \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
-              \textbf{#1} & \textbf{\small #2} \\
+              \textbf{\textcolor{accentSubheading}{#1}} & \textbf{\small #2} \\
               \textit{\small#3} & \textit{\small #4} \\
             \end{tabular*}\vspace{-7pt}
         }
@@ -87,7 +95,7 @@ class StandardUS(BaseResume):
         \newcommand{\resumeProjectHeading}[2]{
           \vspace{-3pt}\item
             \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
-              \textbf{#1} & \textbf{\small #2} \\
+              \textbf{\textcolor{accentSubheading}{#1}} & \textbf{\small #2} \\
             \end{tabular*}\vspace{-7pt}
         }
         \newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{0pt}}
@@ -98,13 +106,23 @@ class StandardUS(BaseResume):
         \newcommand{\resumeItemListStart}{\begin{itemize}}
         \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{0pt}}
         """)
+    def _add_summary(self, param_obj_input):
+        # This method is not used in the StandardUS class, but can be implemented if needed.
+        return dedent(rf"""
+        \section{{Summary}}
+        \vspace{{-0.1cm}}
+        \resumeItemListStart
+        \item{{{param_obj_input.str_aboutCandidate}}}
+        \resumeItemListEnd
+        """)
+    
 
     def _add_candidate_details(self, param_obj_input: CandidateResume):
         # ...implement similar to simple.py, using the varsha_resume.tex header layout...
         return dedent(rf"""
         
         \begin{{center}}
-            {{\Huge\scshape {param_obj_input.str_fullName}}} \\
+            {{\Huge\scshape \textcolor{{accentTitle}}{{{param_obj_input.str_fullName}}}}} \\
             \small
             \href{{tel:{param_obj_input.str_contactNumber}}}{{\raisebox{{-0.2\height}}\faPhone\  \underline{{{param_obj_input.str_contactNumber}}}}} ~
             \href{{mailto:{param_obj_input.str_linkedInProfile}}}{{\raisebox{{-0.2\height}}\faEnvelope\  \underline{{LinkedIn}}}} ~
@@ -121,8 +139,6 @@ class StandardUS(BaseResume):
             local_str += f"\\resumeSubheading{{{edu.str_institutionName}}}{{{edu.str_startDate} - {edu.str_endDate or ''}}}{{{edu.str_degree}}}{{{edu.str_location}}} \\newline\n"
             if edu.str_grade:
                 local_str += f"{{\\small GPA: {edu.str_grade} }}\n"
-            if edu.str_description:
-                local_str += f"\\newline\textit{{Relevant Coursework :}} {edu.str_description}\n"
         local_str += "\\resumeSubHeadingListEnd\n"
         return local_str
 
@@ -150,10 +166,12 @@ class StandardUS(BaseResume):
         return local_str
 
     def _add_skills(self, param_obj_input: CandidateResume):
-        local_str = "\n\\section{Technical Skills}\n    \\vspace{-0.3cm}\n    \\begin{itemize}\n    [leftmargin=0.15in, label={}]\\small{\\item{\n        "
+        local_str = "\n\\section{Technical Skills}\n\\begin{itemize}[leftmargin=0.15in, label={}]\n\\item \\small{"
+        skill_lines = []
         for skill in param_obj_input.list_skills:
-            local_str += f"\\textbf{{{skill.str_sectionTitle}}}{{: {', '.join(skill.list_skills)}}} \\textbf{{;}} "
-        local_str += "}}\\end{itemize}\n"
+            skill_lines.append(f"\\textbf{{{skill.str_sectionTitle}}}: {', '.join(skill.list_skills)}")
+        local_str += " \\textbf{;} ".join(skill_lines)
+        local_str += "}\n\\end{itemize}\n"
         return local_str
 
     def _add_achievements(self, param_obj_input: CandidateResume):

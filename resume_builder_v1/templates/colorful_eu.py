@@ -89,7 +89,7 @@ class ColorfulEU(BaseResume):
         \makeatletter
         \let\ps@customFooterStyle\ps@plain % Copy the plain style to customFooterStyle
         \patchcmd{\ps@customFooterStyle}{\thepage}{
-            \color{gray}\textit{\small ProfileName - Page \thepage{} of \pageref*{LastPage}}
+            \color{gray}\textit{\small ProfileName}
         }{}{} % replace number by desired string
         \makeatother
         \pagestyle{customFooterStyle}
@@ -289,13 +289,11 @@ class ColorfulEU(BaseResume):
         local_str = "\n\\section{Education}\n"
         for edu in param_obj_input.list_education:
             # Left: Degree and Institution, Right: Dates
-            left_col = f"\\textbf{{{edu.str_degree}}}, {edu.str_institutionName}"
+            left_col = f"\\textbf{{{edu.str_institutionName}}}, {edu.str_degree}"
             right_col = f"{edu.str_startDate} -- {edu.str_endDate or ''}"
             local_str += f"\\begin{{twocolentry}}{{{right_col}}}\n  {left_col}\n  \\begin{{highlights}}\n"
             if edu.str_grade:
                 local_str += f"    \\item GPA: {edu.str_grade}\n"
-            if edu.str_description:
-                local_str += f"    \\item \\textbf{{Coursework:}} {edu.str_description}\n"
             local_str += "  \\end{highlights}\n\\end{twocolentry}\n"
         return local_str
 

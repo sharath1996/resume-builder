@@ -1,4 +1,3 @@
-from .standard_eu import StandardEU
 from .base import BaseResume
 from .standard_us import StandardUS
 from .colorful_eu import ColorfulEU
@@ -12,17 +11,15 @@ class ResumeTemplates:
         """
         List all available resume templates.
         """
-        return ["standard_eu", "standard_us", "colorful_eu"]
+        return [ "standard", "colorful"]
     
     def get_template(self, param_str_templateName:str)->BaseResume:
 
-        if param_str_templateName == "standard_eu":
-            return StandardEU()
         
-        elif param_str_templateName == "standard_us":
+        if param_str_templateName == "standard":
             return StandardUS()
         
-        elif param_str_templateName == "colorful_eu":
+        elif param_str_templateName == "colorful":
             return ColorfulEU()
         
         else:
