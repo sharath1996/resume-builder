@@ -1,0 +1,227 @@
+[{
+  "_id": {
+    "$oid": "683b0892be22e8069d933c98"
+  },
+  "obj_profileInfo": {
+    "str_fullName": "Sharath Bala Subramanya",
+    "str_currentResidence": "Bengaluru, India",
+    "str_contactNumber": "+917829810699",
+    "str_linkedInProfile": "https://www.linkedin.com/in/sharath-b-s-196522141/",
+    "str_githubProfile": "https://github.com/sharath1996",
+    "str_customProfile": null,
+    "str_aboutCandidate": "Senior Engineer @ Analog Devices | Custom Tool Development, Software Development"
+  },
+  "list_workExperience": [
+    {
+      "str_companyName": "Analog Devices",
+      "dateTime_startDate": "2023-04-01",
+      "dateTime_endDate": "today",
+      "str_title": "Senior Engineer",
+      "str_place": null,
+      "str_description": "AI tools development for BMS software engineering teams ",
+      "list_achievements": [
+        "Design and development of AI toolchain for SW testing according to ISO26262.",
+        "Simulation models using physics informed neural network for battery insights"
+      ],
+      "list_skills": [
+        "Python",
+        " C",
+        " ML",
+        " Generative AI",
+        " LLMs"
+      ]
+    },
+    {
+      "str_companyName": "Analog Devices",
+      "dateTime_startDate": "2025-05-31",
+      "dateTime_endDate": "2023-03-31",
+      "str_title": "Engineer",
+      "str_place": null,
+      "str_description": "Tool development and testing",
+      "list_achievements": [
+        "Design and development of wBMS and BMS protocol simulators.",
+        "Design and development of RL based SW testing framework.",
+        ""
+      ],
+      "list_skills": [
+        "C",
+        " Python"
+      ]
+    },
+    {
+      "str_companyName": "Mercedes Benz Research and Development India Pvt Ltd",
+      "dateTime_startDate": "2019-04-01",
+      "dateTime_endDate": "2021-09-14",
+      "str_title": "Engineer",
+      "str_place": null,
+      "str_description": "Tool development for Common Powertrain Controller ECU",
+      "list_achievements": [
+        "CAN bus load analysis on test vehicles, investigating the cause of variations and fluctuations in bus load, predicting the bus load with additional frames on the network.",
+        "Multicore Scheduling Framework: To design n develop framework for scheduling of Powertrain Domain Controller ECU SWCs in Multicore platform by analyzing the dependencies between each modules and WCET. Generation of source code, reports for core allocation and Vehicle measurements.",
+        "ePowertrain Domain Controller IO testing: Designing and Development of test framework for interface testing of varios IOs such as 3/2 way valve, NTCs, FANs, Waterpump Coolant Level Sensors, Switches, Hall Effect Sensors by emulating the behavior on Arduino board using DACs and Relay board."
+      ],
+      "list_skills": [
+        "C",
+        " Python",
+        " Machine Learning"
+      ]
+    },
+    {
+      "str_companyName": "Mercedes Benz Research and Development India Pvt Ltd",
+      "dateTime_startDate": "2018-08-15",
+      "dateTime_endDate": "2019-04-01",
+      "str_title": "Graduate Engineering Trainee",
+      "str_place": null,
+      "str_description": "Software engineer for Common Power Train controllers",
+      "list_achievements": [
+        "Responsible for test framework development and test automation for Integrated In vehicle network Conformance testing for classical Powertrain n ePowertrain networks"
+      ],
+      "list_skills": [
+        "C",
+        " Internet Of Things"
+      ]
+    }
+  ],
+  "list_academicProjects": [],
+  "list_professionalProjects": [
+    {
+      "str_projectTitle": "Agents for Software Engineers",
+      "str_projectContents": "# Agents for Software Engineers\n\nA comprehensive initiative aimed at developing advanced AI-driven agents to significantly enhance the productivity of software engineers across all phases of the software development lifecycle.\n\n## Overview\n\nThe project addresses critical inefficiencies faced by software engineers, particularly in ancillary tasks such as requirement analysis, software planning, detailed design documentation, code annotation, and creation of test cases. By leveraging AI-driven automation, the project streamlines these repetitive yet essential tasks, empowering engineers to focus on high-value coding activities.  \n\n- **Project Scope:**  \n  Design and implement AI-based agents to automate routine software engineering activities, optimize workflows, and integrate seamlessly into the engineering ecosystem.\n\n- **Core Objectives:**  \n  - Establish a centralized, scalable knowledge base for storing and processing critical engineering artifacts, including requirements, design specifications, and coding guidelines.\n  - Develop sophisticated algorithms to analyze requirements and generate high-level architectural designs and detailed plans.\n  - Automate the generation of comprehensive design documentation with iterative feedback mechanisms for engineering teams.\n  - Create reusable, standards-compliant code templates to expedite development efforts.\n  - Implement robust mechanisms for auto-generating detailed code documentation.\n  - Automate the creation and execution of test plans and test cases, ensuring high-quality validation of software products.\n  - Deliver concise, aggregated notifications summarizing updates from multiple tools, eliminating notification fatigue and redundant information.\n\n## Technical Highlights\n\n- **Knowledge Graphs:**  \n  Developed and deployed knowledge graphs as the core data structure for managing interconnected, heterogeneous datasets. This enables efficient storage, retrieval, and querying of engineering-related information.\n  \n- **Advanced Graph Algorithms:**  \n  Utilized graph algorithms for dimensionality reduction and the creation of concise, actionable notifications by aggregating relevant updates.\n\n- **API Integration Framework:**  \n  Engineered harmonized APIs for seamless integration with widely used development tools such as Jira, Confluence, Jama Connect, GitHub, and Bitbucket. RESTful APIs ensure robust and secure communication across platforms.\n\n- **Custom AI Agent Framework:**  \n  Built a proprietary agent framework capable of interfacing with decentralized databases (e.g., MongoDB) and external tools to perform tasks such as software diagram generation, code synthesis, and test plan creation.\n\n- **Code and Design Automation:**  \n  - Auto-generated detailed software diagrams adhering to predefined templates set by engineering teams.  \n  - Implemented code generation mechanisms enforcing compliance with custom coding standards, exceeding current state-of-the-art capabilities.  \n\n- **Scalable Architecture:**  \n  Designed a decentralized database architecture for handling large-scale data with load balancing, ensuring high availability and reliability.  \n  Teams are provided dedicated access to Azure OpenAI services, reducing contention and maintaining performance scalability.  \n\n- **Asynchronous Processing:**  \n  Enabled asynchronous operation for AI agents, allowing engineers to work uninterrupted while complex outputs are generated in the background.\n\n- **Custom User Interfaces:**  \n  - Developed a user-friendly interface using Streamlit to enhance accessibility for engineering tasks.  \n  - Built a VS Code extension to act as a direct proxy for agent interactions, streamlining workflows.\n\n- **Deployment**\n\n  - The LLM are hosted on Azure AI foundry and respective actions are taken for observability and data monitoring scripts.\n  - Deployments are made through creating containers and are deployed on Openshift.\n  - Created CI/CD pipelines using GitHub Actions and Jenkins.\n  - Automated Unit tests to ensure the compabilities.\n  - As we have created a distributed system (Each team having their own instance of Database and API keys), these deployments are helpful.\n\n## Achievements\n\n- Demonstrated superior quality in auto-generated documentation and test cases, surpassing manually curated outputs.\n- Achieved a 20x reduction in task completion time, optimizing the efficiency of engineering teams.\n- Minimized cognitive overhead and distraction by consolidating information and reducing tool-switching during development workflows.\n- Successfully integrated with key engineering tools (Jira, Confluence, Jama Connect, GitHub, Bitbucket) for seamless information retrieval and aggregation.\n\n## Key Performance Indicators (KPIs)\n\n- **Scalability Metrics:**  \n  - Handled exponential growth in data volumes using decentralized databases.  \n  - Orchestrated workloads across team-specific environments while ensuring data security and compliance.\n\n- **Efficiency Metrics:**  \n  - Time savings per task, estimated at 20x compared to manual effort.  \n  - Reduction in redundant notifications by 90%, aggregating updates into actionable summaries.\n\n- **Accuracy and Adoption Metrics:**  \n  - Generated outputs with compliance exceeding 95% against engineering team standards.  \n  - Adoption rate tracked across engineering teams, showing consistent engagement and satisfaction.  \n\n## Impact\n\n- Delivered a unified interface consolidating information from multiple tools, enabling engineers to focus on core development activities.\n- Streamlined workflows enhanced productivity and contributed to higher-quality product outcomes.\n- The project set a benchmark for engineering efficiency through AI-driven automation.\n\n## Tools and Technologies\n\n- **Programming Languages:** Python, TypeScript  \n- **Development Tools:** Visual Studio Code, Ollama, Azure OpenAI Services, Neo4j, ChromaDB, MongoDB, OpenShift, GitHub, Bitbucket  \n- **Libraries/Frameworks:** PyTorch, OpenAI APIs, VS Code APIs, NetworkX",
+      "str_highlights": null,
+      "str_companyName": "Analog Devices",
+      "str_designation": "Senior Engineer"
+    },
+    {
+      "str_projectTitle": "Cell Models using Physics Informed Neural networks",
+      "str_projectContents": null,
+      "str_highlights": null,
+      "str_companyName": "Analog Devices",
+      "str_designation": "Senior Engineer"
+    },
+    {
+      "str_projectTitle": "Protocol Simulators for BMS and wBMS ",
+      "str_projectContents": "# Protocol Simulators for BMS and wBMS  \n\n## Overview  \n\n### Purpose  \n\nAccelerate software development and testing by eliminating dependencies on hardware availability for feature developement and validations.  \n\n### Core Concept  \n\n- **Wired BMS Simulation:** Models interactions between the host controller and daisy-chained SPI-based Battery Monitoring ICs (BMICs). Simulates real-time cell voltage, temperature, and diagnostic measurements to validate system behavior.  \n- **Wireless BMS Simulation:** Emulates interactions between network managers and the host controller, incorporating cell measurement simulations and fault injection for wireless communication protocols.  \n- **Test-Vector Generation:** Provides engineers with controlled test environments for protocol validation without requiring complex physical setups.  \n\n## Technical Highlights  \n\n### Wired BMS  \n\n- **Multi-Device Simulation:** Supports up to 20 functionally safe BMICs with real-time measurement simulations.  \n- **Hardware-In-the-Loop Interactions:** Enables controlled cell voltage, temperature, and pack current adjustments through MODBUS protocol over a PC interface.  \n- **Dedicated Processing Unit:** Executed on dual-core STM32MF4 MCUs, ensuring performance isolation for real-time simulations.  \n- **Fault Injection Framework:** Replicates fault scenarios as defined in BMIC safety manuals to enable rigorous validation of error-handling mechanisms.  \n\n### Wireless BMS  \n\n- **Network Virtualization:** Simulates wireless mesh networks with up to 50 nodes.  \n- **Performance Metrics:** Models key communication parameters such as Packet Delivery Ratio (PDR) and Received Signal Strength Indicator (RSSI) for every device pair.  \n- **Fault Simulation:** Implements network failures and degradation patterns conforming to ISO 26262 communication protocol standards.  \n- **Hardware Abstraction Layer (HAL) Compatibility:** Designed as modular C libraries, enabling execution across diverse hardware targets such as ATSAMv71Q21B, ADRF8xx devices, and PC-based simulations.  \n- **Automated Testing:** Python-based configuration utilities facilitate controlled fault injection scenarios for both BMICs and network communications.  \n\n## Key Performance Indicators (KPIs)  \n\n### **Scalability & Performance Metrics**  \n- **System Load Handling Capacity**: Measure the number of simultaneous simulations supported without performance degradation.  \n- **Simulation Execution Speed**: Time required to complete a full cycle of test case execution for wired and wireless BMS.  \n- **Latency in Response Time**: Evaluate how quickly the simulator responds to configuration changes and fault injections.  \n\n### **Accuracy & Validation Metrics**  \n- **Simulation Fidelity**: Percentage of simulated data accuracy compared to real hardware measurements.  \n- **Fault Injection Precision**: Success rate of induced faults correctly replicating real-world failure modes.  \n- **Protocol Conformance Rate**: Alignment of simulated communications with ISO 26262 and BMIC safety manual specifications.  \n\n### **Efficiency & Development Impact**  \n- **Hardware Reduction Factor**: Quantify the reduction in physical hardware required for testing (e.g., 24 boards → 1 board for wired BMS).  \n- **Setup Time Savings**: Reduction in time needed for engineers to configure testing environments compared to real hardware setups.  \n- **Debugging Efficiency**: Measure time savings in troubleshooting network and hardware issues using the simulator vs. physical boards.  \n\n### **Adoption & Usability Metrics**  \n- **User Adoption Rate**: Track the percentage of engineering teams actively using the simulator for development and testing.  \n- **Feedback Implementation Rate**: Percentage of user feedback incorporated into simulator updates.  \n- **Training Time for Engineers**: Average time required for engineers to become proficient in using the simulator effectively.  \n\n### **Reliability & System Robustness**  \n- **Simulator Uptime**: Percentage of time the system runs without failures or crashes.  \n- **Error Rate in Test Execution**: Measure cases where the simulation results diverge from expected outcomes.  \n- **Data Integrity and Security Compliance**: Evaluate how well decentralized databases handle secure access control and prevent unauthorized data leaks.  \n\n### **Impact on Product Development**  \n- **Time-to-Market Reduction**: Quantify how much simulator usage accelerates the delivery of new software features.  \n- **Inter-Team Collaboration Metrics**: Track improvements in the interaction between software and hardware engineering teams using simulation-driven workflows.  \n- **Customer Feedback Incorporation Rate**: Measure how quickly early feedback loops influence product development cycles.  \n\n## System Impact  \n\n### Developer Benefits  \n\n- **Optimized Development Workflow:** Eliminates hardware dependencies, allowing algorithm and protocol validation without physical setup.  \n- **Hardware Reduction:** Consolidates extensive hardware requirements—replacing 24 physical boards with a single simulation unit for wired BMS and reducing 34 boards to one for wireless BMS testing.  \n- **Efficient Debugging:** Mitigates setup complexities related to power supply configurations and interconnections.  \n- **Comprehensive Fault Testing:** Introduces fault injection mechanisms unavailable in standard hardware, improving overall test coverage.  \n- **Accelerated Product Delivery:** Reduces development cycles and time-to-market for software-defined battery management solutions.  \n- **Cross-Disciplinary Collaboration:** Enables seamless synchronization between software and hardware design teams, minimizing design iterations and silicon tapeouts.  \n- **Customer-Centric Development:** Provides early product feedback loops through engineering collaboration across teams and stakeholders.  \n\n## Tools and Technologies  \n\n### **Software Stack**  \n- **Programming Languages:** C, Python  \n- **Development Tools:** STM32Cube IDE, IAR Workbench, VSCode, Keil  \n\n### **Hardware Platforms**  \n- STM32F407, ADRF8xxx, ATSAMv71Q21B, PC-based simulators  \n\n### **Libraries & Frameworks**  \n- Streamlit, MODBUS, CAN, UART  \n",
+      "str_highlights": null,
+      "str_companyName": "Analog Devices",
+      "str_designation": "Engineer"
+    },
+    {
+      "str_projectTitle": "IO Testing for Common Powertrain Controller ECUs",
+      "str_projectContents": "# IO Testing for Common Powertrain Controller ECUs\n\nTest bench and test-automation for various IOs in Common Powertrain Controller ECUs for Daimler Trucks and Buses\n\n## Overview\n\n- **What is the project all about?**  \n  This project aims at creating a test-bench and test-automation of various IOs connected to CPC ECUs of Daimler Trucks and Buses.\n\n- **Project Objectives:**  \n\n  - The primary objective is to achieve the complete testing of IOs including the fault injections without waiting for complete HIL setup.\n  - Also, the solution should be modular and compact so that each developers and testers can have individual setups.\n\n## Highlights\n\n- **Various IOs and Simulation strategies**  \n\n  - **General Purpose Inputs and Outputs** : Simulated using digital IOs of ATSAMV71 boards.\n  - **Servo motor position input** : Simulated using digital potentiometers and DAC ICs to simulate the various voltages which are mapped to positions.\n  - **PWM Inputs** : Simulated using PWM outputs of ATSAMV71Q21 boards.\n  - **PWM Outputs** : Captured using PWM inputs of ATSAMV71Q21 boards.\n  - **CAN Message Simulation** : Simulation of CAN messages according to the .dbc files.\n\n- **Control strategy** \n\n  - Built a custom python package to trigger and capture the IO status via test-bench.\n  - Test bench consists of a ATSAMv71 board with IO capture and control pins.\n  - These pins are then connected to ECU via dedicated IO harness.\n  - All the IO controls can be controlled via python package, thus enabling the automation in seamless way.\n\n- **Test Framework**\n\n  - Test framework is developed using CAPL and CANoe\n  - Test framework automatically logs the result along with the test-reports.\n \n- **Achievements:**  \n\n  - Achieved complete automation of IO controls using python packages and eliminated the need for dedicated HIL setup.\n\n## Impact\n\n- **Developer/Tester Benefits:**  \n  - With the help of python packages and compact test-benches developers and testers were able to test the SW Components which accesses the IOs within no time.\n  - The setup is very compact and singleboard solution, which fits perfectly with wiring harness of the ECUs, hence it reduces the time and dependencies on complex HIL setups.\n  - With the help of python support for Matlab, this also enabled the developers who are used on Model Based developement to quickly control and test the IOs from Matlab.\n  \n\n## Tools and Technologies\n\n- **Programming Languages:** C, Python, CAPL\n- **Development Tools:** Arduino, Atmel Studio, Keil, Matlab, Simulink, CANape\n- **Hardware/Platforms:** ATSAMV71Q21\n- **Libraries/Frameworks:** I2C, UART, SPI, CAN, BLE, TCP",
+      "str_highlights": null,
+      "str_companyName": "Mercedes Benz Research and Development India Pvt Ltd",
+      "str_designation": "Graduate Engineering Trainee"
+    },
+    {
+      "str_projectTitle": "Static Multicore Scheduler for Daimler Trucks Electric Powertrain Controller ECUs",
+      "str_projectContents": "# Static Multicore Scheduler for Daimler Trucks Electric Powertrain Controller ECUs\n\nStatic OS scheduler to efficiently manage software components across multi-core eCPC ECUs for Daimler Trucks.\n\n## Overview\n\n- **What is the project all about?**  \n  This project involves the development of a static OS scheduler that optimizes the execution of various software components on multi-core eCPC ECUs in Daimler Trucks.\n\n- **Project Objectives:**  \n\n  - Minimize wait times and achieve parallelism by analyzing dependencies and execution times of software components.  \n  - Generate a robust, MISRA-compliant scheduler code, ensuring reduced deadlocks and effective multi-core utilization.  \n\n## Highlights\n\n- **Dependency Analysis and Execution Time Measurement:**  \n\n  - **Shared Variables Mapping:** Used map files to allocate shared variables into dedicated memory sections.  \n  - **Consumers and Producers Mapping:** Created dependency graphs based on producers and consumers of shared variables.  \n  - **Execution Time Estimation:** Measured average and maximum execution times of software components using Vector timing architect and data from previous schedulers.  \n\n- **Graph-Based Scheduling and Automation:**  \n\n  - **Dependency Graph:** Developed a graph representation of execution sequences to reduce wait times and prevent deadlocks.  \n  - **Visualization:** Used the yED tool for graph visualization, enabling developers to make adjustments interactively.  \n  - **Code Generation:** Parsed the graph to generate MISRA-compliant C code for the scheduler, complete with Polyspace checks and unit-test code to meet MCDC and code-coverage standards.  \n\n- **Advanced Optimization Techniques:**  \n\n  - Applied reinforcement learning and graph reduction techniques to expedite the scheduling process, improving efficiency for developers.  \n\n- **CI CD Integration**\n\n  - Developed CI CD pipelines using Jenkins to create a new scheduler code periodically based on the new vehicle and simulated measurements were recieved\n  - The pipelines triggers a new scheduler build whenever a source code is changed or new measurements are available.\n## Impact\n\n- **Developer/Tester Benefits:**  \n\n  - Automated generation of optimized scheduling code, eliminating manual dependency tracking.  \n  - Reduced development time through advanced tools and techniques for visualization and automation.  \n  - Ensured robustness of generated scheduler code via strict adherence to guidelines (MISRA, Polyspace, etc.).  \n  \n\n## Tools and Technologies\n\n- **Programming Languages:** C, Python  \n- **Development Tools:** Arduino, Atmel Studio, Keil, Matlab, Simulink, CANape, CANoe  \n- **Hardware/Platforms:** ATSAMV71Q21  \n- **Libraries/Frameworks:** I2C, UART, SPI, CAN, BLE, TCP",
+      "str_highlights": null,
+      "str_companyName": "Mercedes Benz Research and Development India Pvt Ltd",
+      "str_designation": "Engineer"
+    },
+    {
+      "str_projectTitle": "Network Conformance Testing",
+      "str_projectContents": "# Network Conformance Testing\n\nTest bench and test-automation for In Vehicle Communication of Powertrain network for Daimler Trucks and Buses\n\n## Overview\n\n- **What is the project all about?**  \n  This project aims at creating a test-bench and test-automation for In-Vehicle Communication of Powertrain CAN network for Daimler Trucks and Buses\n\n- **Project Objectives:**  \n\n  - The primary objective is to achieve the complete testing of Network conformance Testing of Powertain CAN network.\n  - The powertrain CAN network consists of multiple ECUs depending on the vehicle configuration and type of vehicle.\n\n## Highlights\n\n- **Simulation of Network for single ECUs**\n  \n  - As a initial approach, we simulate the messages from various other ECUs in the network, apart from the DUT in the network.\n  - This approach will enable seamless testing of NCT of the ECUs in the network.\n  - The test-automation is done using CAPL scripting.\n\n- **Simulataneos testing of all networks**\n\n  - This approach will help to perform the NCT (Network Conformance Tests) all the ECUs within the network.\n  - Dedicated CAPL scripts are written to perform the NCT for each ECU in the network.\n \n- **Achievements:**  \n\n  - Achieved complete automation of NCT using CAPL scripting for 10 ECUs in 6 different configuraitons.\n  - Created these as part of Jenkins pipeline for CI/CD integrations\n  - Created a dedicated control circuit for power controlling of ECUs.\n  \n\n## Tools and Technologies\n\n- **Programming Languages:** C, Python, CAPL\n- **Development Tools:** Arduino, Atmel Studio, Keil, Matlab, Simulink \n- **Hardware/Platforms:** ATSAMV71Q21\n- **Libraries/Frameworks:** I2C, UART, SPI, CAN, BLE, TCP",
+      "str_highlights": null,
+      "str_companyName": "Mercedes Benz Research and Development India Pvt Ltd",
+      "str_designation": "Engineer"
+    }
+  ],
+  "list_education": [
+    {
+      "str_institutionName": "Indian Institute of Science",
+      "str_degree": "Master of Technology (Online)",
+      "datetime_startDate": "2024-12-31",
+      "datetime_endDate": "2024-12-31",
+      "str_grade": "8.5/10",
+      "str_place": "Bengaluru, India",
+      "str_description": "Masters degree in electronics and communication engineering"
+    },
+    {
+      "str_institutionName": "The National Institute of Engineering",
+      "str_degree": "Bachelor of Engineering",
+      "datetime_startDate": "2014-08-01",
+      "datetime_endDate": "2018-07-10",
+      "str_grade": "9.0/10",
+      "str_place": "Mysuru, India",
+      "str_description": "Major in Electronics and Communication Engineering"
+    }
+  ],
+  "list_certifcations": [],
+  "list_papers": [
+    {
+      "str_paperTile": "Intelligent and smart cloud based autonomous robotic kitchen system ",
+      "str_abstract": "This article discusses about the implementation mechanisms of autonomous cooking device, that cooks the dishes according to the user taste. The cooking mechanism is customized for different users using Artificial Intelligence and conventional Neural Network training algorithms. The device is capable of frying, cooking, churning applications that is embedded into a single device unlike the separate devices used in present day cooking. The prototype of implementation supports nine different ingredients which includes vegetables and liquid ingredients. Also, the software helps user to predict and manage their monthly commodities according to the cooking style, taste, quantity of dishes cooked earlier and schedule the dishes to time",
+      "str_publisherDetails": "IEEE",
+      "str_hyperLink": "https://ieeexplore.ieee.org/document/8663208",
+      "datetime_publicationDate": "2018-06-14"
+    },
+    {
+      "str_paperTile": "Two Dimensional compact CNC machine for industrial and remote application using IoT",
+      "str_abstract": "Present day CNC machines are bulky, huge, and is manually operated. This project aims at the development of compact CNC machine which is tiny when compared to the regular CNC machines, remotely operated and the network of these devices can do the given job more effectively. \n With the help of the software designed for this project one can remotely upload the design using standard JPEG format, which should be a binary image of the design. When the image is uploaded using the edge detection algorithms, the software converts the given image into array of the marking points on the surface. Once the software completes the task, it then uploads the array to the cloud and notifies the CNC machine which is placed remotely to begin the job. CNC machine first initializes itself and checks for its perfect operation and then notifies the user that it is ready for the job. As soon as the CNC machine is ready it receives the data from the cloud and start its specified operation. The operation of the CNC machine can be remotely monitored from the user via Internet and can pause or terminate the job whenever he wishes to do",
+      "str_publisherDetails": "International Journal of Advancements in Science and Technology",
+      "str_hyperLink": null,
+      "datetime_publicationDate": "2017-06-18"
+    },
+    {
+      "str_paperTile": "Automation of college environment with IoT as solution",
+      "str_abstract": "This project aims at presenting the concept of automated smart college, which uses wireless automated bell system, Time table and database handling, Database accessing, Announcements, Notice and smart display using a Single board computer Raspberry Pi 3, ESP8266 micro-controller with Wi-Fi embedded on a single chip, Android Power Tablets as Smart display and Android smart phones for the operation. It also can control the electrical devices like fan, light, projector etc. when the class is in leisure. It uses the WLAN technology to interconnect the devices and all the features can be accessed using Internet.",
+      "str_publisherDetails": "IETE 48th Mid Term Symposium on \"Internet of Everything \"",
+      "str_hyperLink": null,
+      "datetime_publicationDate": "2017-04-18"
+    }
+  ],
+  "list_patents": [
+    {
+      "str_patentTitle": "Method and system for dynamic in vehicle communication",
+      "str_abstract": "The present disclosure provides a method and system for dynamic in-vehicle communications. The method includes the steps of: receiving, at an electronic control unit (ECU) of a vehicle from a communications network, communication messages pertaining to vehicle functionalities, the communication messages comprising communication message attributes; and receiving, at the ECU from the communications network, control messages, the control messages comprising control message attributes. Based on a maximum allowable capacity of the communications network, the communications messages and the control messages are transmitted over the communications network in discrete slots based on network attributes to facilitate optimisation of load on the communications network.",
+      "str_patentOffice": "Indian Patent Office - 201911045664",
+      "datetime_publicationDate": "2020-06-18"
+    },
+    {
+      "str_patentTitle": "System and method for sharing of functionality in an electronic control unit of connected vehicles",
+      "str_abstract": "The present disclosure provides a system and method for acquisition of functionalities for a normal ECU of a first vehicle. The system is configured to: detect, presence of an advanced ECU  of a second vehicle; and determine suitability of connection of the normal ECU and advanced ECU . When the required functionalities of the normal ECU 500 is at least a subset of the functional capabilities of the advanced ECU , a connection between the normal ECU 500 and advanced ECU  is established. The advanced ECU clones the required functionalities for the normal ECU  on a parallel process unit  of the advanced ECU , and the cloned functionalities at the parallel process unit are the normal ECU 500 to allow the normal  500 to acquire the cloned functionalities",
+      "str_patentOffice": "Indian Patent Office - 201911045664",
+      "datetime_publicationDate": "2025-05-31"
+    },
+    {
+      "str_patentTitle": "System and Method to optimization of bus load in a vehicle using Neural Networks",
+      "str_abstract": "The present disclosure provides a system for optimisation of bus load in a vehicle, the system (300) comprising: a predicted bus load unit; an error indicator; an algorithm selector; and a bus load optimiser . A bus load for a duration of time is predicted based on an actual bus load using a neural network trained to predict occurrence of spontaneous messages, which can increase bus load. When the predicted bus load is higher than allowable bus load, a compression scheme is applied on affected cyclic messages in order to reduce the bus load. When the predicted bus load is significantly greater or lesser than the allowable bus load, an error alert is issued. Information pertaining to the compression scheme used, the affected messages and the error alerts is transmitted to the electronic control unit, which optimises the bus load to be within the allowable range for the bus.",
+      "str_patentOffice": "Indian Patent Office 201911045664",
+      "datetime_publicationDate": "2025-05-31"
+    },
+    {
+      "str_patentTitle": "A method to predict the weight and torque distribution at multiple weight points using ANN",
+      "str_abstract": "A method for predicting weight and torque distribution at multiple weight points using neural networks The present invention discloses a method for predicting weight and torque distribution at multiple weight points using neural networks. The method comprises the steps of obtaining one or more inputs from a plurality of sources for the purpose of estimating the weight distribution for multiple weight points in a vehicle. Further, the weight distribution at each weight point is estimated using neural network, wherein the torque distribution at each weight point is predicted based on the estimated weight distribution provided by the neural network. Furthermore, the torque distribution is transmitted to a plurality of components using a pre-defined set of torque distribution algorithms for a pre-defined period of time",
+      "str_patentOffice": "Indian Patent Office - 202041052175",
+      "datetime_publicationDate": "2025-05-31"
+    },
+    {
+      "str_patentTitle": "Optimization of Asw scheduler in Multicore systems using deep reinforcement learning",
+      "str_abstract": "System and method for optimization of ASW in multi-core processor involves a processing unit in communication with the multi-core processor , and configured to receive data pertaining to runnable components of ASW, scheduler scheme, execution time of each runnable, and configuration of the multi-core processor. The processing unit (400) is configured with reinforcement learning unit, which acts a simulator that simulates all the conditions of the scheduling sequence of the ASW with respect to hardware of the multi-core processor by determining and applying actions, and correspondingly computes reward or penalty for the given action. The reward or penalty are indicative of alignment between the applied action and desired results. The processing unit (400) again determines a subsequent action based on the computed reward or penalty until the applied updated action matches the desired results",
+      "str_patentOffice": "Indian Patent Office",
+      "datetime_publicationDate": "2025-05-31"
+    },
+    {
+      "str_patentTitle": "System And Method For Early Detection Of Damage In Vehicle Components Based On Response",
+      "str_abstract": "A system and method for early detection of damage in a vehicle component based on response noises. The system includes a transform unit to convert a first set of feedback signals received from the component into a second set of feedback signals; a HPF configured to extract feedback noise from the converted feedback signals; and a processing unit. The processing unit is configured to determine a feedback noise factor based on the extracted feedback noise; determine an absolute feedback factor based on the converted feedback signals; receive a current noise factor and an absolute current factor of the component; and determine a damage factor for each of predefined causes of damage in the component based on the feedback noise factor, the absolute feedback factor, the current noise factor and the absolute current factor to identify the cause from the predefined causes based on the determined damage factors for the predefined causes",
+      "str_patentOffice": "Indian Patent Office - 202111018994",
+      "datetime_publicationDate": "2025-05-31"
+    },
+    {
+      "str_patentTitle": "System and Method for early detection of electric component failure due to heating using it's temperature behavior",
+      "str_abstract": "A system and method for dynamic object state estimation and prediction is disclosed. It comprises sensing, through a temperature sensor 202, temperature of electric components of a vehicle, and correspondingly generate a first set of signals; receiving, at a differentiator 216, the first set of signals, and producing a slope by converting the received first set of signals into corresponding voltage value for each of the one or more electric components; monitoring, at a monitoring unit 204, for detection of failure in any of the one or more electric components by comparing the produced slope with a pre-defined reference level; and generating an alert signal in case the produced slope exceeds the pre-defined reference level for a second pre-defined time duration, and correspondingly an electronic control unit (ECU) 210 associated with the one or more electric components is interrupted",
+      "str_patentOffice": "Indian Patent Office",
+      "datetime_publicationDate": "2025-05-31"
+    },
+    {
+      "str_patentTitle": "System And Method For Plug Braking In An Electric Vehicle",
+      "str_abstract": "The present disclosure provides a system (800) and method for plug braking in an electric vehicle. The system includes: a driving means (806) to effect movement of the electric vehicle, the driving means adapted to receive a power supply with a predefined polarity; a regeneration means (808) coupled with the driving means through a coupling means, and operable to generate power from kinetic energy of motion of the electric vehicle; and a processor configured to: receive, a set of first signals pertaining to a desired braking profile for the electric vehicle; determine a desired braking characteristic; and operate the regeneration means to generate an electromotive force (emf). The coupling means is operated to allow the emf to the driving means such that it is supplied with an opposite polarity to generate an opposing force to the motion of the driving means. The opposing force facilitates retardation of the electric vehicle",
+      "str_patentOffice": "Indian Patent Office - 202011034282",
+      "datetime_publicationDate": "2025-05-31"
+    }
+  ],
+  "list_talks": [],
+  "list_jobApps": [],
+  "str_profileName": "Sharath"
+}]

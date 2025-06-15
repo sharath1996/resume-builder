@@ -68,6 +68,7 @@ class ProfessionalProjectsUI:
     def _update_professional_projects(self, param_list_professionalProjects:list[ProfessionalProject]):
         local_obj_profile = self._obj_profileAPIs.read(self._str_profileName)
         local_obj_profile.list_professionalProjects = param_list_professionalProjects
+        self._obj_profileAPIs.update(self._str_profileName, local_obj_profile)
         st.info("professional project modified succesfully")
 
     def _create_new_professional_project(self, param_obj_professionalProjects:ProfessionalProject):
