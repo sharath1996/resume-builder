@@ -13,6 +13,7 @@ class ExporterInput(BaseModel):
     str_templateName: str = Field("simple", description="Name of the template to be used for exporting the resume")
     obj_resume: CandidateResume  = Field(..., description="Resume object containing all the details to be exported")
     str_exportPath: str  = Field(..., description="Path where the exported pdf resume will be saved")
+
 class Exporter:
     
     def __init__(self):

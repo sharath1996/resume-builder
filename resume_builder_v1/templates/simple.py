@@ -17,8 +17,9 @@ class SimpleResume:
         local_str_latex += self._add_skills(param_obj_input)
         local_str_latex += self._add_work_experience(param_obj_input)
         local_str_latex += self._add_education(param_obj_input)
-        local_str_latex += self._add_projects(param_obj_input)
         local_str_latex += self._add_achievements(param_obj_input)
+        local_str_latex += self._add_projects(param_obj_input)
+
         local_str_latex += "\n\\end{document}\n"
 
         # local_str_latex = local_str_latex.replace("#", "\#")
