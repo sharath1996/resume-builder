@@ -36,6 +36,7 @@ class LLMBuilder:
             str_fullName=local_obj_candidateDetails.str_fullName,
             str_currentResidence=local_obj_candidateDetails.str_currentResidence,
             str_contactNumber=local_obj_candidateDetails.str_contactNumber,
+            str_email=param_obj_input.obj_profile.obj_profileInfo.str_email,
             str_linkedInProfile=local_obj_candidateDetails.str_linkedInProfile,
             str_githubProfile=local_obj_candidateDetails.str_githubProfile,
             str_customProfile=local_obj_candidateDetails.str_customProfile,
@@ -65,6 +66,7 @@ class BuildCandidateDetails:
             str_fullName=local_obj_profile.str_fullName,
             str_currentResidence=local_obj_profile.str_currentResidence,
             str_contactNumber=local_obj_profile.str_contactNumber,
+            str_email=local_obj_profile.str_email,
             str_linkedInProfile=local_obj_profile.str_linkedInProfile,
             str_githubProfile=local_obj_profile.str_githubProfile,
             str_customProfile=local_obj_profile.str_customProfile,
@@ -106,7 +108,7 @@ class BuildSkills:
         You should be forming the sections and send the responses in json format.
         There might be duplicate of skills could be available.
 
-        This resume will be written in latex, hence make sure that your responses are compatible in latex 
+        This resume will be written in latex, hence make sure that your responses are compatible in latex (, #, &, etc.)
         And use the special characters with appropriate syntax (such as # should be written as \# , & with \&)
         """)
 

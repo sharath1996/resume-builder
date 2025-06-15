@@ -107,8 +107,9 @@ class StandardUS(BaseResume):
             {{\Huge\scshape {param_obj_input.str_fullName}}} \\
             \small
             \href{{tel:{param_obj_input.str_contactNumber}}}{{\raisebox{{-0.2\height}}\faPhone\  \underline{{{param_obj_input.str_contactNumber}}}}} ~
-            \href{{mailto:{param_obj_input.str_linkedInProfile}}}{{\raisebox{{-0.2\height}}\faEnvelope\  \underline{{{param_obj_input.str_linkedInProfile}}}}} ~
-            \href{{{param_obj_input.str_githubProfile}}}{{\raisebox{{-0.2\height}}\faGithub\  \underline{{{param_obj_input.str_githubProfile}}}}}
+            \href{{mailto:{param_obj_input.str_linkedInProfile}}}{{\raisebox{{-0.2\height}}\faEnvelope\  \underline{{LinkedIn}}}} ~
+            \href{{{param_obj_input.str_githubProfile}}}{{\raisebox{{-0.2\height}}\faGithub\  \underline{{GitHub}}}} ~
+            \href{{{param_obj_input.str_email}}}{{\raisebox{{-0.2\height}}\faGlobe\  \underline{{{param_obj_input.str_email}}}}} \\
         \end{{center}}
         """)
 

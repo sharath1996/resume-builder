@@ -9,6 +9,7 @@ class ProfileInformation(BaseModel):
     str_fullName:str |None = Field(None, description="Full Name of the candidate")
     str_currentResidence:str | None = Field(None, description="Current residence of the candidate")
     str_contactNumber:str | None = Field(None, description= "Contact number including the country code")
+    str_email:str | None = Field(None, description="Email address of the candidate")
     str_linkedInProfile:str | None = Field(None, description="LinkedIn Profile URL")
     str_githubProfile:str | None = Field(None, description="Github profile link")
     str_customProfile:str | None = Field(None, description="Any other custome Profile Link")

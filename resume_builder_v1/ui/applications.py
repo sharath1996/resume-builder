@@ -48,17 +48,19 @@ class JobAppUI:
         local_button_generateResume = st.button("Generate Resume", key="generate_resume")
         
         if local_button_generateResume:
-            st.session_state["bool_isResumeGenerating"] = True
-            local_obj_resumeBuilderInput = ResumeBuilderInput(
-                str_profileName=self._str_profileName,
-                str_jobDescription=local_obj_jobApp.str_jobDescriptions,
-                str_additionalInstructions=local_str_additionalInstructions
-            )
-            local_obj_resumeBuilder = ResumeBuilder()
-            local_obj_resume = local_obj_resumeBuilder.build(local_obj_resumeBuilderInput)
-            self._update_the_db(local_obj_resume, local_obj_jobApp)
-            st.success("Resume generated successfully!")
-            st.session_state["bool_isResumeGenerating"] = False
+            with st.spinner("Generating resume..."):
+                st.session_state["bool_isResumeGenerating"] = True
+                local_obj_resumeBuilderInput = ResumeBuilderInput(
+                    str_profileName=self._str_profileName,
+                    str_jobDescription=local_obj_jobApp.str_jobDescriptions,
+                    str_additionalInstructions=local_str_additionalInstructions
+                )
+                local_obj_resumeBuilder = ResumeBuilder()
+                local_obj_resume = local_obj_resumeBuilder.build(local_obj_resumeBuilderInput)
+                self._update_the_db(local_obj_resume, local_obj_jobApp)
+                st.success("Resume generated successfully!")
+                st.session_state["bool_isResumeGenerating"] = False
+                
         
         if not st.session_state["bool_isResumeGenerating"]:
             local_obj_resume = self._get_existing_resume(local_obj_jobApp.str_uniqueJobTitle)

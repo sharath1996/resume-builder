@@ -231,6 +231,12 @@ class ColorfulEU(BaseResume):
                 rf"\mbox{{\hrefWithoutArrow{{{param_obj_input.str_githubProfile}}}{{{{\footnotesize\faGithub}}\hspace*{{0.13cm}}GitHub}}}}%"
             )
         
+        # email 
+        if param_obj_input.str_email:
+            contact_lines.append(
+                rf"\mbox{{\hrefWithoutArrow{{mailto:{param_obj_input.str_email}}}{{{{\footnotesize\faEnvelope}}\hspace*{{0.13cm}}{param_obj_input.str_email}}}}}%"
+            )
+        
         # Join with spacing
         contact_block = "\n\t\t\\kern 0.25 cm%\n\t\t".join(contact_lines)
         return dedent(rf'''

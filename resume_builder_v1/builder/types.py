@@ -15,8 +15,8 @@ class Experience(BaseModel):
     """
     str_companyName:str = Field(..., description="Name of the company")
     str_designation:str = Field(..., description="Designation or title of the role")
-    str_startDate: str = Field(..., description="Start date of the role")
-    str_endDate: str | None = Field(None, description="End date of the role, can be 'Present'")
+    str_startDate: str = Field(..., description="Start date of the role in MMM-YYYY format, example: 'JAN-2020'")
+    str_endDate: str | None = Field(None, description="End date of the role  MMM-YYYY format, example: 'JAN-2020', can be 'Present'")
     str_location: str | None = Field(None, description="Location of the company")
     list_rolesAndResponsibilities: list[str] = Field(..., description="List of roles and responsibilities in this role")
 
@@ -27,8 +27,8 @@ class Education(BaseModel):
     """
     str_institutionName: str = Field(..., description="Name of the institution")
     str_degree: str = Field(..., description="Name of the degree")
-    str_startDate: str = Field(..., description="Start date of the education")
-    str_endDate: str | None = Field(None, description="End date of the degree")
+    str_startDate: str = Field(..., description="Start date of the education in MMM-YYYY format, example: 'JAN-2020'")
+    str_endDate: str | None = Field(None, description="End date of the degree in MMM-YYYY format, example: 'JAN-2020'")
     str_grade: str | None = Field(None, description="Grade obtained")
     str_location: str | None = Field(None, description="Location of the institution")
     str_description: str | None = Field(None, description="Description of courses and top achievements")
@@ -46,6 +46,7 @@ class CandidateDetails(BaseModel):
     str_fullName: str  = Field(..., description="Full Name of the candidate")
     str_currentResidence: str  = Field(..., description="Current residence of the candidate")
     str_contactNumber: str = Field(..., description="Contact number including the country code")
+    str_email: str = Field(..., description="Email address of the candidate")
     str_linkedInProfile: str | None = Field(None, description="LinkedIn Profile URL")
     str_githubProfile: str | None = Field(None, description="Github profile link")
     str_customProfile: str | None = Field(None, description="Any other custom Profile Link")

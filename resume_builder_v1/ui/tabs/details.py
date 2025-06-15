@@ -15,6 +15,7 @@ class ProfileBasicDetails:
         local_obj_profile.obj_profileInfo.str_aboutCandidate = st.text_area("About You!", local_obj_profile.obj_profileInfo.str_aboutCandidate, key="profile_about_candidate")
         local_obj_profile.obj_profileInfo.str_currentResidence = st.text_input("Current Residence", value=local_obj_profile.obj_profileInfo.str_currentResidence, key="profile_current_residence")
         local_obj_profile.obj_profileInfo.str_contactNumber = st.text_input("Phone Details", value=local_obj_profile.obj_profileInfo.str_contactNumber, key="profile_contact_number")
+        local_obj_profile.obj_profileInfo.str_email = st.text_input("Email Address", value=local_obj_profile.obj_profileInfo.str_email, key="profile_email_address")
         local_obj_profile.obj_profileInfo.str_linkedInProfile = st.text_input("LinkedIn Profile URL", value=local_obj_profile.obj_profileInfo.str_linkedInProfile, key="profile_linkedin_profile")
         local_obj_profile.obj_profileInfo.str_githubProfile = st.text_input("Github profile url", value=local_obj_profile.obj_profileInfo.str_githubProfile, key="profile_github_profile")
         local_obj_profile.obj_profileInfo.str_customProfile = st.text_input("Custom Portfolio website", value=local_obj_profile.obj_profileInfo.str_customProfile, key="profile_custom_profile")

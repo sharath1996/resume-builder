@@ -200,6 +200,10 @@ class StandardEU(BaseResume):
             local_list_details.append(f"\\href{{{param_obj_input.str_githubProfile}}}{{\\raisebox{{-0.15\\height}} \\faGithub\\ GitHub}}")
         if param_obj_input.str_customProfile:
             local_list_details.append(f"\\href{{{param_obj_input.str_customProfile}}}{{\\raisebox{{-0.15\\height}} \\faGlobe\\ Website}}")
+        
+        # email
+        if param_obj_input.str_email:
+            local_list_details.append(f"\\href{{mailto:{param_obj_input.str_email}}}{{\\raisebox{{-0.15\\height}} \\faEnvelope\\ {param_obj_input.str_email}}}")
         local_str_details = " ~ | ~ ".join(local_list_details)
         
         return f"\\documentTitle{{{param_obj_input.str_fullName}}}{{{local_str_details}}}\n\n"
