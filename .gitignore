@@ -178,3 +178,4 @@ resume.out
 resume.pdf
 resume.tex
 resume.json
+tests/v1/test_llm_builder_output.json

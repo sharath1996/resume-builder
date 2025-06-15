@@ -29,7 +29,7 @@ class LLMBuilder:
         local_list_experience = BuildExperience().build(param_obj_input)
         local_list_education = BuildEducation().build(param_obj_input)
         local_list_projects = BuildProjects().build(param_obj_input)
-        # local_list_achievements = BuildAchievements().build(param_obj_input)
+        local_list_achievements = BuildAchievements().build(param_obj_input)
         
         local_obj_candidateResume = CandidateResume(
             str_fullName=local_obj_candidateDetails.str_fullName,
@@ -43,7 +43,7 @@ class LLMBuilder:
             list_workExperience = local_list_experience.list_workExperience,
             list_education = local_list_education.list_education,
             list_projects = local_list_projects.list_projects,
-            list_achievements = []  # TODO: Uncomment when BuildAchievements is implemented
+            list_achievements = local_list_achievements.list_achievements
             )
         
         return local_obj_candidateResume
@@ -98,7 +98,7 @@ class BuildSkills:
         local_obj_llm = LLMFactory.get_llm_interface()
         
         local_str_systemPrompt = """
-        You are a helpful resume writer assistant, who will be responsible to figure out the skills that are needed for the given job description and available skills
+        You are a helpful resume writer assistant, who will be responsible to figure out the technical skills that are needed for the given job description and available skills
         You will be given a job description and list of the skills that candidate has.
         Your job is to group the skills into multiple sections such as Languages, tools, frameworks and so on (These are not limited to). 
         Th sections should be aligned to the given job description.
@@ -204,15 +204,42 @@ class BuildAchievements:
         """
         local_obj_llm = LLMFactory.get_llm_interface()
         local_str_systemPrompt = """
-        You are a helpful resume writer assistant. Extract and structure the candidate's achievements, awards, and certifications from the provided profile. 
+        You are a helpful resume writer assistant. Extract and structure the candidate's achievements, awards, and certifications from the provided profile.
+        You should extract the achievements that are relevant to the job description and should highlight the candidate's skills and contributions and how they align with the job requirements. 
         Return the result in JSON format compatible with the Achivements pydantic model. 
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
+        Include the hyperlinks for the papers, patents, and talks if available.
+
+        The maximum number of achievements should be 7, if there are more than 7 achievements then you should select the op 5 achievements that are relevant to the job description.
+        the remaining should be summarized in 2-3 lines and should be relevant to the job description.
+
         """
         local_str_userPrompt = ""
 
         # Papers
-        for local_obj_paper in param_obj_input.obj_profile.list_papers:
-            local_str_userPrompt += f"Paper: {local_obj_paper.str_paperTile}, Description: {local_obj_paper.str_abstract},\n"
+        if not param_obj_input.obj_profile.list_papers:
+            for local_obj_paper in param_obj_input.obj_profile.list_papers:
+                local_str_userPrompt += f"Paper published: {local_obj_paper.str_paperTile}, Description: {local_obj_paper.str_abstract},\n URL : {local_obj_paper.str_hyperLink}\n"
+        
+        # Patents
+        if not param_obj_input.obj_profile.list_patents:
+            for local_obj_patent in param_obj_input.obj_profile.list_patents:
+                local_str_userPrompt += f"Patent: {local_obj_patent.str_patentTitle}, Description: {local_obj_patent.str_abstract},\n"
+            
+        # Talks
+        if not param_obj_input.obj_profile.list_talks:
+            for local_obj_talk in param_obj_input.obj_profile.list_talks:
+                local_str_userPrompt += f"Talk: {local_obj_talk.str_title}, Description: {local_obj_talk.str_abstract},\n at : {local_obj_talk.str_place}\n"
+            
+        # Certifications
+        for local_obj_certification in param_obj_input.obj_profile.list_certifcations:
+            local_str_userPrompt += f"Certification: {local_obj_certification.str_certificationTitle}, Description: {local_obj_certification.str_abstract},\n"
+
+        # TODO: Add Awards
+        # for local_obj_award in param_obj_input.obj_profile.list_awards:
+        #     local_str_userPrompt += f"Award: {local_obj_award.str_awardTitle}, Description: {local_obj_award.str_abstract},\n"
+        
+
         local_obj_llm.clear_messages()
         local_obj_llm.add_system_prompt(local_str_systemPrompt)
         local_obj_llm.add_user_prompt(local_str_userPrompt)
