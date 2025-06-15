@@ -8,7 +8,7 @@ from .tabs.education import EducationUI
 from .tabs.work_experience import WorkExperienceUI
 from .tabs.academic_projects import AcademicProjectsUI
 from .tabs.professional_projects import ProfessionalProjectsUI
-from .resume_generator import JobAppUI
+from .applications import JobAppUI
 from ..api.profile_apis import ProfileAPIs
 
 class ProfileUI:
@@ -75,7 +75,7 @@ class ProfileUI:
 
     def run_job_applications(self):
         st.title(f"Hey :blue[{self._str_profileName}...]")
-        JobAppUI().run()
+        JobAppUI(self._str_profileName).run()
 
     def run_profile_page(self):
         st.title(f"Hey :blue[{self._str_profileName}...]")

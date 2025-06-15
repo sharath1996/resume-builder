@@ -6,6 +6,12 @@ class ResumeTemplates:
     def __init__(self):
         ...
     
+    def list_available_templates(self) -> list[str]:
+        """
+        List all available resume templates.
+        """
+        return ["simple"]
+    
     def get_template(self, param_str_templateName:str)->BaseResume:
 
         if param_str_templateName == "simple":

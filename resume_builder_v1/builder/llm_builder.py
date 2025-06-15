@@ -1,3 +1,4 @@
+from textwrap import dedent
 from .types import CandidateDetails, CandidateResume, Skills, WorkExperiences, Educations, Projects, Achivements
 from ..database.db import Profile
 from pydantic import BaseModel, Field
@@ -97,8 +98,8 @@ class BuildSkills:
 
         local_obj_llm = LLMFactory.get_llm_interface()
         
-        local_str_systemPrompt = """
-        You are a helpful resume writer assistant, who will be responsible to figure out the technical skills that are needed for the given job description and available skills
+        local_str_systemPrompt = dedent("""
+        You are a helpful resume writer assistant, who will be responsible to figure out the skills that are needed for the given job description and available skills
         You will be given a job description and list of the skills that candidate has.
         Your job is to group the skills into multiple sections such as Languages, tools, frameworks and so on (These are not limited to). 
         Th sections should be aligned to the given job description.
@@ -107,8 +108,7 @@ class BuildSkills:
 
         This resume will be written in latex, hence make sure that your responses are compatible in latex 
         And use the special characters with appropriate syntax (such as # should be written as \# , & with \&)
-        
-        """
+        """)
 
         local_str_userPrompt = f"Given the job description : \n {param_str_jobDescription}"
 
@@ -131,11 +131,11 @@ class BuildExperience:
         Build work experiences from the input data using LLM.
         """
         local_obj_llm = LLMFactory.get_llm_interface()
-        local_str_systemPrompt = """
+        local_str_systemPrompt = dedent("""
         You are a helpful resume writer assistant. Extract and structure the candidate's work experience from the provided profile. 
         Group responsibilities, roles, and achievements for each position. Return the result in JSON format compatible with the WorkExperiences pydantic model. 
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
-        """
+        """)
         local_str_userPrompt = f"Candidate profile: {str(param_obj_input.obj_profile.list_workExperience)}"
         local_obj_llm.clear_messages()
         local_obj_llm.add_system_prompt(local_str_systemPrompt)
@@ -153,11 +153,11 @@ class BuildEducation:
         Build education details from the input data using LLM.
         """
         local_obj_llm = LLMFactory.get_llm_interface()
-        local_str_systemPrompt = """
+        local_str_systemPrompt = dedent("""
         You are a helpful resume writer assistant. Extract and structure the candidate's education history from the provided profile. 
         Return the result in JSON format compatible with the Educations pydantic model. 
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
-        """
+        """)
         local_str_userPrompt = f"Candidate profile: {param_obj_input.obj_profile.list_education}"
         local_obj_llm.clear_messages()
         local_obj_llm.add_system_prompt(local_str_systemPrompt)
@@ -176,13 +176,11 @@ class BuildProjects:
         Build projects from the input data using LLM.
         """
         local_obj_llm = LLMFactory.get_llm_interface()
-        local_str_systemPrompt = """
+        local_str_systemPrompt = dedent("""
         You are a helpful resume writer assistant. Extract and structure the candidate's projects from the provided profile. 
-        You need to select the top 3-4 projects based on the relevance to the job description.
-        You need to create the description of the project, highlighting the technical mastery, leadership and impact of the project.
         Return the result in JSON format compatible with the Projects pydantic model. 
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
-        """
+        """)
         local_str_userPrompt = ""
         for local_obj_project in param_obj_input.obj_profile.list_professionalProjects:
             local_str_userPrompt += f"Project: {local_obj_project.str_projectTitle}, Description: {local_obj_project.str_projectContents}\n"
@@ -203,37 +201,31 @@ class BuildAchievements:
         Build achievements from the input data using LLM.
         """
         local_obj_llm = LLMFactory.get_llm_interface()
-        local_str_systemPrompt = """
-        You are a helpful resume writer assistant. Extract and structure the candidate's achievements, awards, and certifications from the provided profile.
-        You should extract the achievements that are relevant to the job description and should highlight the candidate's skills and contributions and how they align with the job requirements. 
+        local_str_systemPrompt = dedent("""
+        You are a helpful resume writer assistant. Extract and structure the candidate's achievements, awards, and certifications from the provided profile. 
         Return the result in JSON format compatible with the Achivements pydantic model. 
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
-        Include the hyperlinks for the papers, patents, and talks if available.
-
-        The maximum number of achievements should be 7, if there are more than 7 achievements then you should select the op 5 achievements that are relevant to the job description.
-        the remaining should be summarized in 2-3 lines and should be relevant to the job description.
-
-        """
+        """)
         local_str_userPrompt = ""
 
         # Papers
-        if not param_obj_input.obj_profile.list_papers:
+        if param_obj_input.obj_profile.list_papers:
             for local_obj_paper in param_obj_input.obj_profile.list_papers:
                 local_str_userPrompt += f"Paper published: {local_obj_paper.str_paperTile}, Description: {local_obj_paper.str_abstract},\n URL : {local_obj_paper.str_hyperLink}\n"
         
         # Patents
-        if not param_obj_input.obj_profile.list_patents:
+        if param_obj_input.obj_profile.list_patents:
             for local_obj_patent in param_obj_input.obj_profile.list_patents:
                 local_str_userPrompt += f"Patent: {local_obj_patent.str_patentTitle}, Description: {local_obj_patent.str_abstract},\n"
             
         # Talks
-        if not param_obj_input.obj_profile.list_talks:
+        if param_obj_input.obj_profile.list_talks:
             for local_obj_talk in param_obj_input.obj_profile.list_talks:
                 local_str_userPrompt += f"Talk: {local_obj_talk.str_title}, Description: {local_obj_talk.str_abstract},\n at : {local_obj_talk.str_place}\n"
             
         # Certifications
         for local_obj_certification in param_obj_input.obj_profile.list_certifcations:
-            local_str_userPrompt += f"Certification: {local_obj_certification.str_certificationTitle}, Description: {local_obj_certification.str_abstract},\n"
+            local_str_userPrompt += f"Certification: {local_obj_certification.str_name}, Issuing Authority: {local_obj_certification.str_issuingAuthority},\n"
 
         # TODO: Add Awards
         # for local_obj_award in param_obj_input.obj_profile.list_awards:

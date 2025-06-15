@@ -72,6 +72,7 @@ class Talks(BaseModel):
 
 
 class JobApplications(BaseModel):
+    str_uniqueJobTitle:str|None = Field(None, description="Unique title of the job")
     str_jobDescriptions:str|None = Field(None, description="Job Description")
     dict_jsonResume:dict|None = Field({}, description="Generated Resume")
 
