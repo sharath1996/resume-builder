@@ -1,7 +1,7 @@
 from .base import BaseResume, CandidateResume
 from textwrap import dedent
 
-class SimpleResume:
+class StandardEU(BaseResume):
 
     def __init__(self):
         ...
