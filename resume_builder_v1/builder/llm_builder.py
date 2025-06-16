@@ -1,5 +1,5 @@
 from textwrap import dedent
-from .types import CandidateDetails, CandidateResume, Skills, WorkExperiences, Educations, Projects, Achivements
+from .types import CandidateDetails, CandidateResume, Skills, WorkExperiences, Educations, Projects, Achivements, Project
 from ..database.db import Profile
 from pydantic import BaseModel, Field
 from ..llm import LLMFactory
@@ -167,6 +167,12 @@ class BuildEducation:
         local_obj_education = local_obj_llm.get_structured_output(Educations)
         return local_obj_education
 
+class ExtractedProject(Project):
+    """
+    This class is used to define the structure of the extracted project data.
+    It extends the Project class to include additional fields if necessary.
+    """
+    bool_isRelevant: bool = Field(..., description="Indicates whether the project is relevant to the job application")
 
 class BuildProjects:
 
@@ -179,18 +185,34 @@ class BuildProjects:
         """
         local_obj_llm = LLMFactory.get_llm_interface()
         local_str_systemPrompt = dedent("""
-        You are a helpful resume writer assistant. Extract and structure the candidate's projects from the provided profile. 
+        You are a helpful resume writer assistant. 
+        You are now responsible for writing the projects section of the resume.
+        You need to re-write the projects section from the given rough project description and a job description.
+        You need to create a writeup for the project if it is relevant to the job application.
         Return the result in JSON format compatible with the Projects pydantic model. 
+        Also include whether the project is relevant to the job application in the 'bool_isRelevant' field.
+        str_projectTitle should be the title of the project, and list_projectContents should contain two to three lines describing the project and its relevance to the job application.
+        If the project is not relevant, set bool_isRelevant to false.
+        title and description should be concise and relevant to the job application.
         Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
+        
         """)
-        local_str_userPrompt = ""
+        
+        local_list_projects = []
         for local_obj_project in param_obj_input.obj_profile.list_professionalProjects:
-            local_str_userPrompt += f"Project: {local_obj_project.str_projectTitle}, Description: {local_obj_project.str_projectContents}\n"
-        local_obj_llm.clear_messages()
-        local_obj_llm.add_system_prompt(local_str_systemPrompt)
-        local_obj_llm.add_user_prompt(local_str_userPrompt)
-        local_obj_projects = local_obj_llm.get_structured_output(Projects)
+            local_str_userPrompt = f"Project: {local_obj_project.str_projectTitle}, Description: {local_obj_project.str_projectContents}\n"
+            local_obj_llm.clear_messages()
+            local_obj_llm.add_system_prompt(local_str_systemPrompt)
+            local_obj_llm.add_user_prompt(local_str_userPrompt)
+            local_obj_extractedProject :ExtractedProject = local_obj_llm.get_structured_output(ExtractedProject)
+            if local_obj_extractedProject.bool_isRelevant:
+                local_list_projects.append(local_obj_extractedProject)
+        
+        local_obj_projects = Projects(list_projects=local_list_projects)
         return local_obj_projects
+
+
+
 
 # TODO: This whole class needs to be refactored to use LLM for building achievements, this is not at all the right way to do it.
 class BuildAchievements:

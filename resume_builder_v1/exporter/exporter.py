@@ -38,6 +38,8 @@ class Exporter:
     def _save_pdf_resume(self, param_str_latexString: str, param_str_saveToPath: str):
     # Ensure the directory exists
         os.makedirs(param_str_saveToPath, exist_ok=True)
+        
+
         local_str_texResumePath = os.path.join(param_str_saveToPath, 'resume.tex')
         with open(local_str_texResumePath, 'w') as local_obj_file:
             local_obj_file.write(param_str_latexString)

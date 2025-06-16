@@ -156,12 +156,12 @@ class StandardUS(BaseResume):
     def _add_projects(self, param_obj_input: CandidateResume):
         local_str = "\n\\section{Projects}\n    \\resumeSubHeadingListStart\n"
         for proj in param_obj_input.list_projects:
-            local_str += f"\\resumeProjectHeading{{{proj.str_projectTitle}}}{{}}\n"
-            local_str += "\\resumeItemListStart\n"
-            if proj.list_projectContents:
+            if proj.str_projectTitle != "" and proj.list_projectContents != []:
+                local_str += f"\\resumeProjectHeading{{{proj.str_projectTitle}}}{{}}\n"
+                local_str += "\\resumeItemListStart\n"
                 for desc in proj.list_projectContents:
                     local_str += f"\\resumeItem{{{desc}}}\n"
-            local_str += "\\resumeItemListEnd\n"
+                local_str += "\\resumeItemListEnd\n"
         local_str += "\\resumeSubHeadingListEnd\n"
         return local_str
 
@@ -169,6 +169,7 @@ class StandardUS(BaseResume):
         local_str = "\n\\section{Technical Skills}\n\\begin{itemize}[leftmargin=0.15in, label={}]\n\\item \\small{"
         skill_lines = []
         for skill in param_obj_input.list_skills:
+
             skill_lines.append(f"\\textbf{{{skill.str_sectionTitle}}}: {', '.join(skill.list_skills)}")
         local_str += " \\textbf{;} ".join(skill_lines)
         local_str += "}\n\\end{itemize}\n"
@@ -177,6 +178,7 @@ class StandardUS(BaseResume):
     def _add_achievements(self, param_obj_input: CandidateResume):
         local_str = "\n\\section{Honors \\& Awards}\n  \\vspace{-0.3cm}\n    \\resumeItemListStart[itemsep=0pt]\n"
         for ach in param_obj_input.list_achievements:
+
             local_str += f"\\resumeItem{{{ach}}}\n"
         local_str += "\\resumeItemListEnd\n"
         return local_str
