@@ -40,3 +40,16 @@ class ResumeExporter:
                 local_obj_exporter = Exporter()
                 local_obj_exporter.export(local_obj_exporterInput)
                 st.success(f"Resume exported successfully to {local_str_exportPath}")
+            
+                local_str_exportedFilePath = os.path.join(local_str_exportPath, f"resume.pdf")
+                # Assuming the exported file is named 'resume.pdf'
+                if os.path.exists(local_str_exportedFilePath):
+                    with open(local_str_exportedFilePath, "rb") as f:
+                        st.download_button(
+                            label="Download Resume",
+                            data=f,
+                            file_name="resume.pdf",
+                            mime="application/pdf"
+                        )
+                else:
+                    st.error("No resume found to download. Please export the resume first.")

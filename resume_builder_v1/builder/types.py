@@ -15,8 +15,8 @@ class Experience(BaseModel):
     """
     str_companyName:str = Field(..., description="Name of the company")
     str_designation:str = Field(..., description="Designation or title of the role")
-    str_startDate: str = Field(..., description="Start date of the role in MMM-YYYY format, example: 'JAN-2020'")
-    str_endDate: str | None = Field(None, description="End date of the role  MMM-YYYY format, example: 'JAN-2020', can be 'Present'")
+    str_startDate: str = Field(..., description="Start date of the role in Mmmm, YYYY format, example: 'January, 2020' or 'March, 2021")
+    str_endDate: str | None = Field(None, description="End date of the role  Mmmm, YYYY formatt, example: 'January, 2020' or 'March, 2021")
     str_location: str | None = Field(None, description="Location of the company")
     list_rolesAndResponsibilities: list[str] = Field(..., description="List of roles and responsibilities in this role")
 
@@ -27,8 +27,8 @@ class Education(BaseModel):
     """
     str_institutionName: str = Field(..., description="Name of the institution")
     str_degree: str = Field(..., description="Name of the degree")
-    str_startDate: str = Field(..., description="Start date of the education in MMM-YYYY format, example: 'JAN-2020'")
-    str_endDate: str | None = Field(None, description="End date of the degree in MMM-YYYY format, example: 'JAN-2020'")
+    str_startDate: str = Field(..., description="Start date of the education n Mmmm, YYYY format, example: 'January, 2020' or 'March, 2021")
+    str_endDate: str | None = Field(None, description="End date of the degree n Mmmm, YYYY format, example: 'January, 2020' or 'March, 2021")
     str_grade: str | None = Field(None, description="Grade obtained")
     str_location: str | None = Field(None, description="Location of the institution")
     str_description: str | None = Field(None, description="Description of courses and top achievements")
