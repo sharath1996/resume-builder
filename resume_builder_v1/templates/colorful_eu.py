@@ -313,11 +313,12 @@ class ColorfulEU(BaseResume):
         """
         local_str = "\n\\section{Projects}\n"
         for proj in param_obj_input.list_projects:
-            local_str += f"\\begin{{onecolentry}}\n  \\textbf{{{proj.str_projectTitle}}}\n  \\begin{{highlights}}\n"
-            if proj.list_projectContents:
-                for desc in proj.list_projectContents:
-                    local_str += f"    \\item {desc}\n"
-            local_str += "  \\end{highlights}\n\\end{onecolentry}\n\\vspace{0.2 cm}\n"
+            if proj.str_projectTitle != "" and proj.list_projectContents != []:
+                local_str += f"\\begin{{onecolentry}}\n  \\textbf{{{proj.str_projectTitle}}}\n  \\begin{{highlights}}\n"
+                if proj.list_projectContents:
+                    for desc in proj.list_projectContents:
+                        local_str += f"    \\item {desc}\n"
+                local_str += "  \\end{highlights}\n\\end{onecolentry}\n\\vspace{0.2 cm}\n"
         return local_str
 
 
