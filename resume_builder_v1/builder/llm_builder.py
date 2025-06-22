@@ -228,7 +228,7 @@ class BuildAchievements:
         local_str_systemPrompt = dedent("""
         You are a helpful resume writer assistant. Extract and structure the candidate's achievements, awards, and certifications from the provided profile. 
         Return the result in JSON format compatible with the Achivements pydantic model. 
-        Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
+        Ensure all LaTeX special characters are properly escaped (e.g., # as \\#, & as \\&).
         """)
         local_str_userPrompt = ""
 
