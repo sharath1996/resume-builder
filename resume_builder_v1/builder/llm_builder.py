@@ -1,5 +1,5 @@
 from textwrap import dedent
-from .types import CandidateDetails, CandidateResume, Skills, WorkExperiences, Educations, Projects, Achivements, Project
+from .types import CandidateDetails, CandidateResume, Skills, WorkExperiences, Experience, Educations, Projects, Achivements, Project
 from ..database.db import Profile
 from pydantic import BaseModel, Field
 from ..llm import LLMFactory
@@ -103,8 +103,9 @@ class BuildSkills:
         local_str_systemPrompt = dedent("""
         You are a helpful resume writer assistant, who will be responsible to figure out the skills that are needed for the given job description and available skills
         You will be given a job description and list of the skills that candidate has.
-        Your job is to group the skills into multiple sections such as Languages, tools, frameworks and so on (These are not limited to). 
-        Th sections should be aligned to the given job description.
+        Your job is to group and re-write  the relavant skills into multiple sections such as Languages, tools, frameworks and so on (These are not limited to). 
+        The sections should be aligned to the given job description.
+        Ensure that the skills are relevant to the job description and add skills that are not directly mentioned in job description but are implied or commonly associated with the job role.
         You should be forming the sections and send the responses in json format.
         There might be duplicate of skills could be available.
 
@@ -132,18 +133,25 @@ class BuildExperience:
         """
         Build work experiences from the input data using LLM.
         """
-        local_obj_llm = LLMFactory.get_llm_interface()
-        local_str_systemPrompt = dedent("""
-        You are a helpful resume writer assistant. Extract and structure the candidate's work experience from the provided profile. 
-        Group responsibilities, roles, and achievements for each position. Return the result in JSON format compatible with the WorkExperiences pydantic model. 
-        Ensure all LaTeX special characters are properly escaped (e.g., # as \#, & as \&).
-        """)
-        local_str_userPrompt = f"Candidate profile: {str(param_obj_input.obj_profile.list_workExperience)}"
-        local_obj_llm.clear_messages()
-        local_obj_llm.add_system_prompt(local_str_systemPrompt)
-        local_obj_llm.add_user_prompt(local_str_userPrompt)
-        local_obj_experience = local_obj_llm.get_structured_output(WorkExperiences)
-        return local_obj_experience
+        local_list_experience = []
+        for local_obj_workExperience in param_obj_input.obj_profile.list_workExperience:
+
+            local_obj_llm = LLMFactory.get_llm_interface()
+            local_str_systemPrompt = dedent("""
+            You are a helpful resume writer assistant. Extract, re-write and  structure the candidate's work experience from the provided profile. 
+            You should re-write the work experience highlighting the key responsibilities, roles, and achievements.
+            You should illustrate how the candidate's experience aligns with the job description provided by highlighting the KPIs, impacts and achievements.
+            You should also ensure that the work experience is written in a way that is compatible with LaTeX.
+            Group responsibilities, roles, and achievements for each position. Return the result in JSON format compatible with the WorkExperiences pydantic model. 
+            Ensure all LaTeX special characters are properly escaped (e.g., # as \\#, & as \\&).
+            """)
+            local_str_userPrompt = f"Candidate profile: {str(local_obj_workExperience.model_dump())}"
+            local_obj_llm.clear_messages()
+            local_obj_llm.add_system_prompt(local_str_systemPrompt)
+            local_obj_llm.add_user_prompt(local_str_userPrompt)
+            local_obj_experience = local_obj_llm.get_structured_output(Experience)
+            local_list_experience.append(local_obj_experience)
+        return WorkExperiences(list_workExperience=local_list_experience)
 
 class BuildEducation:
 
@@ -226,8 +234,12 @@ class BuildAchievements:
         """
         local_obj_llm = LLMFactory.get_llm_interface()
         local_str_systemPrompt = dedent("""
-        You are a helpful resume writer assistant. Extract and structure the candidate's achievements, awards, and certifications from the provided profile. 
+        You are a helpful resume writer assistant. Extract, re-write structure the candidate's achievements, awards, and certifications from the provided profile. 
         Return the result in JSON format compatible with the Achivements pydantic model. 
+        If the achievement is not relevant to the job application, do not include it in the response.
+        You should re-write the achievements highlighting the key responsibilities, roles, and achievements and how they align with the job description provided by highlighting the KPIs, impacts and achievements.
+        You should also ensure that the achievements are written in a way that is compatible with LaTex.
+        Try to limit the achievements to those that are relevant to the job application and not too generic, the maximum number of achievements should be 8.
         Ensure all LaTeX special characters are properly escaped (e.g., # as \\#, & as \\&).
         """)
         local_str_userPrompt = ""
